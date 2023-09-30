@@ -8,8 +8,8 @@ import Header from "./header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Docspocket",
-  description: "Docs pocket",
+  title: "Docket",
+  description: "Pocket for docs",
 };
 
 export default function RootLayout({
