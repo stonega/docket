@@ -1,6 +1,7 @@
 import { GearIcon, HomeIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import ThemeModeButton from "./theme-mode-button";
+import { Children } from "react";
 export default function Home() {
   return (
     <main className="flex flex-row items-start justify-start">
@@ -26,17 +27,17 @@ export default function Home() {
         </div>
       </aside>
       <div className="h-screen pt-16 pb-4 mr-2 dark:text-white">
-        <div className="h-full flex flex-col items-start p-2 w-60 space-y-2 bg-orange-100 border-2 border-orange-200 dark:bg-gray-900 dark:border-gray-700 after:w-4 after:h-2 after:bg-orange-100 after:absolute after:-right-1 after:-top-1 after:rotate-45 after:rounded-t-lg">
-          <div className="w-full relative p-2 hover:bg-orange-200 cursor-pointer flex flex-col after:w-4 after:h-2 after:bg-orange-100 after:absolute after:-right-1 after:-top-1 after:rotate-45 after:rounded-t-lg">
-            <div className="font-semibold text-lg text-ellipsis overflow-hidden">
+        <div className="relative h-full flex flex-col items-start p-2 w-60 bg-orange-100 border-2 border-orange-200 dark:bg-gray-900 dark:border-gray-700">
+          <div className="w-full relative p-2 hover:bg-orange-200 cursor-pointer flex flex-col after:w-4 after:h-2 after:bg-orange-100 dark:after:bg-gray-900 after:absolute after:-right-1 after:-top-1 after:rotate-45 after:rounded-t-lg">
+            <div className="font-semibold text-ellipsis overflow-hidden">
               React
             </div>
-            <div className="text-sm text-ellipsis overflow-hidden">
+            <div className="text-sm op-80 first-letter text-ellipsis overflow-hidden">
               https://react.dev
             </div>
           </div>
           <div className="w-full p-2 hover:bg-orange-100 rounded-md cursor-pointer flex flex-col">
-            <div className="font-semibold text-lg">React</div>
+            <div className="font-semibold">React</div>
             <div className="text-sm">https://react.dev</div>
           </div>
         </div>
