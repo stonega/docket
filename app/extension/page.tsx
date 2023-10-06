@@ -2,7 +2,7 @@
 import { useAuth } from "@clerk/nextjs";
 import { useAsyncEffect } from "ahooks";
 import { useSearchParams } from "next/navigation";
-import { currentUser, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 const docketExtensionId = "fgpdaghgoipbnpokamgcpcpcoeehgjeb";
 const Extension = () => {
@@ -10,25 +10,32 @@ const Extension = () => {
   const params = useSearchParams();
   const { isLoaded, user } = useUser();
   useAsyncEffect(async () => {
-    if(!isLoaded) return;
-    const token = await getToken();
-    console.log(user);
+    if (!isLoaded) return;
+    const token = await getToken({ template: "Extension"});
+    console.log(user, token);
     chrome.runtime.sendMessage(
       docketExtensionId,
       {
         method: "login",
         id: params.get("id"),
-        data: { token, user:{
-          id: user?.id,
-          fullName: user?.fullName,
-          email: user?.emailAddresses[0].emailAddress,
-          imageUrl: user?.imageUrl
-        }},
+        data: {
+          token,
+          user: {
+            id: user?.id,
+            fullName: user?.fullName,
+            email: user?.emailAddresses[0].emailAddress,
+            imageUrl: user?.imageUrl,
+          },
+        },
       },
       function (response) {
         console.log(response);
         if (response.status === "success") {
           window.close();
+        } else {
+          setTimeout(() => {
+            window.close()
+          }, 1000);
         }
       }
     );
