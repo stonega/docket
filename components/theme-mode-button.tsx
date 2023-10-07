@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
+import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 
 const ThemeModeButton = () => {
   let currentMode = "";
@@ -37,13 +37,10 @@ const ThemeModeButton = () => {
         id="theme-toggle"
         type="button"
         onClick={toggleTheme}
-        className="rounded-lg text-sm text-black focus:outline-none dark:text-white"
+        className="flex flex-row items-center rounded-lg text-sm text-black focus:outline-none dark:text-white"
       >
-        {mode === "light" ? (
-          <SunIcon />
-        ) : (
-          <MoonIcon />
-        )}
+        {mode === "light" ? <SunIcon /> : <MoonIcon />}
+        <span className="ml-4 capitalize">{mode}</span>
       </button>
     </>
   );

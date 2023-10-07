@@ -18,9 +18,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={cl(inter.className, "bg-yellow-50 dark:bg-yellow-950")}>
+        <body
+          className={cl(inter.className, "bg-yellow-50 dark:bg-yellow-950")}
+        >
           <Header />
-          {children}
+          <div className="pt-16">{children}</div>
         </body>
       </html>
     </ClerkProvider>

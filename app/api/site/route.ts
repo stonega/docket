@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
       createAt: "desc",
     },
   });
-  return NextResponse.json({ data });
+  return NextResponse.json(data);
 }
 
 export async function POST(request: NextRequest) {
@@ -50,15 +50,12 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return Response.json(
-    data,
-    {
-      status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
-    }
-  );
+  return Response.json(data, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
 }

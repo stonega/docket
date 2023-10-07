@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     where.url = { equals: url };
   }
   if (siteId) {
-    where.site_id = { equals: siteId };
+    where.siteId = { equals: siteId };
   }
   const data = await prisma.excerpt.findMany({
     skip,
