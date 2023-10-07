@@ -15,7 +15,7 @@
     "@types/chrome": "^0.0.246",
     "ahooks": "^3.7.8",
     "dayjs": "^1.11.10",
-    "@types/node": "20.8.0",
+    "@types/node": "20.8.3",
     "@types/react": "18.2.25",
     "@types/react-dom": "18.2.11",
     "autoprefixer": "10.4.16",
