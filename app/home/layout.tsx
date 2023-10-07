@@ -12,7 +12,7 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <main className=" m-auto flex flex-row items-start justify-start">
+    <main className="m-auto flex flex-row items-start justify-start">
       <aside className="sticky p-4 h-screen flex flex-col justify-between items-start first-letter:space-y-4 bg-orange-200 dark:bg-yellow-800">
         <div className="flex flex-col space-y-2">
           <div className="mb-8 flex flex-row space-x-2 mr-10">

@@ -19,7 +19,12 @@ export default function Page({ params }: { params: { site: string } }) {
         records.map((excerpt) => (
           <div className="p-2 flex flex-col" key={excerpt.id}>
             <span>{excerpt.content}</span>
-            <div>{dateFromNow(excerpt.createAt.toString())}</div>
+            <div className="flex flex-row text-gray-600 dark:text-gray-200 text-sm">
+              <div>
+                {dateFromNow(excerpt.createAt.toString())}
+              </div>
+              <a href={excerpt.url} target="_black" className="ml-4">Origin</a>
+            </div>
           </div>
         ))}
       <LoadMore isLoading={isLoading} hasMore={hasMore} setPage={setPage} />
