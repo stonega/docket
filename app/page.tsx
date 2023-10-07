@@ -1,9 +1,23 @@
-import { UserButton } from "@clerk/nextjs";
-import Image from "next/image";
+import Link from "next/link";
+import Header from "./header";
 
-export default function Home() {
+export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="h-screen flex flex-col items-center justify-center space-y-4">
+      <Header />
+      <span className="text-5xl tracking-wide">Docket</span>
+      <span className="text-2xl">Save highlights for doc site</span>
+      <div className="flex flex-row space-x-4">
+        <a href="" className="border-2 px-4 py-2 border-yellow-200">
+          Chrome Extension
+        </a>
+        <Link
+          href="/home"
+          className="border-2 py-2 px-4 border-yellow-200"
+        >
+          My Docket
+        </Link>
+      </div>
     </main>
   );
 }

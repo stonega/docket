@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model BasicSite {
+  id          String   @id @default(cuid())
+  create_at   DateTime @default(now())
+  title       String
+  icon        String
+  url         String
+  description String   @default("")
+}
+
+model Site {
+  id          String    @id @default(cuid())
+  createAt    DateTime  @default(now()) @map("create_at")
+  title       String
+  icon        String
+  url         String    @unique
+  description String    @default("")
+  userId      String    @map("user_id")
+  Excerpt     Excerpt[]
+
+  @@index([userId])
+}
+
+model Excerpt {
+  id       String   @id @default(cuid())
+  createAt DateTime @default(now()) @map("create_at")
+  url      String
+  siteId   String   @map("site_id")
+  site     Site     @relation(fields: [siteId], references: [id])
+  content  String
+  userId   String   @map("user_id")
+
+  @@index([siteId])
+}
