@@ -2,6 +2,7 @@
 import { LoadMore } from "@/components/load-more";
 import { useExcerpts } from "@/hooks/use-api";
 import { usePagination } from "@/hooks/use-pagination";
+import { dateFromNow } from "@/lib/utils";
 import { Excerpt } from "@prisma/client";
 import { useState } from "react";
 
@@ -13,11 +14,12 @@ export default function Page({ params }: { params: { site: string } }) {
   );
 
   return (
-    <div className="w-[800px] m-auto flex flex-col h-full space-y-2 dark:text-white">
+    <div className="mt-20 w-[800px] mx-auto flex flex-col h-full space-y-2 dark:text-white">
       {records &&
         records.map((excerpt) => (
-          <div className="border-0 border-orange-200 p-2" key={excerpt.id}>
-            {excerpt.content}
+          <div className="p-2 flex flex-col" key={excerpt.id}>
+            <span>{excerpt.content}</span>
+            <div>{dateFromNow(excerpt.createAt.toString())}</div>
           </div>
         ))}
       <LoadMore isLoading={isLoading} hasMore={hasMore} setPage={setPage} />

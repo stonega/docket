@@ -1,8 +1,10 @@
 import Link from "next/link";
+import Header from "./header";
 
 export default function Page() {
   return (
     <main className="h-screen flex flex-col items-center justify-center space-y-4">
+      <Header />
       <span className="text-5xl tracking-wide">Docket</span>
       <span className="text-2xl">Save highlights for doc site</span>
       <div className="flex flex-row space-x-4">
@@ -10,7 +12,7 @@ export default function Page() {
           Chrome Extension
         </a>
         <Link
-          href="/dashboard"
+          href="/home"
           className="border-2 py-2 px-4 border-yellow-200"
         >
           My Docket

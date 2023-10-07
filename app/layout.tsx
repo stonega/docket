@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import cl from "classnames";
-import Header from "./header";
 import { inter } from "./fonts";
 
 export const metadata: Metadata = {
@@ -21,8 +20,7 @@ export default function RootLayout({
         <body
           className={cl(inter.className, "bg-yellow-50 dark:bg-yellow-950")}
         >
-          <Header />
-          <div className="pt-16">{children}</div>
+          {children}
         </body>
       </html>
     </ClerkProvider>

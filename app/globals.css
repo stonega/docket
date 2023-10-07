@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .textarea {
+    @apply w-full rounded-lg border-0 bg-white/40 p-2 font-mono text-black placeholder:text-slate-400 focus:border-yellow-500 focus:ring-yellow-300 active:border-yellow-500 dark:bg-black/40 dark:text-white dark:placeholder:text-slate-200;
+  }
+  .input {
+    @apply w-full max-w-full border-2 border-yellow-400 bg-white/60 px-2 py-4 focus:border-yellow-500 focus:outline-none focus:ring-yellow-400 focus-visible:border-yellow-500  active:border-yellow-500 dark:bg-black/60 dark:text-white dark:placeholder:text-slate-300 md:w-[40rem];
+  }
+  .select {
+    @apply h-12 rounded-md border-2 border-black bg-white px-2;
+  }
+  .label {
+    @apply mb-4 block text-2xl;
+  }
+  .card {
+    @apply rounded-md border-2 border-yellow-500 hover:bg-yellow-100 p-4 dark:hover:bg-yellow-900 text-black dark:text-white;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
