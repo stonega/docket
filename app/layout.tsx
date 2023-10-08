@@ -15,7 +15,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        elements: {
+          userButtonPopoverCard: 'rounded-none shadow-md',
+          card: 'rounded-none shadow-md',
+          scrollBox: 'rounded-none',
+        },
+      }}
+    >
       <html lang="en">
         <body
           className={cl(inter.className, "bg-yellow-50 dark:bg-yellow-950")}
