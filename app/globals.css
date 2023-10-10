@@ -36,4 +36,5 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  font-family: var(--custom-font-playfair);
 }
