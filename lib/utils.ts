@@ -7,7 +7,7 @@ export const dateFromNow = (date: string) => {
 };
 
 export function getDocUrl(link: string) {
-  const keywords = ['docs', 'guide', 'learn']
+  const keywords = ['docs', 'guide', 'learn', 'tutorial']
   try {
     const url = new URL(link);
     const hostname = url.hostname;

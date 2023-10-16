@@ -4,6 +4,7 @@ import { useExcerpts } from "@/hooks/use-api";
 import { usePagination } from "@/hooks/use-pagination";
 import { dateFromNow } from "@/lib/utils";
 import { Excerpt } from "@prisma/client";
+import parse from 'html-react-parser';
 
 const ExcerptsList = ({ siteId }: { siteId: string }) => {
   const { records, setPage, isLoading, hasMore } = usePagination<Excerpt>(
@@ -16,7 +17,7 @@ const ExcerptsList = ({ siteId }: { siteId: string }) => {
       {records &&
         records.map((excerpt) => (
           <div className="py-2 flex flex-col space-y-2" key={excerpt.id}>
-            <article className="prose prose-stone lg:prose-xl dark:prose-invert">{excerpt.content}</article>
+            <article className="prose prose-stone lg:prose-xl dark:prose-invert">{parse(excerpt.content)}</article>
             <div className="flex flex-row text-gray-600 dark:text-gray-200 text-sm">
               <span>{dateFromNow(excerpt.createAt.toString())}</span>
               <a href={excerpt.url} target="_black" className="ml-4">

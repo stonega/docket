@@ -12,7 +12,6 @@ const Extension = () => {
   useAsyncEffect(async () => {
     if (!isLoaded) return;
     const token = await getToken({ template: "Extension"});
-    console.log(user, token);
     chrome.runtime.sendMessage(
       docketExtensionId,
       {

@@ -17,6 +17,9 @@ export default function RootLayout({
   return (
     <ClerkProvider
       appearance={{
+        variables: {
+          colorPrimary: "#eab308",
+        },
         elements: {
           userButtonPopoverCard: 'rounded-none shadow-md',
           card: 'rounded-none shadow-md',

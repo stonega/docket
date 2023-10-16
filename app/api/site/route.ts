@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
   }
   const { description, title, icon, url } = await request.json();
   const docUrl = getDocUrl(url);
-  console.log(docUrl);
+  console.log(url, docUrl);
   const where = {
     url: docUrl,
   };

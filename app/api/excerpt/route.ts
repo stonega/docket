@@ -1,6 +1,7 @@
 import { type NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
+import DOMPurify from 'isomorphic-dompurify';
 
 export async function GET(request: NextRequest) {
   const { userId } = auth();
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
     take: pageSize,
     where,
     orderBy: {
-      createAt: "desc",
+      createAt: "asc",
     },
   });
   return Response.json(data, {
@@ -47,11 +48,14 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { siteId, content, url } = await request.json();
+  if (!siteId || !content || !url)
+    return Response.json({ error: "Missing required fields" }, { status: 400 });
+  const htmlString = DOMPurify.sanitize(content);
   const data = await prisma.excerpt.create({
     data: {
       userId,
       siteId,
-      content,
+      content: htmlString,
       url,
     },
   });
