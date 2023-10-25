@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.5",
-    "@prisma/client": "5.4.2",
+    "@prisma/client": "5.5.2",
     "@radix-ui/react-icons": "^1.3.0",
     "@types/chrome": "^0.0.248",
     "ahooks": "^3.7.8",
