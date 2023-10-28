@@ -23,6 +23,7 @@ model BasicSite {
 model Site {
   id          String    @id @default(cuid())
   createAt    DateTime  @default(now()) @map("create_at")
+  updateAt    DateTime  @default(now()) @map("update_at")
   title       String
   icon        String
   url         String    @unique
