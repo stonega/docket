@@ -40,7 +40,7 @@ const ThemeModeButton = () => {
         className="flex flex-row items-center text-sm text-black focus:outline-none dark:text-white"
       >
         {mode === "light" ? <SunIcon /> : <MoonIcon />}
-        <span className="ml-4 capitalize">{mode}</span>
+        <span className="ml-2 capitalize">{mode}</span>
       </button>
     </>
   );

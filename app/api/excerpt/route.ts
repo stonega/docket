@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const { siteId, content, url } = await request.json();
+  const { siteId, content, url, source } = await request.json();
   if (!siteId || !content || !url)
     return Response.json({ error: "Missing required fields" }, { status: 400 });
   const htmlString = DOMPurify.sanitize(content);
@@ -57,6 +57,31 @@ export async function POST(request: NextRequest) {
       siteId,
       content: htmlString,
       url,
+      source
+    },
+  });
+  return Response.json(data, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
+export async function DELETE(request: NextRequest) {
+  const { userId } = auth();
+  if (!userId) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const { id } = await request.json();
+  if (!id)
+    return Response.json({ error: "Missing required fields" }, { status: 400 });
+  const data = await prisma.excerpt.delete({
+    where: {
+      id,
+      userId
     },
   });
   return Response.json(data, {

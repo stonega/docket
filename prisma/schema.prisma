@@ -38,8 +38,9 @@ model Excerpt {
   createAt DateTime @default(now()) @map("create_at")
   url      String
   siteId   String   @map("site_id")
-  site     Site     @relation(fields: [siteId], references: [id])
+  site     Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
   content  String
+  source   String?
   userId   String   @map("user_id")
 
   @@index([siteId])

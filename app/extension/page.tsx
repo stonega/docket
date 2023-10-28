@@ -11,38 +11,30 @@ const Extension = () => {
   const { isLoaded, user } = useUser();
   useAsyncEffect(async () => {
     if (!isLoaded) return;
-    const token = await getToken({ template: "Extension"});
-    chrome.runtime.sendMessage(
-      docketExtensionId,
-      {
-        method: "login",
-        id: params.get("id"),
-        data: {
-          token,
-          user: {
-            id: user?.id,
-            fullName: user?.fullName,
-            email: user?.emailAddresses[0].emailAddress,
-            imageUrl: user?.imageUrl,
-          },
+    const token = await getToken({ template: "Extension" });
+    chrome.runtime.sendMessage(docketExtensionId, {
+      method: "login",
+      data: {
+        token,
+        tabId: params.get("tabId"),
+        user: {
+          id: user?.id,
+          fullName: user?.fullName,
+          email: user?.emailAddresses[0].emailAddress,
+          imageUrl: user?.imageUrl,
         },
       },
-      function (response) {
-        console.log(response);
-        if (response.status === "success") {
-          window.close();
-        } else {
-          setTimeout(() => {
-            window.close()
-          }, 1000);
-        }
-      }
-    );
+    });
   }, [isLoaded]);
   return (
     <div className="h-screen flex flex-col items-center justify-center space-y-2">
-      <span className="text-2xl">Login successfully</span>
-      <span className="text-xl underline cursor-pointer">Close</span>
+      <span className="text-2xl">Account Connected</span>
+      <span
+        className="text-xl underline cursor-pointer"
+        onClick={() => window.close()}
+      >
+        Close
+      </span>
     </div>
   );
 };

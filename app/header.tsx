@@ -11,7 +11,6 @@ const Header = () => {
         className={classnames(
           "text-3xl font-semibold font-serif dark:text-white",
           playfair.variable,
-
         )}
       >
         Docket

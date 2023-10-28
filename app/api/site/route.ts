@@ -33,7 +33,6 @@ export async function POST(request: NextRequest) {
   }
   const { description, title, icon, url } = await request.json();
   const docUrl = getDocUrl(url);
-  console.log(url, docUrl);
   const where = {
     url: docUrl,
   };
@@ -79,6 +78,30 @@ export async function PUT(request: NextRequest) {
       title,
       icon,
     },
+  });
+
+  return Response.json(data, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
+export async function DELETE(request: NextRequest) {
+  const { userId } = getAuth(request);
+  if (!userId) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+  const { id } = await request.json();
+  const where = {
+    id,
+    userId,
+  };
+  const data = await prisma.site.delete({
+    where,
   });
 
   return Response.json(data, {
