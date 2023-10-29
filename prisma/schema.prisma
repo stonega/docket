@@ -42,6 +42,7 @@ model Excerpt {
   site     Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
   content  String
   source   String?
+  sourceId String?  @map("source_id")
   userId   String   @map("user_id")
 
   @@index([siteId])

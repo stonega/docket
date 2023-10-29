@@ -5,7 +5,9 @@ dayjs.extend(relativeTime);
 export const dateFromNow = (date: string) => {
   return dayjs(date).fromNow(); // 22 years ago
 };
-
+export const formateDate = (date: string) => {
+  return dayjs(date).toDate().toLocaleString("en-US")
+}
 export function getDocUrl(link: string) {
   const keywords = ["docs", "guide", "learn", "tutorial"];
   try {

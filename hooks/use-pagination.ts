@@ -14,7 +14,6 @@ export function usePagination<T extends { id: string }>(
   const { data, isLoading, error } = useApi(page, 20, options);
 
   useEffect(() => {
-    console.log(data);
     if (!data) return;
     if (data.length > 0) {
       setRecords((records) => {

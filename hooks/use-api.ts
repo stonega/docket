@@ -1,7 +1,7 @@
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import queryString from "query-string";
 import { Excerpt, Site } from "@prisma/client";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 export type UseApi<T> = (
   page: number,
   pageSize: number,
@@ -36,6 +36,7 @@ export function useExcerpts(
     [key: string]: string;
   }
 ) {
+  const { mutate: swrMutate } = useSWRConfig();
   const url = useMemo(
     () =>
       queryString.stringify({
@@ -55,9 +56,13 @@ export function useExcerpts(
     options?.siteId ? `/api/excerpt?${url}` : null,
     request
   );
+
+  const mutate = useCallback(() => swrMutate(`/api/excerpt?${url}`), [swrMutate, url]);
+
   return {
     data,
     isLoading,
     error,
+    mutate,
   };
 }

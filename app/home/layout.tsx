@@ -67,14 +67,14 @@ export default function Layout({
             />
           </div>
           <Link
-            className="p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-lg dark:text-white dark:hover:bg-gray-800 hover:bg-yellow-100"
+            className="p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-md dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100"
             href="/home"
           >
             <HomeIcon />
             <span className="ml-4">Library</span>
           </Link>
           <Link
-            className="p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-lg dark:text-white dark:hover:bg-gray-800 hover:bg-yellow-100"
+            className="p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-md dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100"
             href="/home/settings"
           >
             <GearIcon />

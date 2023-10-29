@@ -34,17 +34,17 @@ const Button = forwardRef(function Button(
   let sizeClassName: string = "";
   switch (size) {
     case "lg":
-      sizeClassName = "p-4 text-2xl";
-      break;
-    case "md":
       sizeClassName = "p-3 text-xl";
       break;
+    case "md":
+      sizeClassName = "p-2 text-md";
+      break;
     case "sm":
-      sizeClassName = "p-2 text-sm";
+      sizeClassName = "p-1 text-sm";
       break;
   }
   const basicClassName =
-    "relative transition-ease flex flex-row space-x-2 items-center text-black whitespace-nowrap hover:text-black w-auto font-bold text-center  rounded-lg active:border-transparent outline-green-500 active:outline active:outline-2 active:outline-offset-4";
+    "relative transition-ease flex flex-row space-x-2 items-center text-black whitespace-nowrap hover:text-black w-auto font-bold text-center active:border-transparent outline-yellow-500 active:outline active:outline-2 active:outline-offset-2";
   const props = {
     onClick,
     type,
@@ -73,10 +73,9 @@ const Button = forwardRef(function Button(
         basicClassName,
         sizeClassName,
         {
-          "bg-green-500 border-none": !outlined,
-          "border-2 border-green-400 bg-green-200 dark:bg-green-600": outlined,
+          "bg-yellow-500 border-none": !outlined,
+          "border-2 border-yellow-400 bg-yellow-200 dark:bg-yellow-600": outlined,
         },
-
         className,
       )}
     >

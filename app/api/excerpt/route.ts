@@ -1,7 +1,7 @@
 import { type NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
-import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from "isomorphic-dompurify";
 
 export async function GET(request: NextRequest) {
   const { userId } = auth();
@@ -43,24 +43,25 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const { userId } = auth();
-  console.log(userId);
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const { siteId, content, url, source } = await request.json();
+  const { siteId, content, url, source, sourceId } = await request.json();
   if (!siteId || !content || !url)
     return Response.json({ error: "Missing required fields" }, { status: 400 });
   const htmlString = DOMPurify.sanitize(content);
-  const data = await prisma.excerpt.create({
-    data: {
-      userId,
-      siteId,
-      content: htmlString,
-      url,
-      source
-    },
+  const data: any = {
+    userId,
+    siteId,
+    content: htmlString,
+    url,
+    source,
+    sourceId
+  };
+  const result = await prisma.excerpt.create({
+    data,
   });
-  return Response.json(data, {
+  return Response.json(result, {
     status: 200,
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -75,15 +76,25 @@ export async function DELETE(request: NextRequest) {
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const { id } = await request.json();
-  if (!id)
+  const { id, sourceId } = await request.json();
+  if (!id && !sourceId)
     return Response.json({ error: "Missing required fields" }, { status: 400 });
-  const data = await prisma.excerpt.delete({
-    where: {
-      id,
-      userId
-    },
-  });
+  let data;
+  if (id)
+    data = await prisma.excerpt.delete({
+      where: {
+        id,
+        userId,
+      },
+    });
+  if (sourceId) {
+    data = await prisma.excerpt.deleteMany({
+      where: {
+        sourceId,
+        userId,
+      },
+    });
+  }
   return Response.json(data, {
     status: 200,
     headers: {
