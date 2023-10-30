@@ -3,6 +3,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { getDocUrl, getSubPaths } from "@/lib/utils";
 import urlMetadata from "url-metadata";
+import { Instrument_Sans } from "next/font/google";
 
 export async function GET(request: NextRequest) {
   const { userId } = getAuth(request);
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
-  const { url, icon } = await request.json();
+  const { url, icon, title, create } = await request.json();
   const urls = getSubPaths(url);
   // Check if url already existed
   const record = await prisma.site.findFirst({
@@ -41,6 +42,51 @@ export async function POST(request: NextRequest) {
       OR: urls?.map((u) => ({ url: u })),
     },
   });
+  if (!create) {
+    if (record) {
+      const items = await prisma.excerpt.findMany({
+        where: {
+          siteId: record.id,
+        },
+      });
+      return Response.json(
+        {
+          ...record,
+          excerptCount: items.length,
+        },
+        {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          },
+        }
+      );
+    }
+    // Insert new site
+    const docUrl = getDocUrl(url);
+    if (!docUrl)
+      return new NextResponse("Internal error", {
+        status: 500,
+      });
+    const metadata = await urlMetadata(docUrl);
+    const siteData = {
+      userId: userId!,
+      description: (metadata.description ?? "") as string,
+      title: (metadata.title ?? title ?? "") as string,
+      icon,
+      url: docUrl!,
+    };
+    return Response.json(siteData, {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
+  }
   if (record) {
     await prisma.site.update({
       where: {
@@ -66,14 +112,15 @@ export async function POST(request: NextRequest) {
       status: 500,
     });
   const metadata = await urlMetadata(docUrl);
+  const siteData = {
+    userId: userId!,
+    description: (metadata.description ?? "") as string,
+    title: (metadata.title ?? title ?? "") as string,
+    icon,
+    url: docUrl!,
+  };
   const data = await prisma.site.create({
-    data: {
-      userId: userId!,
-      description: metadata.description as string,
-      title: metadata.title as string,
-      icon,
-      url: docUrl!,
-    },
+    data: siteData,
   });
   return Response.json(data, {
     status: 200,
