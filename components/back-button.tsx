@@ -3,11 +3,18 @@ import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 
 export default function BackButton() {
-    const router = useRouter()
+  const router = useRouter()
+  function back(){
+    if(window.history.length === 0) {
+      router.push('/home')
+    } else {
+      router.back()
+    }
+  }
   return (
     <div
       className="text-stone-500 dark:text-stone-200 flex flex-row items-center space-x-2 cursor-pointer"
-      onClick={() => router.back()}
+      onClick={() => back()}
     >
       <ArrowLeftIcon className="w-4 h-4 text-stone-500 dark:text-stone-200" />
       <span>Back</span>
