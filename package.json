@@ -24,7 +24,7 @@
     "autoprefixer": "10.4.16",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
-    "eslint": "8.51.0",
+    "eslint": "8.52.0",
     "focus-trap-react": "^10.2.3",
     "framer-motion": "^10.16.4",
     "html-react-parser": "^4.2.2",
