@@ -32,6 +32,9 @@ dependencies:
   '@types/react-dom':
     specifier: 18.2.11
     version: 18.2.11
+  '@types/react-highlight':
+    specifier: ^0.12.7
+    version: 0.12.7
   ahooks:
     specifier: ^3.7.8
     version: 3.7.8(react@18.2.0)
@@ -89,6 +92,9 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-highlight:
+    specifier: ^0.15.0
+    version: 0.15.0
   react-i18next:
     specifier: ^13.2.2
     version: 13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0)
@@ -1233,6 +1239,12 @@ packages:
 
   /@types/react-dom@18.2.11:
     resolution: {integrity: sha512-zq6Dy0EiCuF9pWFW6I6k6W2LdpUixLE4P6XjXU1QHLfak3GPACQfLwEuHzY5pOYa4hzj1d0GxX/P141aFjZsyg==}
+    dependencies:
+      '@types/react': 18.2.25
+    dev: false
+
+  /@types/react-highlight@0.12.7:
+    resolution: {integrity: sha512-szwwyD8LpTtsk4/NjHwyTofYDoazo3rmGOMkgDYy/V3zD4VNh6yS8tk70Qvj5czdBCnOV/AtaLf4VxBfaelwEQ==}
     dependencies:
       '@types/react': 18.2.25
     dev: false
@@ -2752,6 +2764,10 @@ packages:
       function-bind: 1.1.1
     dev: false
 
+  /highlight.js@10.7.3:
+    resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
+    dev: false
+
   /hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
     dependencies:
@@ -3801,6 +3817,12 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-highlight@0.15.0:
+    resolution: {integrity: sha512-5uV/b/N4Z421GSVVe05fz+OfTsJtFzx/fJBdafZyw4LS70XjIZwgEx3Lrkfc01W/RzZ2Dtfb0DApoaJFAIKBtA==}
+    dependencies:
+      highlight.js: 10.7.3
     dev: false
 
   /react-i18next@13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0):
