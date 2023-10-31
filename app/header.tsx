@@ -10,7 +10,7 @@ const Header = () => {
         href="/"
         className={classnames(
           "text-3xl font-semibold font-serif dark:text-white",
-          playfair.className
+          playfair.variable,
         )}
       >
         Docket

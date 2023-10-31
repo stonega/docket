@@ -1,33 +1,24 @@
-"use client";
-import { LoadMore } from "@/components/load-more";
-import { useExcerpts } from "@/hooks/use-api";
-import { usePagination } from "@/hooks/use-pagination";
-import { dateFromNow } from "@/lib/utils";
-import { Excerpt } from "@prisma/client";
-import { useState } from "react";
+import BackButton from "@/components/back-button";
+import ExcerptsList from "./excerpts_list";
+import { prisma } from "@/lib/prisma";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 
-export default function Page({ params }: { params: { site: string } }) {
+export default async function Page({ params }: { params: { site: string } }) {
   const siteId = params.site;
-  const { records, setPage, isLoading, hasMore } = usePagination<Excerpt>(
-    useExcerpts,
-    { siteId }
-  );
-
+  const site = await prisma.site.findUnique({
+    where: { id: siteId },
+  });
+  if (!site) return null;
   return (
-    <div className="mt-20 w-[800px] mx-auto flex flex-col h-full space-y-2 dark:text-white">
-      {records &&
-        records.map((excerpt) => (
-          <div className="p-2 flex flex-col" key={excerpt.id}>
-            <span>{excerpt.content}</span>
-            <div className="flex flex-row text-gray-600 dark:text-gray-200 text-sm">
-              <div>
-                {dateFromNow(excerpt.createAt.toString())}
-              </div>
-              <a href={excerpt.url} target="_black" className="ml-4">Origin</a>
-            </div>
-          </div>
-        ))}
-      <LoadMore isLoading={isLoading} hasMore={hasMore} setPage={setPage} />
+    <div className="my-20 w-[800px] mx-auto flex flex-col h-full dark:text-white px-4 md:px-0">
+      <BackButton />
+      <div className="my-4">
+        <h1 className="font-serif font-bold text-3xl inline">{site.title}</h1>
+        <a href={site.url} target="_blank" className="inline-block ml-2">
+          <ExternalLinkIcon className="w-6 h-6 text-stone-500 dark:text-stone-200" />
+        </a>
+      </div>
+      <ExcerptsList siteId={siteId} />
     </div>
   );
 }

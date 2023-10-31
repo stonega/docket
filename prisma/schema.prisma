@@ -23,6 +23,7 @@ model BasicSite {
 model Site {
   id          String    @id @default(cuid())
   createAt    DateTime  @default(now()) @map("create_at")
+  updateAt    DateTime  @default(now()) @map("update_at")
   title       String
   icon        String
   url         String    @unique
@@ -38,8 +39,10 @@ model Excerpt {
   createAt DateTime @default(now()) @map("create_at")
   url      String
   siteId   String   @map("site_id")
-  site     Site     @relation(fields: [siteId], references: [id])
+  site     Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
   content  String
+  source   String?
+  sourceId String?  @map("source_id")
   userId   String   @map("user_id")
 
   @@index([siteId])

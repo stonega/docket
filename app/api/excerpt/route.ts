@@ -1,6 +1,7 @@
 import { type NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
+import DOMPurify from "isomorphic-dompurify";
 
 export async function GET(request: NextRequest) {
   const { userId } = auth();
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
     take: pageSize,
     where,
     orderBy: {
-      createAt: "desc",
+      createAt: "asc",
     },
   });
   return Response.json(data, {
@@ -42,19 +43,58 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const { userId } = auth();
-  console.log(userId);
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const { siteId, content, url } = await request.json();
-  const data = await prisma.excerpt.create({
-    data: {
-      userId,
-      siteId,
-      content,
-      url,
+  const { siteId, content, url, source, sourceId } = await request.json();
+  if (!siteId || !content || !url)
+    return Response.json({ error: "Missing required fields" }, { status: 400 });
+  const htmlString = DOMPurify.sanitize(content);
+  const data: any = {
+    userId,
+    siteId,
+    content: htmlString,
+    url,
+    source,
+    sourceId
+  };
+  const result = await prisma.excerpt.create({
+    data,
+  });
+  return Response.json(result, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   });
+}
+
+export async function DELETE(request: NextRequest) {
+  const { userId } = auth();
+  if (!userId) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const { id, sourceId } = await request.json();
+  if (!id && !sourceId)
+    return Response.json({ error: "Missing required fields" }, { status: 400 });
+  let data;
+  if (id)
+    data = await prisma.excerpt.delete({
+      where: {
+        id,
+        userId,
+      },
+    });
+  if (sourceId) {
+    data = await prisma.excerpt.deleteMany({
+      where: {
+        sourceId,
+        userId,
+      },
+    });
+  }
   return Response.json(data, {
     status: 200,
     headers: {

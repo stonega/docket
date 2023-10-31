@@ -7,7 +7,7 @@
     @apply w-full rounded-lg border-0 bg-white/40 p-2 font-mono text-black placeholder:text-slate-400 focus:border-yellow-500 focus:ring-yellow-300 active:border-yellow-500 dark:bg-black/40 dark:text-white dark:placeholder:text-slate-200;
   }
   .input {
-    @apply w-full max-w-full border-2 border-yellow-400 bg-white/60 px-2 py-2 focus:border-yellow-500 focus:outline-none focus:ring-yellow-400 focus-visible:border-yellow-500  active:border-yellow-500 dark:bg-black/60 dark:text-white dark:placeholder:text-slate-300 md:w-[40rem];
+    @apply w-full max-w-full border-2 border-yellow-400 dark:border-yellow-600 bg-white/60 px-2 py-2 focus:border-yellow-500 focus:outline-none focus:ring-yellow-400 focus-visible:border-yellow-500  active:border-yellow-500 dark:bg-black/60 dark:text-white dark:placeholder:text-slate-300 md:w-[40rem];
   }
   .select {
     @apply h-12 rounded-md border-2 border-black bg-white px-2;
@@ -36,4 +36,102 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  font-family: var(--custom-font-playfair);
+}
+pre {
+  padding: 0.5rem 0.8rem !important;
+  margin: 0 !important;
+}
+pre > code {
+  background: none !important;
+}
+pre span {
+  font-size: 1.2rem !important;
+}
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+}
+
+/*
+Highlight theme
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.hljs {
+  color: #c4cad3;
+  background: #282c34;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #74787f;
+  font-style: italic;
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd;
+}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75;
+}
+.hljs-literal {
+  color: #56b6c2;
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379;
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66;
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee;
+}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: bold;
+}
+.hljs-link {
+  text-decoration: underline;
 }
