@@ -9,7 +9,7 @@ import { UserButton } from "@clerk/nextjs";
 import { menuAtom } from "@/store";
 import { useAtom } from "jotai";
 import { motion, useAnimate } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Layout({
@@ -67,14 +67,26 @@ export default function Layout({
             />
           </div>
           <Link
-            className="p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-md dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100"
+            className={classnames(
+              "p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-md dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100",
+              {
+                "bg-yellow-100 dark:bg-yellow-900":
+                  pathname === "/home" || pathname.includes("/home/doc"),
+              }
+            )}
             href="/home"
           >
             <HomeIcon />
             <span className="ml-4">Library</span>
           </Link>
           <Link
-            className="p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-md dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100"
+            className={classnames(
+              "p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 rounded-md dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100",
+              {
+                "bg-yellow-100 dark:bg-yellow-900":
+                  pathname === "/home/settings",
+              }
+            )}
             href="/home/settings"
           >
             <GearIcon />

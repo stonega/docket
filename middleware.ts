@@ -25,7 +25,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     });
   }
   const auth = authMiddleware({
-    ignoredRoutes: ["/"],
+    ignoredRoutes: ["/", "/privacy"],
   });
   return auth(request, event);
 }

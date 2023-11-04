@@ -34,6 +34,18 @@
   }
 }
 
+.highlight-text {
+  display: inline;
+  background-size: 100% 95%;
+  background-image: linear-gradient(
+    0deg,
+    hsl(50deg 100% 50% / 100%) 0%,
+    hsl(50deg 100% 50% / 100%) 2px,
+    hsl(50deg 100% 50% / 20%) 2px,
+    hsl(50deg 100% 50% / 20%) 100%
+  ) !important;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   font-family: var(--custom-font-playfair);

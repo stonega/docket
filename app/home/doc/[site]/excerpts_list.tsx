@@ -2,7 +2,13 @@
 import { useExcerpts } from "@/hooks/use-api";
 import Excerpt from "./excerpt";
 
-const ExcerptsList = ({ siteId }: { siteId: string }) => {
+const ExcerptsList = ({
+  siteId,
+  siteUrl,
+}: {
+  siteId: string;
+  siteUrl: string;
+}) => {
   const { data, isLoading, mutate } = useExcerpts(1, 999, { siteId });
 
   return (
@@ -10,7 +16,12 @@ const ExcerptsList = ({ siteId }: { siteId: string }) => {
       <div className="flex flex-col">
         {data &&
           data.map((excerpt) => (
-            <Excerpt excerpt={excerpt} key={excerpt.id} onDelete={mutate} />
+            <Excerpt
+              excerpt={excerpt}
+              key={excerpt.id}
+              siteUrl={siteUrl}
+              onDelete={mutate}
+            />
           ))}
         {isLoading && (
           <>

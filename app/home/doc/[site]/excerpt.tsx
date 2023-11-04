@@ -8,9 +8,11 @@ import { toast } from "sonner";
 
 const Excerpt = ({
   excerpt,
+  siteUrl,
   onDelete,
 }: {
   excerpt: Excerpt;
+  siteUrl: string,
   onDelete(): void;
 }) => {
   const { setShowConfirmModal, ConfirmModal } = useConfirmModal(async () => {
@@ -40,13 +42,13 @@ const Excerpt = ({
         )}
 
         <div className="mt-2 flex flex-row text-stone-600 dark:text-stone-200 text-sm md:space-x-4">
+          <Tooltip content={excerpt.url}>
+            <a href={excerpt.url} target="_black" className="decoration-solid underline">
+              {excerpt.url.replace(siteUrl, '')}
+            </a>
+          </Tooltip>
           <Tooltip content={formateDate(excerpt.createAt.toString())}>
             <span>{dateFromNow(excerpt.createAt.toString())}</span>
-          </Tooltip>
-          <Tooltip content={excerpt.url}>
-            <a href={excerpt.url} target="_black">
-              Source
-            </a>
           </Tooltip>
           <Tooltip content="Delete excerpt">
             <button onClick={() => setShowConfirmModal(true)}>Delete</button>
