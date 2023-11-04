@@ -3,7 +3,6 @@ import { getAuth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { getDocUrl, getSubPaths } from "@/lib/utils";
 import urlMetadata from "url-metadata";
-import { Instrument_Sans } from "next/font/google";
 
 export async function GET(request: NextRequest) {
   const { userId } = getAuth(request);
@@ -141,13 +140,14 @@ export async function PUT(request: NextRequest) {
   const where = {
     id,
   };
+  const edit: any = {};
+  if (title) edit.title = title;
+  if (description) edit.description = description;
+  if (icon) edit.icon = icon;
+
   const data = await prisma.site.update({
     where,
-    data: {
-      description,
-      title,
-      icon,
-    },
+    data: edit,
   });
 
   return Response.json(data, {

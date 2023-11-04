@@ -26,7 +26,7 @@ model Site {
   updateAt    DateTime  @default(now()) @map("update_at")
   title       String
   icon        String
-  url         String    @unique
+  url         String
   description String    @default("")
   userId      String    @map("user_id")
   Excerpt     Excerpt[]
