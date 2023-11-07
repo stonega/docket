@@ -28,24 +28,6 @@ export default async function Page({
   });
   return (
     <main className="w-full md:w-[800px] m-auto mt-0 md:mt-10 py-4 md:py-0 flex flex-col items-start justify-start">
-      <div className="md:hidden px-4 mb-8 flex flex-row space-x-2 items-center mr-10">
-        <Image
-          alt="Docket"
-          src="/docket.png"
-          unoptimized
-          width={40}
-          height={22}
-        />
-        <Link
-          href="/"
-          className={classnames(
-            "text-3xl font-semibold font-serif dark:text-white",
-            playfair.className
-          )}
-        >
-          Docket
-        </Link>
-      </div>
       <SearchBar></SearchBar>
       {searchParams.q ? <SearchResult /> : <SiteList />}
     </main>
