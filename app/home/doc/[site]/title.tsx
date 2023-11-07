@@ -3,6 +3,7 @@
 import LoadingCircle from "@/components/loading-circle";
 import { Site } from "@prisma/client";
 import { Pencil2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -10,6 +11,7 @@ export default function Title({ site }: { site: Site }) {
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(site!.title);
+  const router = useRouter();
 
   async function saveTitle() {
     if (title === site.title) {
@@ -26,6 +28,7 @@ export default function Title({ site }: { site: Site }) {
         }),
       });
       toast.success("Title saved");
+      router.refresh()
     } catch (error) {
     } finally {
       setLoading(false);
@@ -36,7 +39,7 @@ export default function Title({ site }: { site: Site }) {
     <>
       {edit ? (
         <input
-          className="font-serif font-bold text-3xl inline"
+          className="input !py-0 font-serif font-bold text-3xl inline"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         ></input>
@@ -50,11 +53,11 @@ export default function Title({ site }: { site: Site }) {
           ) : (
             <div className="flex flex-row space-x-2">
               <Cross2Icon
-                className="w-4 h-4 text-stone-800 dark:text-stone-200"
+                className="w-4 h-4 text-stone-800 dark:text-stone-200 cursor-pointer"
                 onClick={() => setEdit(false)}
               />
               <CheckIcon
-                className="w-4 h-4 text-stone-800 dark:text-stone-200"
+                className="w-4 h-4 text-stone-800 dark:text-stone-200 cursor-pointer"
                 onClick={() => saveTitle()}
               />
             </div>

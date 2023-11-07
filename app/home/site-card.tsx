@@ -1,6 +1,6 @@
+"use client";
 import { Site } from "@prisma/client";
 import Image from "next/image";
-import { TrashIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { siteOneColumnLayoutAtom } from "@/store";

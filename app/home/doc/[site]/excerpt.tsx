@@ -1,4 +1,5 @@
 import { useConfirmModal } from "@/components/confirm-modal";
+import ExcerptCard from "@/components/excerpt-card";
 import Tooltip from "@/components/tooltip";
 import { dateFromNow, formateDate } from "@/lib/utils";
 import { Excerpt } from "@prisma/client";
@@ -12,7 +13,7 @@ const Excerpt = ({
   onDelete,
 }: {
   excerpt: Excerpt;
-  siteUrl: string,
+  siteUrl: string;
   onDelete(): void;
 }) => {
   const { setShowConfirmModal, ConfirmModal } = useConfirmModal(async () => {
@@ -31,20 +32,16 @@ const Excerpt = ({
         permanent and cannot be undone.
       </ConfirmModal>
       <div className="py-2" key={excerpt.id}>
-        {excerpt.content.startsWith("<pre>") ? (
-          <div className="bg-stone-600 rounded-lg">
-            <Highlight>{parse(excerpt.content)}</Highlight>
-          </div>
-        ) : (
-          <article className="prose prose-stone lg:prose-xl dark:prose-invert prose-code:bg-orange-200 prose-code:before:content-[] prose-code:after:content-[] prose-code:px-1 prose-code:py-1 prose-code:text-stone-600 prose-code:rounded-lg prose-a:text-yellow-600">
-            {parse(excerpt.content)}
-          </article>
-        )}
+        <ExcerptCard excerpt={excerpt} />
 
         <div className="mt-2 flex flex-row text-stone-600 dark:text-stone-200 text-sm md:space-x-4">
           <Tooltip content={excerpt.url}>
-            <a href={excerpt.url} target="_black" className="decoration-solid underline">
-              {excerpt.url.replace(siteUrl, '')}
+            <a
+              href={excerpt.url}
+              target="_black"
+              className="decoration-solid underline"
+            >
+              {excerpt.url.replace(siteUrl, "")}
             </a>
           </Tooltip>
           <Tooltip content={formateDate(excerpt.createAt.toString())}>
