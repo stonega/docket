@@ -1,41 +1,31 @@
 "use client";
-import { useExcerpts } from "@/hooks/use-api";
-import Excerpt from "./excerpt";
+import { Excerpt } from "@prisma/client";
+import ExcerptItem from "./excerpt";
 
-const ExcerptsList = ({
-  siteId,
+function ExcerptsList({
+  excerpts,
   siteUrl,
 }: {
-  siteId: string;
+  excerpts: Excerpt[];
   siteUrl: string;
-}) => {
-  const { data, isLoading, mutate } = useExcerpts(1, 999, { siteId });
-
+}) {
   return (
     <>
       <div className="flex flex-col">
-        {data &&
-          data.map((excerpt) => (
-            <Excerpt
+        {excerpts &&
+          excerpts.map((excerpt) => (
+            <ExcerptItem
               excerpt={excerpt}
               key={excerpt.id}
-              siteUrl={siteUrl}
-              onDelete={mutate}
+              siteUrl={siteUrl} 
+              onDelete={function (): void {
+                throw new Error("Function not implemented.");
+              } }              // onDelete={mutate}
             />
           ))}
-        {isLoading && (
-          <>
-            <div className="flex animate-pulse flex-col space-y-2">
-              <div className="mt-2 h-4 w-[20%] rounded-md bg-black/50"></div>
-              <div className="text-md mt-2 h-4 w-full rounded-md bg-black/50"></div>
-              <div className="mt-2 h-4 w-[60%] rounded-md bg-black/50"></div>
-              <div className="mt-2 h-4 w-[30%] rounded-md bg-black/50"></div>
-            </div>
-          </>
-        )}
       </div>
     </>
   );
-};
+}
 
 export default ExcerptsList;

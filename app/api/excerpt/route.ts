@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
   const pageSize = Number(searchParams.get("page_size") ?? 20);
   const siteId = searchParams.get("site_id");
   const url = searchParams.get("url");
+  const search = searchParams.get("search");
   const skip = (page - 1) * pageSize;
   const where: any = {
     userId: { equals: userId },
@@ -22,6 +23,9 @@ export async function GET(request: NextRequest) {
   }
   if (siteId) {
     where.siteId = { equals: siteId };
+  }
+  if (search) {
+    where.content = { search };
   }
   const data = await prisma.excerpt.findMany({
     skip,
@@ -56,7 +60,7 @@ export async function POST(request: NextRequest) {
     content: htmlString,
     url,
     source,
-    sourceId
+    sourceId,
   };
   const result = await prisma.excerpt.create({
     data,

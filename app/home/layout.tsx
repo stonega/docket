@@ -11,6 +11,7 @@ import { useAtom } from "jotai";
 import { motion, useAnimate } from "framer-motion";
 import { useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
+import Logo from "@/components/logo";
 
 export default function Layout({
   children, // will be a page or nested layout
@@ -44,17 +45,18 @@ export default function Layout({
         <div className="w-full flex flex-col space-y-2">
           <div className="w-full flex flex-row justify-between">
             <div className="mb-8 flex flex-row space-x-2 mr-10">
-              <Image
+              {/* <Image
                 alt="Docket"
                 src="/docket.png"
                 unoptimized
                 width={40}
                 height={35}
-              />
+              /> */}
+              <Logo></Logo>
               <Link
                 href="/"
                 className={classnames(
-                  "text-4xl font-semibold font-serif dark:text-white",
+                  "text-4xl font-semibold font-serif dark:text-stone-200",
                   playfair.className
                 )}
               >
