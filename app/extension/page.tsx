@@ -4,7 +4,10 @@ import { useAsyncEffect } from "ahooks";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
-const docketExtensionId = "fgpdaghgoipbnpokamgcpcpcoeehgjeb";
+const docketExtensionId =
+  process.env.NODE_ENV === "production"
+    ? "pbnonpcfnmdbfmabpjfllgljbfkccjco"
+    : "ijbccfkkejndajdiognflbmbbebboaeh";
 const Extension = () => {
   const { getToken } = useAuth();
   const params = useSearchParams();

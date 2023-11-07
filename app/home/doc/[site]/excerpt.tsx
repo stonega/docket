@@ -41,7 +41,7 @@ const Excerpt = ({
               target="_black"
               className="decoration-solid underline"
             >
-              {excerpt.url.replace(siteUrl, "")}
+              {excerpt.url === siteUrl ? "link" : excerpt.url.replace(siteUrl, "")}
             </a>
           </Tooltip>
           <Tooltip content={formateDate(excerpt.createAt.toString())}>
