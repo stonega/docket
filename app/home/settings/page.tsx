@@ -1,7 +1,7 @@
 import { NotionLogoIcon } from "@radix-ui/react-icons";
 export default function SettingsPage() {
   return (
-    <div className="my-20 px-4 w-[800px] mx-auto flex flex-col h-full space-y-6 dark:text-white">
+    <div className="my-10 px-4 w-full md:w-[800px] mx-auto flex flex-col h-full space-y-6 dark:text-white">
       <h1 className="font-bold text-2xl">Connect to sync service</h1>
       <div className="flex flex-row items-center space-x-2">
         <NotionLogoIcon className="w-5 h-5" />

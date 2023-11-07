@@ -1,10 +1,14 @@
 "use client";
-import { GearIcon, HomeIcon, Cross1Icon } from "@radix-ui/react-icons";
+import {
+  GearIcon,
+  HomeIcon,
+  Cross1Icon,
+  HamburgerMenuIcon,
+} from "@radix-ui/react-icons";
 import Link from "next/link";
 import ThemeModeButton from "../../components/theme-mode-button";
 import { playfair } from "../fonts";
 import classnames from "classnames";
-import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { menuAtom } from "@/store";
 import { useAtom } from "jotai";
@@ -26,7 +30,7 @@ export default function Layout({
     if (expand) {
       animate(scope.current, { left: 0 }, { ease: "linear" });
     } else {
-      animate(scope.current, { left: "-500px" }, { ease: "linear" });
+      animate(scope.current, { left: "-1000px" }, { ease: "linear" });
     }
   }, [animate, expand, scope]);
 
@@ -45,14 +49,7 @@ export default function Layout({
         <div className="w-full flex flex-col space-y-2">
           <div className="w-full flex flex-row justify-between">
             <div className="mb-8 flex flex-row space-x-2 mr-10">
-              {/* <Image
-                alt="Docket"
-                src="/docket.png"
-                unoptimized
-                width={40}
-                height={35}
-              /> */}
-              <Logo></Logo>
+              <Logo className="w-10 h-10"></Logo>
               <Link
                 href="/"
                 className={classnames(
@@ -102,7 +99,25 @@ export default function Layout({
           </div>
         </div>
       </aside>
-      {children}
+      <div className="w-full md:w-[800px] m-auto mt-0 md:mt-10 py-4 md:py-0 flex flex-col items-start justify-start">
+        <div className="md:hidden px-4 mb-2 flex flex-row space-x-2 items-center mr-10">
+          <HamburgerMenuIcon
+            className="md:hidden w-6 h-6 text-stone-500 dark:text-stone-200 cursor-pointer"
+            onClick={() => setExpand(true)}
+          ></HamburgerMenuIcon>
+          <Logo className="w-8 h-8"></Logo>
+          <Link
+            href="/"
+            className={classnames(
+              "text-3xl font-semibold font-serif dark:text-white",
+              playfair.className
+            )}
+          >
+            Docket
+          </Link>
+        </div>
+        {children}
+      </div>
     </main>
   );
 }

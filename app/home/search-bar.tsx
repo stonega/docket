@@ -16,7 +16,6 @@ import queryString from "query-string";
 import RowIcon from "@/components/row-icon";
 export default function SearchBar() {
   const router = useRouter();
-  const [, setExpand] = useAtom(menuAtom);
   const [oneColumn, setOneColumn] = useAtom(siteOneColumnLayoutAtom);
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
@@ -28,10 +27,6 @@ export default function SearchBar() {
 
   return (
     <div className="w-full px-4 md:px-0 mb-10 flex flex-row justify-between items-center">
-      <HamburgerMenuIcon
-        className="md:hidden w-6 h-6 text-stone-500 dark:text-stone-200 cursor-pointer"
-        onClick={() => setExpand(true)}
-      ></HamburgerMenuIcon>
       <div className="relative w-full mr-2 ml-2 md:ml-0">
         <input
           className="w-full input"
