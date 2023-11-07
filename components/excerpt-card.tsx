@@ -1,7 +1,6 @@
 import { Excerpt } from "@prisma/client";
 import parse from "html-react-parser";
 import Highlight from "react-highlight";
-import { Code } from "bright"
 
 export default function ExcerptCard({ excerpt }: { excerpt: Excerpt }) {
   if (excerpt.content.startsWith("<pre>"))

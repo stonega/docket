@@ -13,6 +13,7 @@ import { menuAtom, siteOneColumnLayoutAtom } from "@/store";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useThrottleEffect } from "ahooks";
 import queryString from "query-string";
+import RowIcon from "@/components/row-icon";
 export default function SearchBar() {
   const router = useRouter();
   const [, setExpand] = useAtom(menuAtom);
@@ -57,8 +58,8 @@ export default function SearchBar() {
           onClick={() => setOneColumn(false)}
         />
       ) : (
-        <RowsIcon
-          className="w-6 h-6 text-stone-500 dark:text-stone-200 cursor-pointer"
+        <RowIcon
+          className="w-6 h-6 text-stone-500 p-[0.15rem] dark:text-stone-200 cursor-pointer"
           onClick={() => setOneColumn(true)}
         />
       )}
