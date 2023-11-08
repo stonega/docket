@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Header from "./header";
-import { Connector, DocSitePanel, ExcerptPanel } from "./diagram";
+import { Connector, DocSitePanel, ExcerptPanel, Step } from "./diagram";
 import ChromeLogo from "@/components/chrome-logo";
 import Logo from "@/components/logo";
 
@@ -47,15 +47,16 @@ export default function Page() {
           </Link>
         </div>
       </div>
-      {/* <div className="mt-60 h-[1000px] flex flex-row w-full bg-orange-600 justify-center items-center">
-        <div className="flex flex-col space-y-8">
-          <DocSitePanel></DocSitePanel>
-          <DocSitePanel></DocSitePanel>
-          <DocSitePanel></DocSitePanel>
-        </div>
-        <Connector></Connector>
-        <ExcerptPanel></ExcerptPanel>
-      </div> */}
+      <Step></Step>
+        {/* <div className="h-[1200px] flex flex-row w-full bg-orange-600 justify-center items-center">
+          <div className="flex flex-col space-y-8">
+            <DocSitePanel></DocSitePanel>
+            <DocSitePanel></DocSitePanel>
+            <DocSitePanel></DocSitePanel>
+          </div>
+          <Connector></Connector>
+          <ExcerptPanel></ExcerptPanel>
+        </div> */}
       <div className="w-full py-8 bg-amber-100 flex flex-col items-center justify-center space-y-2 text-stone-600 dark:text-stone-200 dark:bg-amber-800">
         <Logo className="w-8 h-8"></Logo>
         <div className="text-xl font-bold text-yellow-900 dark:text-yellow-400">
