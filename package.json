@@ -17,7 +17,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tailwindcss/typography": "^0.5.10",
     "@types/chrome": "^0.0.250",
-    "@types/node": "20.8.10",
+    "@types/node": "20.9.0",
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.15",
     "@types/react-highlight": "^0.12.7",
