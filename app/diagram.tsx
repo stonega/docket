@@ -104,3 +104,54 @@ export function Connector() {
     </svg>
   );
 }
+
+export function Step() {
+  return (
+    <div className="w-full h-[1200px] px-4 py-24 bg-yellow-500 flex-col justify-center items-center gap-10 flex">
+      <div className="w-full md:w-[800px] h-[670px] flex-col justify-center items-center gap-10 flex">
+        <div className="self-stretch text-yellow-900 text-[67px] font-bold leading-[69.68px]">
+          How Docket Works
+        </div>
+        <div className="self-stretch py-8 border-b border-yellow-900 justify-start items-center gap-10 inline-flex">
+          <div className="grow shrink basis-0 text-yellow-900 text-8xl font-bold leading-[96px]">
+            1
+          </div>
+          <div className="grow shrink basis-0 flex-col justify-center items-center gap-4 inline-flex">
+            <div className="self-stretch text-stone-700 text-lg font-semibold leading-[25.20px]">
+              Highlight and Save
+            </div>
+            <div className="self-stretch text-yellow-900 text-[22px] font-normal leading-7">
+              Highlight texts, code, or images while reading.
+            </div>
+          </div>
+        </div>
+        <div className="self-stretch py-8 border-b border-yellow-900 justify-start items-center gap-10 inline-flex">
+          <div className="grow shrink basis-0 text-yellow-900 text-8xl font-bold leading-[96px]">
+            2
+          </div>
+          <div className="grow shrink basis-0 flex-col justify-center items-center gap-4 inline-flex">
+            <div className="self-stretch text-stone-700 text-lg font-semibold leading-[25.20px]">
+              Auto-Recognition
+            </div>
+            <div className="self-stretch text-yellow-900 text-[22px] font-normal leading-7">
+              Docket identifies the URL and organizes excerpts.
+            </div>
+          </div>
+        </div>
+        <div className="self-stretch py-8 border-b border-yellow-900 justify-start items-center gap-10 inline-flex">
+          <div className="grow shrink basis-0 text-yellow-900 text-8xl font-bold leading-[96px]">
+            3
+          </div>
+          <div className="grow shrink basis-0 flex-col justify-center items-center gap-4 inline-flex">
+            <div className="self-stretch text-stone-700 text-lg font-semibold leading-[25.20px]">
+              Access Anywhere
+            </div>
+            <div className="self-stretch text-yellow-900 text-[22px] font-normal leading-7">
+              Retrieve saved information from any device.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
