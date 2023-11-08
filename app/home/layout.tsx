@@ -43,7 +43,7 @@ export default function Layout({
       <aside
         ref={scope}
         className={classnames(
-          "fixed z-10 top-0 left-0 md:sticky p-4 h-[400px] w-full md:w-auto md:h-screen flex flex-col justify-between items-start first-letter:space-y-4 bg-orange-200 dark:bg-yellow-800"
+          "fixed z-10 top-0 left-[-1000px] md:left-0 md:sticky p-4 w-full md:w-auto h-screen flex flex-col justify-between items-start first-letter:space-y-4 bg-orange-200 dark:bg-yellow-800"
         )}
       >
         <div className="w-full flex flex-col space-y-2">
@@ -92,7 +92,7 @@ export default function Layout({
             <span className="ml-4">Settings</span>
           </Link>
         </div>
-        <div className="w-full flex flex-row justify-between items-center">
+        <div className="mt-40 md:mt-0 w-full flex flex-row justify-between items-center">
           <UserButton afterSignOutUrl="/home" />
           <div className="px-3 py-1.5 bg-yellow-100 dark:bg-yellow-700 rounded-full">
             <ThemeModeButton />

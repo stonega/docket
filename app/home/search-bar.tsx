@@ -27,7 +27,7 @@ export default function SearchBar() {
 
   return (
     <div className="w-full px-4 md:px-0 mb-10 flex flex-row justify-between items-center">
-      <div className="relative w-full mr-2 ml-2 md:ml-0">
+      <div className="relative w-full mr-2">
         <input
           className="w-full input"
           placeholder="Search your docs"
@@ -54,7 +54,7 @@ export default function SearchBar() {
         />
       ) : (
         <RowIcon
-          className="w-6 h-6 text-stone-500 p-[0.15rem] dark:text-stone-200 cursor-pointer"
+          className="w-6 h-6 text-stone-500 dark:text-stone-200 cursor-pointer"
           onClick={() => setOneColumn(true)}
         />
       )}
