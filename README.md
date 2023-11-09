@@ -10,6 +10,10 @@ Docket can assist you in highlighting and saving text, code, and images while yo
 pnpm dev
 ```
 
-## Credit
+## Solutions
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+[Clerk](https://clerk.com/) for auth.
+
+[Radix UI](https://www.radix-ui.com/) for most component.
