@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { site: string } }) {
   });
   if (!site) return null;
   return (
-    <div className="mt-10 mb-20 w-full md:w-[800px] mx-auto flex flex-col h-full dark:text-white px-4 md:px-0">
+    <div className="mt-0 md:mt-10 mb-20 w-full md:w-[800px] mx-auto flex flex-col h-full dark:text-white px-4 md:px-0">
       <div className="h-[40px] bg-orange-100/80 dark:bg-orange-500/80 sticky top-10 px-4 rounded-full w-full flex flex-row justify-between items-center">
         <BackButton>
           <Image
