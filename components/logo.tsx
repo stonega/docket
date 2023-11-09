@@ -24,7 +24,7 @@ export default function Logo({ className }: { className?: string }) {
         width="250"
         height="250"
         className="stroke-black dark:stroke-stone-200"
-        stroke-width="8"
+        strokeWidth="8"
       />
     </svg>
   );

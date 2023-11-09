@@ -3,8 +3,6 @@ import ExcerptCard from "@/components/excerpt-card";
 import Tooltip from "@/components/tooltip";
 import { dateFromNow, formateDate } from "@/lib/utils";
 import { Excerpt } from "@prisma/client";
-import parse from "html-react-parser";
-import Highlight from "react-highlight";
 import { toast } from "sonner";
 
 const Excerpt = ({
@@ -31,17 +29,31 @@ const Excerpt = ({
         Are you sure you want to delete this excerpt? Deleting this excerpt is
         permanent and cannot be undone.
       </ConfirmModal>
-      <div className="py-2" key={excerpt.id}>
+      <div className="py-4" key={excerpt.id}>
         <ExcerptCard excerpt={excerpt} />
-
-        <div className="mt-2 flex flex-row text-stone-600 dark:text-stone-200 text-sm md:space-x-4">
+        <div className="md:hidden mt-2 flex flex-row space-x-4 text-stone-600 dark:text-stone-200 text-normal">
+          <a
+            href={excerpt.url}
+            target="_black"
+            className="decoration-solid underline"
+          >
+            {excerpt.url === siteUrl
+              ? "link"
+              : excerpt.url.replace(siteUrl, "")}
+          </a>
+          <span>{dateFromNow(excerpt.createAt.toString())}</span>
+          <button onClick={() => setShowConfirmModal(true)}>Delete</button>
+        </div>
+        <div className="hidden md:flex mt-2 flex-row text-stone-600 dark:text-stone-200 text-normal space-x-4">
           <Tooltip content={excerpt.url}>
             <a
               href={excerpt.url}
               target="_black"
               className="decoration-solid underline"
             >
-              {excerpt.url === siteUrl ? "link" : excerpt.url.replace(siteUrl, "")}
+              {excerpt.url === siteUrl
+                ? "link"
+                : excerpt.url.replace(siteUrl, "")}
             </a>
           </Tooltip>
           <Tooltip content={formateDate(excerpt.createAt.toString())}>
