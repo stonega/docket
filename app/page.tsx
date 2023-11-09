@@ -32,7 +32,8 @@ export default function Page() {
         </span>
         <div className="flex flex-row space-x-4 mt-32">
           <a
-            href=""
+            href="https://chromewebstore.google.com/detail/docket-highlighter/pbnonpcfnmdbfmabpjfllgljbfkccjco"
+            target="_blank"
             className="border-2 flex flex-row items-center px-4 py-2 dark:text-white border-yellow-300 font-bold hover:bg-yellow-100 dark:hover:bg-yellow-700"
           >
             <ChromeLogo className="w-6 h-6 mr-4"></ChromeLogo>
