@@ -5,7 +5,7 @@ import Highlight from "react-highlight";
 export default function ExcerptCard({ excerpt }: { excerpt: Excerpt }) {
   if (excerpt.content.startsWith("<pre>"))
     return (
-      <div className="bg-stone-600 rounded-lg">
+      <div className="bg-stone-800 rounded-lg">
         <Highlight>{parse(excerpt.content)}</Highlight>
       </div>
     );

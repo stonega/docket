@@ -8,7 +8,7 @@ export default function BackButton({ children }: { children: ReactNode }) {
   function back() {
     console.log(window.history.length);
 
-    if (window.history.length === 0) {
+    if (window.history.length === 1) {
       router.push("/home");
     } else {
       router.back();
