@@ -43,9 +43,9 @@ export default function MenuDropdown({ link, siteId }: MenuDropdownProps) {
       >
         <Popover
           content={
-            <div className="w-full rounded-md bg-white p-2 dark:bg-[#101010] dark:text-white sm:w-40">
+            <div className="w-full rounded-md bg-orange-100 p-2 dark:bg-orange-500 dark:text-white sm:w-40">
               <button
-                className="relative text-red-400 font-semibold flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100 dark:hover:bg-green-800/30"
+                className="relative font-semibold flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100 dark:hover:bg-stone-800/30"
                 onClick={() => setShowConfirmModal(true)}
               >
                 <TrashIcon className="h-4 w-4" />

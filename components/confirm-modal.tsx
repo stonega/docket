@@ -57,16 +57,16 @@ const ConfirmModal = ({
               setShowConfirmModal(false);
             }}
           >
-            Cancel
+            [NO]
           </Button>
           <Button
-            className="w-30 mb-6 mt-6 px-6 font-normal !border-red-500 !bg-red-300 !outline-red-500"
+            className="w-30 mb-6 mt-6 px-6 font-normal !border-red-700  !bg-red-300 !outline-red-500"
             onClick={() => {
               confirm();
             }}
             loading={loading}
           >
-            Confirm
+           [YES] 
           </Button>
         </div>
       </div>

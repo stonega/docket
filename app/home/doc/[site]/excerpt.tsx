@@ -3,6 +3,7 @@ import ExcerptCard from "@/components/excerpt-card";
 import Tooltip from "@/components/tooltip";
 import { dateFromNow, formateDate } from "@/lib/utils";
 import { Excerpt } from "@prisma/client";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
 const Excerpt = ({
@@ -32,15 +33,18 @@ const Excerpt = ({
       <div className="py-4" key={excerpt.id}>
         <ExcerptCard excerpt={excerpt} />
         <div className="md:hidden mt-2 flex flex-row space-x-4 text-stone-600 dark:text-stone-200 text-normal">
-          <a
-            href={excerpt.url}
-            target="_black"
-            className="decoration-solid underline"
-          >
-            {excerpt.url === siteUrl
-              ? "link"
-              : excerpt.url.replace(siteUrl, "")}
-          </a>
+          <div className="bg-yellow-400 p-2">
+            <a
+              href={excerpt.url}
+              target="_black"
+              className="decoration-solid underline"
+            >
+              {excerpt.url === siteUrl
+                ? "source"
+                : excerpt.url.replace(siteUrl, "")}
+            </a>
+            <ArrowRightIcon className="inline ml-1" />
+          </div>
           <span>{dateFromNow(excerpt.createAt.toString())}</span>
           <button onClick={() => setShowConfirmModal(true)}>Delete</button>
         </div>
