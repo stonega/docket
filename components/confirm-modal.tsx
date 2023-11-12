@@ -42,7 +42,7 @@ const ConfirmModal = ({
       setShowModal={setShowConfirmModal}
       clickToClose={false}
     >
-      <div className="w-full overflow-hidden bg-white dark:bg-stone-900 md:max-w-md md:rounded-md md:shadow-xl">
+      <div className="w-full overflow-hidden bg-white dark:bg-stone-900 md:max-w-lg md:rounded-md md:shadow-xl">
         <div className="px-6 pt-8 text-2xl font-semibold text-stone-700 dark:text-stone-100">
           {title}
         </div>

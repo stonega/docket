@@ -18,9 +18,6 @@ function ExcerptsList({
               excerpt={excerpt}
               key={excerpt.id}
               siteUrl={siteUrl} 
-              onDelete={function (): void {
-                throw new Error("Function not implemented.");
-              } }              // onDelete={mutate}
             />
           ))}
       </div>
