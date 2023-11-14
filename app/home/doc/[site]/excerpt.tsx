@@ -53,16 +53,16 @@ const Excerpt = ({
           </div>
         </div>
         <div className="hidden md:flex mt-2 flex-row text-stone-600 dark:text-stone-200 text-normal space-x-4">
-          <Tooltip content={excerpt.url}>
-            <div className="bg-yellow-300 dark:bg-yellow-600 px-1 rounded-md flex flex-row items-center">
+          <Tooltip content={decodeURI(excerpt.url)}>
+            <div className=" bg-yellow-300 dark:bg-yellow-600 max-w-[70%] px-1 rounded-md flex flex-row items-center">
               <a
                 href={excerpt.url}
                 target="_black"
-                className="decoration-solid underline"
+                className="decoration-solid underline line-clamp-1 break-all"
               >
                 {excerpt.url === siteUrl
                   ? "Source"
-                  : excerpt.url.replace(siteUrl, "")}
+                  : decodeURIComponent(excerpt.url.replace(siteUrl, ""))}
               </a>
               <ArrowTopRightIcon className="inline" />
             </div>
