@@ -1,3 +1,4 @@
+import { metadata } from "./../../layout";
 import { NextResponse, NextRequest } from "next/server";
 import { getAuth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
   const { url, icon, title, create } = await request.json();
-  const urls = getSubPaths(url);
+  const urls = getSubPaths(encodeURI(url));
   // Check if url already existed
   const record = await prisma.site.findFirst({
     where: {
@@ -69,7 +70,13 @@ export async function POST(request: NextRequest) {
       return new NextResponse("Internal error", {
         status: 500,
       });
-    const metadata = await urlMetadata(docUrl);
+    let metadata: any = {};
+    try {
+      metadata = await urlMetadata(docUrl);
+    } catch (error) {
+      console.error(error);
+    }
+
     const siteData = {
       userId: userId!,
       description: (metadata.description ?? "") as string,
@@ -110,7 +117,12 @@ export async function POST(request: NextRequest) {
     return new NextResponse("Internal error", {
       status: 500,
     });
-  const metadata = await urlMetadata(docUrl);
+  let metadata: any = {};
+  try {
+    metadata = await urlMetadata(docUrl);
+  } catch (error) {
+    console.error(error);
+  }
   const siteData = {
     userId: userId!,
     description: (metadata.description ?? "") as string,
