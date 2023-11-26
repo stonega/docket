@@ -93,7 +93,7 @@ export default function Layout({
           </Link>
         </div>
         <div className="mt-60 md:mt-0 mb-8 md:mb-0 w-full flex flex-row justify-between items-center">
-          <UserButton afterSignOutUrl="/home" />
+          <UserButton afterSignOutUrl="/" />
           <div className="px-3 py-1.5 bg-yellow-100 dark:bg-yellow-700 rounded-full">
             <ThemeModeButton />
           </div>

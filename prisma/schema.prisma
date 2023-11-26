@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -47,4 +47,12 @@ model Excerpt {
   userId   String   @map("user_id")
 
   @@index([siteId])
+}
+
+model Notion {
+  id         String   @id @default(cuid())
+  createAt   DateTime @default(now()) @map("create_at")
+  userId     String   @map("user_id")
+  pageId     String   @map("page_id")
+  databaseId String   @map("database_id")
 }
