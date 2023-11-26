@@ -18,7 +18,6 @@ export default async function SettingsPage({
   });
   const code = searchParams["code"];
   let user = await currentUser();
-  console.log(user?.unsafeMetadata?.notion);
   if (code) {
     const body = JSON.stringify({
       grant_type: "authorization_code",
@@ -42,8 +41,7 @@ export default async function SettingsPage({
       body,
     });
     const result = await response.json();
-    console.log(user);
-    user = await clerkClient.users.updateUser(user!.id, {
+    await clerkClient.users.updateUser(user!.id, {
       unsafeMetadata: { notion: result },
     });
 
