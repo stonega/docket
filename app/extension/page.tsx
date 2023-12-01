@@ -5,9 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
 const docketExtensionId =
-  process.env.NODE_ENV === "production"
-    ? "pbnonpcfnmdbfmabpjfllgljbfkccjco"
-    : "ijbccfkkejndajdiognflbmbbebboaeh";
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!.startsWith("pk_test")
+    ? "ijbccfkkejndajdiognflbmbbebboaeh"
+    : "pbnonpcfnmdbfmabpjfllgljbfkccjco";
 const Extension = () => {
   const { getToken } = useAuth();
   const params = useSearchParams();
