@@ -22,7 +22,7 @@
     "@types/react-dom": "18.2.18",
     "@types/react-highlight": "^0.12.7",
     "ahooks": "^3.7.8",
-    "autoprefixer": "10.4.16",
+    "autoprefixer": "10.4.17",
     "bright": "^0.8.4",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
