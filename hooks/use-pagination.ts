@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useSwr, { Fetcher } from "swr";
+import useSwr from "swr";
 import queryString from "query-string";
 
 export async function getData<T>(

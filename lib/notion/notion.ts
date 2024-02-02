@@ -1,19 +1,31 @@
 import { Client } from "@notionhq/client";
-import { prisma } from "../lib/prisma";
+import { prisma } from "../../lib/prisma";
 import { htmlToNotion } from "html-to-notion-blocks";
+import { Excerpt, Site } from "@prisma/client";
+import { getIconUrl } from "./utils";
 
 export class Notion {
   client?: Client = undefined;
   constructor({ auth }: { auth: string }) {
     this.client = new Client({ auth });
   }
-  // Full sync
-  async initSync({ userId }: { userId: string }) {
+  /**
+   * initial sync with notion
+   * @param userId
+   */
+  async initialSync({ userId }: { userId: string }) {
     const rootPage = await this.getRootPage();
     if (!rootPage) {
       throw new Error("Root page not found");
     }
     const database = await this.createDatabase({ pageId: rootPage.id });
+    await prisma.notion.create({
+      data: {
+        userId,
+        databaseId: database.id,
+        pageId: rootPage.id,
+      },
+    });
     const sites = await prisma.site.findMany({
       where: {
         userId: { equals: userId },
@@ -29,6 +41,64 @@ export class Notion {
     return true;
   }
 
+  /**
+   * add new excerpt to notion
+   * @param site
+   * @param excerpt
+   */
+  async addNewExcerpt({ site, excerpt }: { site: Site; excerpt: Excerpt }) {
+    const database = await this.getDatabase({ userId: site.userId });
+    if (!database) {
+      await this.initialSync({ userId: site.userId });
+      return;
+    }
+    const response = await this.client!.databases.query({
+      database_id: database.id,
+      filter: {
+        or: [
+          {
+            property: "Id",
+            rich_text: {
+              equals: site.id,
+            },
+          },
+        ],
+      },
+    });
+
+    if (response) {
+      const pageId = response.results[0].id;
+      const children = htmlToNotion(excerpt.content);
+      const page = await this.retrievePage(pageId);
+      const res = await this.client!.blocks.children.append({
+        block_id: page.id,
+        children,
+      });
+    }
+  }
+
+  /**
+   * get notion database
+   * @param userId
+   */
+  async getDatabase({ userId }: { userId: string }) {
+    const notionConfig = await prisma.notion.findFirst({
+      where: {
+        userId,
+      },
+    });
+    if (notionConfig) {
+      const databaseId = notionConfig.databaseId;
+      const response = this.retrieveDatabase(databaseId);
+      return response;
+    } else {
+      return undefined;
+    }
+  }
+
+  /**
+   * get root page to create database
+   */
   async getRootPage() {
     const response = await this.client!.search({
       filter: {
@@ -50,6 +120,11 @@ export class Notion {
     }
     return rootPage;
   }
+  /**
+   * add page to database
+   * @param site
+   * @param databaseId
+   */
   async createPage({
     site,
     databaseId,
@@ -69,12 +144,11 @@ export class Notion {
         createAt: "asc",
       },
     });
-    const children = excerpts.map((e) => htmlToNotion(e.content)).flat();
-    await this.client!.pages.create({
+    const page = await this.client!.pages.create({
       icon: {
         type: "external",
         external: {
-          url: `https://avatar.tobi.sh/${site.id}.png`,
+          url: getIconUrl(site.icon),
         },
       },
       parent: {
@@ -101,8 +175,27 @@ export class Notion {
           ],
         },
       },
-      children,
     });
+    for (const excerpt of excerpts) {
+      const blocks = htmlToNotion(excerpt.content);
+      if (blocks.length > 1) {
+        console.log("block id", page.id);
+        const block = await this.client!.blocks.children.append({
+          block_id: page.id,
+          children: [blocks[0]],
+        });
+        console.log("block id", { block });
+        await this.client!.blocks.children.append({
+          block_id: block.results[0].id,
+          children: blocks,
+        });
+      } else {
+        await this.client!.blocks.children.append({
+          block_id: page.id,
+          children: blocks,
+        });
+      }
+    }
   }
 
   async retrievePage(pageId: string) {
@@ -112,6 +205,12 @@ export class Notion {
     return response;
   }
 
+  async retrieveDatabase(databaseId: string) {
+    const response = await this.client!.databases.retrieve({
+      database_id: databaseId,
+    });
+    return response;
+  }
   async createDatabase({ pageId }: { pageId: string }) {
     const response = await this.client!.databases.create({
       parent: {
@@ -127,6 +226,9 @@ export class Notion {
         },
       ],
       properties: {
+        Id: {
+          rich_text: {},
+        },
         Name: {
           title: {},
         },
