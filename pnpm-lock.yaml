@@ -82,7 +82,7 @@ dependencies:
     version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
   next-i18next:
     specifier: ^15.0.0
-    version: 15.0.0(i18next@23.5.1)(next@14.1.0)(react-i18next@13.2.2)(react@18.2.0)
+    version: 15.0.0(i18next@23.5.1)(next@14.1.0)(react-i18next@14.0.1)(react@18.2.0)
   postcss:
     specifier: 8.4.33
     version: 8.4.33
@@ -108,8 +108,8 @@ dependencies:
     specifier: ^4.4.1
     version: 4.4.1(react-dom@18.2.0)(react@18.2.0)
   react-i18next:
-    specifier: ^13.2.2
-    version: 13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^14.0.0
+    version: 14.0.1(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0)
   sonner:
     specifier: ^1.0.3
     version: 1.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -788,7 +788,7 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
       '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.51)(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.51
       '@types/react-dom': 18.2.18
@@ -1094,7 +1094,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
       '@types/react': 18.2.51
       react: 18.2.0
     dev: false
@@ -1123,7 +1123,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
       '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.2.51)(react@18.2.0)
       '@types/react': 18.2.51
       react: 18.2.0
@@ -1138,7 +1138,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
       '@types/react': 18.2.51
       react: 18.2.0
     dev: false
@@ -1152,7 +1152,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
       '@radix-ui/rect': 1.0.1
       '@types/react': 18.2.51
       react: 18.2.0
@@ -1167,7 +1167,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
       '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.51)(react@18.2.0)
       '@types/react': 18.2.51
       react: 18.2.0
@@ -1197,7 +1197,7 @@ packages:
   /@radix-ui/rect@1.0.1:
     resolution: {integrity: sha512-fyrgCaedtvMg9NK3en0pnOYJdtfwxUcNolezkNPUsoX57X8oQk+NkqcvzHXD2uKNij6GXmWU9NDru2IWjrO4BQ==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
     dev: false
 
   /@rollup/rollup-android-arm-eabi@4.9.6:
@@ -3756,7 +3756,7 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: false
 
-  /next-i18next@15.0.0(i18next@23.5.1)(next@14.1.0)(react-i18next@13.2.2)(react@18.2.0):
+  /next-i18next@15.0.0(i18next@23.5.1)(next@14.1.0)(react-i18next@14.0.1)(react@18.2.0):
     resolution: {integrity: sha512-9iGEU4dt1YCC5CXh6H8YHmDpmeWKjxES6XfoABxy9mmfaLLJcqS92F56ZKmVuZUPXEOLtgY/JtsnxsHYom9J4g==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -3773,7 +3773,7 @@ packages:
       i18next-fs-backend: 2.2.0
       next: 14.1.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
-      react-i18next: 13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0)
+      react-i18next: 14.0.1(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /next@14.1.0(react-dom@18.2.0)(react@18.2.0):
@@ -4267,8 +4267,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /react-i18next@13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-+nFUkbRByFwnrfDcYqvzBuaeZb+nACHx+fAWN/pZMddWOCJH5hoc21+Sa/N/Lqi6ne6/9wC/qRGOoQhJa6IkEQ==}
+  /react-i18next@14.0.1(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-TMV8hFismBmpMdIehoFHin/okfvgjFhp723RYgIqB4XyhDobVMyukyM3Z8wtTRmajyFMZrBl/OaaXF2P6WjUAw==}
     peerDependencies:
       i18next: '>= 23.2.3'
       react: '>= 16.8.0'
@@ -4280,7 +4280,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.2
       html-parse-stringify: 3.0.1
       i18next: 23.5.1
       react: 18.2.0
