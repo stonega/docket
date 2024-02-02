@@ -7,7 +7,7 @@ export default function Page() {
     <div className="h-[100vh] grid grid-cols-1 md:grid-cols-2 items-center">
       <div
         className={classnames(
-          "mx-auto w-60 text-5xl font-semibold font-serif dark:text-white text-center tracking-wide",
+          "mx-auto w-60 text-5xl font-serif dark:text-white text-center tracking-wide",
           playfair.variable
         )}
       >

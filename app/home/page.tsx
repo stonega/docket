@@ -1,9 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
-import Image from "next/image";
-import { playfair } from "../fonts";
-import classnames from "classnames";
-import Link from "next/link";
 import SearchBar from "./search-bar";
 import SiteList from "./site-list";
 import SearchResult from "./search-result";
@@ -16,16 +12,6 @@ export default async function Page({
 }) {
   const { userId } = auth();
   if (!userId) return null;
-  const data = await prisma.site.findMany({
-    skip: 0,
-    take: 20,
-    where: {
-      userId: userId,
-    },
-    orderBy: {
-      updateAt: "desc",
-    },
-  });
   return (
     <main className="w-full md:w-[800px] m-auto mt-0 md:mt-10 py-4 md:py-0 flex flex-col items-start justify-start">
       <SearchBar></SearchBar>

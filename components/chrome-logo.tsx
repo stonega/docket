@@ -6,7 +6,7 @@ export default function ChromeLogo({ className }: { className?: string }) {
       y="0px"
       viewBox="0 0 512 512"
       className={className}
-      enable-background="new 0 0 512 512"
+      enableBackground="new 0 0 512 512"
     >
       <path
         fill="#FFFFFF"

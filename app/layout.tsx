@@ -30,7 +30,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body
-          className={cl(inter.className, "bg-yellow-50 dark:bg-yellow-950")}
+          className={cl(inter.className, "bg-yellow-50 dark:bg-gray-900")}
         >
           <Toaster
             position="top-center"

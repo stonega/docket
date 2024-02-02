@@ -16,7 +16,7 @@ const Header = () => {
         Docket
       </Link>
       <div className="flex flex-row space-x-4 items-center">
-        <UserButton afterSignOutUrl="/dashboard" />
+        <UserButton afterSignOutUrl="/home" />
       </div>
     </div>
   );
