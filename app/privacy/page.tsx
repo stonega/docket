@@ -110,7 +110,7 @@ export default function Privacy() {
             <p>
               <strong>Website</strong> refers to Docket, accessible from{" "}
               <a
-                href="https://docket.stonegate.me"
+                href="https://docket.space"
                 rel="external nofollow noopener"
                 target="_blank"
               >
@@ -545,7 +545,7 @@ export default function Privacy() {
           us:
         </p>
         <ul>
-          <li>By email: hello@stonegate.me</li>
+          <li>By email: hello@docket.space</li>
         </ul>
       </article>
     </>

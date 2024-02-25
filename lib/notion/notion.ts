@@ -113,7 +113,7 @@ export class Notion {
         icon: {
           type: "external",
           external: {
-            url: "https://docket.stonegate.me/docket.png",
+            url: "https://docket.space/docket.png",
           },
         },
       });
