@@ -10,7 +10,7 @@ dependencies:
     version: 5.0.0-alpha-v5.2(eslint@8.57.0)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
   '@notionhq/client':
     specifier: ^2.2.13
-    version: 2.2.13
+    version: 2.2.14
   '@prisma/client':
     specifier: 5.9.1
     version: 5.9.1(prisma@5.6.0)
@@ -719,17 +719,17 @@ packages:
     resolution: {integrity: sha512-m7zZ5l3RUktayf1lRBV1XMb8HSKsmWTv/LZPqP7UGC1NMzOlc+bbTOPNQ4CP/c1P4cP61VWLb/zBq7a3c0nMaw==}
     engines: {node: '>=12'}
     dependencies:
-      '@types/node-fetch': 2.6.2
+      '@types/node-fetch': 2.6.11
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@notionhq/client@2.2.13:
-    resolution: {integrity: sha512-wJpEl30QUSy2K3/Q2c2knNiZlLXJ17JnQgaIiFbN68IMJy+2TE9fXLxvV1N/cMVs2+SpteAa6PlyrUgfGdlmDg==}
+  /@notionhq/client@2.2.14:
+    resolution: {integrity: sha512-oqUefZtCiJPCX+74A1Os9OVTef3fSnVWe2eVQtU1HJSD+nsfxfhwvDKnzJTh2Tw1ZHKLxpieHB/nzGdY+Uo12A==}
     engines: {node: '>=12'}
     dependencies:
-      '@types/node-fetch': 2.6.2
+      '@types/node-fetch': 2.6.11
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
@@ -1378,6 +1378,12 @@ packages:
     resolution: {integrity: sha512-PwBsCBD3lDODn4xpje3Y1di0aDJp4Ww7aSfMRVw6ysnxD4I7Wmq2mBkSKaDtN403hqH5sp6c9xQUvFYY3+lkBg==}
     dev: false
 
+  /@types/hast@2.3.10:
+    resolution: {integrity: sha512-McWspRw8xx8J9HurkVBfYj0xKoE25tOFlHGdx4MJ5xORQrMGZNqJhVQWaIbm6Oyla5kYOXtDiopzKRJzEOkwJw==}
+    dependencies:
+      '@types/unist': 2.0.10
+    dev: false
+
   /@types/hast@2.3.8:
     resolution: {integrity: sha512-aMIqAlFd2wTIDZuvLbhUT+TGvMxrNC8ECUIVtH6xxy0sQLs3iu6NO8Kp/VT5je7i5ufnebXzdV1dNDMnvaH6IQ==}
     dependencies:
@@ -1421,11 +1427,11 @@ packages:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: false
 
-  /@types/node-fetch@2.6.2:
-    resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
+  /@types/node-fetch@2.6.11:
+    resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
     dependencies:
       '@types/node': 20.11.16
-      form-data: 3.0.1
+      form-data: 4.0.0
     dev: false
 
   /@types/node@20.11.16:
@@ -2267,8 +2273,8 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dev: true
 
-  /diff@5.1.0:
-    resolution: {integrity: sha512-D+mk+qE8VC/PAUrlAU34N+VfXev0ghe5ywmpqrawphmVZc1bEfn56uo9qpyGp1p4xpzOHkSW4ztBd6L7Xx4ACw==}
+  /diff@5.2.0:
+    resolution: {integrity: sha512-uIFDxqpRZGZ6ThOk84hEfqWoHx2devRFvpTZcTHur85vImfaxUbTW9Ryh4CpCuDnToOP1CEtXKIgytHBPVff5A==}
     engines: {node: '>=0.3.1'}
     dev: false
 
@@ -3080,15 +3086,6 @@ packages:
       signal-exit: 4.1.0
     dev: false
 
-  /form-data@3.0.1:
-    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-    dev: false
-
   /form-data@4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
@@ -3383,7 +3380,7 @@ packages:
   /hast-util-is-body-ok-link@2.0.0:
     resolution: {integrity: sha512-S58hCexyKdD31vMsErvgLfflW6vYWo/ixRLPJTtkOvLld24vyI8vmYmkgLA5LG3la2ME7nm7dLGdm48gfLRBfw==}
     dependencies:
-      '@types/hast': 2.3.8
+      '@types/hast': 2.3.10
       hast-util-has-property: 2.0.1
       hast-util-is-element: 2.1.3
     dev: false
@@ -3397,7 +3394,7 @@ packages:
   /hast-util-is-element@2.1.3:
     resolution: {integrity: sha512-O1bKah6mhgEq2WtVMk+Ta5K7pPMqsBBlmzysLdcwKVrqzZQ0CHqUPiIVspNhAG1rvxpvJjtGee17XfauZYKqVA==}
     dependencies:
-      '@types/hast': 2.3.8
+      '@types/hast': 2.3.10
       '@types/unist': 2.0.10
     dev: false
 
@@ -3422,7 +3419,7 @@ packages:
   /hast-util-phrasing@2.0.2:
     resolution: {integrity: sha512-yGkCfPkkfCyiLfK6KEl/orMDr/zgCnq/NaO9HfULx6/Zga5fso5eqQA5Ov/JZVqACygvw9shRYWgXNcG2ilo7w==}
     dependencies:
-      '@types/hast': 2.3.8
+      '@types/hast': 2.3.10
       hast-util-embedded: 2.0.1
       hast-util-has-property: 2.0.1
       hast-util-is-body-ok-link: 2.0.0
@@ -3497,7 +3494,7 @@ packages:
     resolution: {integrity: sha512-tfmBLASuCgyhCzpkTXM5kU8xeuS5jkMZ17BYm2YftGT5wvgc7uHXTZ/X8WfNd6F5NV/IGmrLsuahZ+jXQir4zQ==}
     dependencies:
       '@types/extend': 3.0.4
-      '@types/hast': 2.3.8
+      '@types/hast': 2.3.10
       '@types/mdast': 3.0.15
       '@types/unist': 2.0.10
       extend: 3.0.2
@@ -3528,7 +3525,7 @@ packages:
   /hast-util-to-text@3.1.2:
     resolution: {integrity: sha512-tcllLfp23dJJ+ju5wCCZHVpzsQQ43+moJbqVX3jNWPB7z/KFC4FyZD6R7y94cHL6MQ33YtMZL8Z0aIXXI4XFTw==}
     dependencies:
-      '@types/hast': 2.3.8
+      '@types/hast': 2.3.10
       '@types/unist': 2.0.10
       hast-util-is-element: 2.1.3
       unist-util-find-after: 4.0.1
@@ -5458,7 +5455,7 @@ packages:
   /rehype-minify-whitespace@5.0.1:
     resolution: {integrity: sha512-PPp4lWJiBPlePI/dv1BeYktbwkfgXkrK59MUa+tYbMPgleod+4DvFK2PLU0O0O60/xuhHfiR9GUIUlXTU8sRIQ==}
     dependencies:
-      '@types/hast': 2.3.8
+      '@types/hast': 2.3.10
       hast-util-embedded: 2.0.1
       hast-util-is-element: 2.1.3
       hast-util-whitespace: 2.0.1
@@ -5501,7 +5498,7 @@ packages:
   /rehype-remark@9.1.2:
     resolution: {integrity: sha512-c0fG3/CrJ95zAQ07xqHSkdpZybwdsY7X5dNWvgL2XqLKZuqmG3+vk6kP/4miCnp+R+x/0uKKRSpfXb9aGR8Z5w==}
     dependencies:
-      '@types/hast': 2.3.8
+      '@types/hast': 2.3.10
       '@types/mdast': 3.0.15
       hast-util-to-mdast: 8.4.1
       unified: 10.1.2
@@ -6361,7 +6358,7 @@ packages:
     hasBin: true
     dependencies:
       dequal: 2.0.3
-      diff: 5.1.0
+      diff: 5.2.0
       kleur: 4.1.5
       sade: 1.8.1
     dev: false
