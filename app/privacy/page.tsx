@@ -114,7 +114,7 @@ export default function Privacy() {
                 rel="external nofollow noopener"
                 target="_blank"
               >
-                https://docket.stonegate.me
+                https://docket.space
               </a>
             </p>
           </li>
