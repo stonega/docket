@@ -43,7 +43,7 @@ dependencies:
     version: 18.2.19
   '@types/react-highlight':
     specifier: ^0.12.7
-    version: 0.12.7
+    version: 0.12.8
   ahooks:
     specifier: ^3.7.8
     version: 3.7.8(react@18.2.0)
@@ -1480,8 +1480,8 @@ packages:
       '@types/react': 18.2.60
     dev: false
 
-  /@types/react-highlight@0.12.7:
-    resolution: {integrity: sha512-szwwyD8LpTtsk4/NjHwyTofYDoazo3rmGOMkgDYy/V3zD4VNh6yS8tk70Qvj5czdBCnOV/AtaLf4VxBfaelwEQ==}
+  /@types/react-highlight@0.12.8:
+    resolution: {integrity: sha512-V7O7zwXUw8WSPd//YUO8sz489J/EeobJljASGhP0rClrvq+1Y1qWEpToGu+Pp7YuChxhAXSgkLkrOYpZX5A62g==}
     dependencies:
       '@types/react': 18.2.60
     dev: false
