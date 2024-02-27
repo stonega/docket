@@ -53,6 +53,7 @@ body {
 pre {
   padding: 0.5rem 0.8rem !important;
   margin: 0 !important;
+  background: rgb(254 249 195);
 }
 pre > code {
   background: none !important;

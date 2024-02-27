@@ -23,7 +23,6 @@ export default function MenuDropdown({ link, siteId }: MenuDropdownProps) {
       body: JSON.stringify({ id: siteId }),
     });
     toast.success("Ste deleted");
-    console.log(window.history.length);
     if (window.history.length === 1) {
       router.replace("/home");
     } else {
