@@ -91,7 +91,7 @@ dependencies:
     version: 2.3.0
   jotai:
     specifier: ^2.5.0
-    version: 2.5.0(@types/react@18.2.60)(react@18.2.0)
+    version: 2.7.0(@types/react@18.2.60)(react@18.2.0)
   mdast-util-to-markdown:
     specifier: ^2.1.0
     version: 2.1.0
@@ -3898,8 +3898,8 @@ packages:
     resolution: {integrity: sha512-5eEbBDQT/jF1xg6l36P+mWGGoH9Spuy0PCdSr2dtWRDGC6ph/w9ZCL4lmESW8f8F7MwT3XKescfP0wnZWAKL9w==}
     hasBin: true
 
-  /jotai@2.5.0(@types/react@18.2.60)(react@18.2.0):
-    resolution: {integrity: sha512-iPJDFrhNw3KU4o4SSAESeZoW+nM1L/76VULXZWF23qmivBEcbAQjiF5n1W4Hn5dXAol4tmtEYe4HH7d9emEz0Q==}
+  /jotai@2.7.0(@types/react@18.2.60)(react@18.2.0):
+    resolution: {integrity: sha512-4qsyFKu4MprI39rj2uoItyhu24NoCHzkOV7z70PQr65SpzV6CSyhQvVIfbNlNqOIOspNMdf5OK+kTXLvqe63Jw==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
