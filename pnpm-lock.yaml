@@ -88,7 +88,7 @@ importers:
         version: 0.1.1(rehype-notion@0.1.1)
       i18next:
         specifier: ^23.5.1
-        version: 23.11.4
+        version: 23.12.2
       isomorphic-dompurify:
         specifier: ^2.0.0
         version: 2.10.0
@@ -103,7 +103,7 @@ importers:
         version: 14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-i18next:
         specifier: ^15.0.0
-        version: 15.3.0(i18next@23.11.4)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@14.1.1(i18next@23.11.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 15.3.0(i18next@23.12.2)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@14.1.1(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       postcss:
         specifier: 8.4.35
         version: 8.4.35
@@ -130,7 +130,7 @@ importers:
         version: 4.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-i18next:
         specifier: ^14.0.0
-        version: 14.1.1(i18next@23.11.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 14.1.1(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       sonner:
         specifier: ^1.0.3
         version: 1.4.41(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -165,6 +165,10 @@ packages:
 
   '@babel/runtime@7.24.5':
     resolution: {integrity: sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/runtime@7.25.0':
+    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
     engines: {node: '>=6.9.0'}
 
   '@clerk/backend@0.38.12':
@@ -378,6 +382,7 @@ packages:
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -385,6 +390,7 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+    deprecated: Use @eslint/object-schema instead
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -1400,6 +1406,15 @@ packages:
       supports-color:
         optional: true
 
+  debug@4.3.6:
+    resolution: {integrity: sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
   decimal.js@10.4.3:
     resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
 
@@ -2004,8 +2019,8 @@ packages:
   i18next-fs-backend@2.3.1:
     resolution: {integrity: sha512-tvfXskmG/9o+TJ5Fxu54sSO5OkY6d+uMn+K6JiUGLJrwxAVfer+8V3nU8jq3ts9Pe5lXJv4b1N7foIjJ8Iy2Gg==}
 
-  i18next@23.11.4:
-    resolution: {integrity: sha512-CCUjtd5TfaCl+mLUzAA0uPSN+AVn4fP/kWCYt/hocPUwusTpMVczdrRyOBUwk6N05iH40qiKx6q1DoNJtBIwdg==}
+  i18next@23.12.2:
+    resolution: {integrity: sha512-XIeh5V+bi8SJSWGL3jqbTEBW5oD6rbP5L+E7dVQh1MNTxxYef0x15rhJVcRb7oiuq4jLtgy2SD8eFlf6P2cmqg==}
 
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
@@ -3707,6 +3722,10 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
+  '@babel/runtime@7.25.0':
+    dependencies:
+      regenerator-runtime: 0.14.1
+
   '@clerk/backend@0.38.12(react@18.3.1)':
     dependencies:
       '@clerk/shared': 1.4.1(react@18.3.1)
@@ -4944,6 +4963,10 @@ snapshots:
     dependencies:
       ms: 2.1.2
 
+  debug@4.3.6:
+    dependencies:
+      ms: 2.1.2
+
   decimal.js@10.4.3: {}
 
   decode-named-character-reference@1.0.2:
@@ -5863,9 +5886,9 @@ snapshots:
 
   i18next-fs-backend@2.3.1: {}
 
-  i18next@23.11.4:
+  i18next@23.12.2:
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.25.0
 
   iconv-lite@0.6.3:
     dependencies:
@@ -6567,7 +6590,7 @@ snapshots:
   micromark@3.2.0:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.3.4
+      debug: 4.3.6
       decode-named-character-reference: 1.0.2
       micromark-core-commonmark: 1.1.0
       micromark-factory-space: 1.1.0
@@ -6638,17 +6661,17 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-i18next@15.3.0(i18next@23.11.4)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@14.1.1(i18next@23.11.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  next-i18next@15.3.0(i18next@23.12.2)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@14.1.1(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.5
       '@types/hoist-non-react-statics': 3.3.5
       core-js: 3.37.1
       hoist-non-react-statics: 3.3.2
-      i18next: 23.11.4
+      i18next: 23.12.2
       i18next-fs-backend: 2.3.1
       next: 14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
-      react-i18next: 14.1.1(i18next@23.11.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next: 14.1.1(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -6967,11 +6990,11 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-i18next@14.1.1(i18next@23.11.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-i18next@14.1.1(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.5
       html-parse-stringify: 3.0.1
-      i18next: 23.11.4
+      i18next: 23.12.2
       react: 18.3.1
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
