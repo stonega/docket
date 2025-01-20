@@ -19,7 +19,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@tryfabric/martian": "^1.2.4",
     "@types/chrome": "^0.0.294",
-    "@types/node": "20.17.12",
+    "@types/node": "20.17.14",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "@types/react-highlight": "^0.12.7",
