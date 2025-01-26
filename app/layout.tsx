@@ -17,12 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider
+      afterSignOutUrl="/home"
       appearance={{
         variables: {
           colorPrimary: "#eab308",
         },
         elements: {
-          userButtonPopoverCard: "rounded-none shadow-md",
+          userButtonPopoverCard: "rounded-none",
           card: "rounded-none shadow-md",
           scrollBox: "rounded-none",
         },
@@ -30,7 +31,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body
-          className={cl(inter.className, "bg-yellow-50 dark:bg-gray-900")}
+          className={cl(inter.className, "bg-cream-100 dark:bg-cream-800")}
         >
           <Toaster
             position="top-center"

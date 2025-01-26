@@ -1,24 +1,30 @@
 import { UserButton } from "@clerk/nextjs";
+import { auth } from '@clerk/nextjs/server';
 import classnames from "classnames";
-import { playfair } from "./fonts";
+import { fraunces } from "./fonts";
 import Link from "next/link";
+import Logo from "@/components/logo";
 
-const Header = () => {
+const Header = async () => {
+  const { userId } = await auth()
   return (
-    <div className="fixed top-0 w-full flex flex-row justify-between px-4 py-2 shadow-sm">
+    <div className="sticky bg-cream-100 top-2 w-full flex justify-between px-4 border-y border-black">
       <Link
         href="/"
         className={classnames(
-          "text-3xl font-semibold font-serif dark:text-white",
-          playfair.variable,
+          "inline-flex p-2 text-3xl font-semibold font-serif dark:text-white border-x border-black",
+          fraunces.className
         )}
       >
-        Docket
+        <Logo className="w-8 me-2"></Logo>
+        <span>Docket</span>
       </Link>
-      <div className="flex flex-row space-x-4 items-center">
-        <UserButton afterSignOutUrl="/home" />
+      <div className="flex flex-row space-x-4 items-center border-l border-black px-4">
+        {
+          userId ? <UserButton /> : <Link href="/home" className="font-bold cursor-pointer">Log In</Link>
+        }
       </div>
-    </div>
+    </div >
   );
 };
 

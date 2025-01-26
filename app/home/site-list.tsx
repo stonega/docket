@@ -14,16 +14,16 @@ export default function SiteList() {
   const [oneColumn] = useAtom(siteOneColumnLayoutAtom);
 
   return (
-    <div className="mt-2 w-full">
+    <div className="w-full md:w-[800px] m-auto mt-2 w-full">
       <Grid>
         {records &&
           records.map((record) => <SiteCard site={record} key={record.id} />)}
         {isLoading &&
           ["✨", "✨"].map((_, index) => (
-            <>
+            <div key={index}>
               <div
                 className={classnames(
-                  "bg-yellow-100 dark:bg-yellow-700 border-2 border-yellow-200 dark:border-yellow-800 relative p-2 flex after:w-[1.414rem] after:h-[1.414rem] after:bg-yellow-50 dark:after:bg-yellow-950 after:border-b-2 after:border-b-yellow-200 dark:after:border-b-yellow-800 after:absolute after:right-0 after:-top-[0.414rem] after:rotate-45 after:origin-bottom-right",
+                  "bg-cream-200 dark:bg-yellow-700 rounded-md border border-black dark:border-yellow-800 relative p-2 flex",
                   {
                     "h-20 flex-row": oneColumn,
                     "h-40 flex-col": !oneColumn,
@@ -66,7 +66,7 @@ export default function SiteList() {
                   ></div>
                 </div>
               </div>
-            </>
+            </div>
           ))}
       </Grid>
       <LoadMore
