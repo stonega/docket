@@ -14,7 +14,7 @@ export default function SiteList() {
   const [oneColumn] = useAtom(siteOneColumnLayoutAtom);
 
   return (
-    <div className="w-full md:w-[800px] m-auto mt-2 w-full">
+    <div className="md:w-[800px] m-auto mt-2 w-full">
       <Grid>
         {records &&
           records.map((record) => <SiteCard site={record} key={record.id} />)}
