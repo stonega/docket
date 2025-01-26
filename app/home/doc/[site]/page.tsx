@@ -1,5 +1,5 @@
 import BackButton from "@/components/back-button";
-import ExcerptsList from "./excerpts_list";
+import ExcerptsList from "./excerpts-list";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { ExternalLinkIcon, Pencil2Icon } from "@radix-ui/react-icons";
@@ -19,16 +19,16 @@ export default async function Page({ params }: { params: { site: string } }) {
   });
   if (!site) return null;
   return (
-    <div className="mt-0 md:mt-10 mb-20 w-full md:w-[800px] mx-auto flex flex-col h-full dark:text-white px-4 md:px-0">
-      <div className="h-[40px] bg-orange-100/80 dark:bg-orange-500/80 sticky top-10 px-4 rounded-full w-full flex flex-row justify-between items-center">
+    <div className="grow border border-t-0 border-black pb-4 h-full w-full md:w-[800px] bg-cream-100 mx-auto flex flex-col dark:text-white">
+      <div className="border-b border-black bg-[#23a094] h-[60px] sticky top-[60px] px-4 w-full flex flex-row justify-between items-center">
         <BackButton>
           {site.icon ? (
             <Image
               alt={site.title}
               src={site.icon}
               unoptimized
-              width={20}
-              height={20}
+              width={24}
+              height={24}
               className="mx-4"
             />
           ) : (
@@ -36,20 +36,20 @@ export default async function Page({ params }: { params: { site: string } }) {
               alt={site.title}
               src={`https://avatar.tobi.sh/${site.title}.png`}
               unoptimized
-              width={20}
-              height={20}
+              width={24}
+              height={24}
               className="mx-4 rounded-full"
             />
           )}
         </BackButton>
         <div className="flex flex-row space-x-4 items-center">
           <a target="_blank" href={site.url}>
-            <ExternalLinkIcon className="h-4 w-4" />
+            <ExternalLinkIcon className="size-6" />
           </a>
           <MenuDropdown link={site.url} siteId={site.id} />
         </div>
       </div>
-      <div className="my-4">
+      <div className="m-4">
         <Title site={site} />
       </div>
       <ExcerptsList excerpts={excerpts} siteUrl={site.url} />

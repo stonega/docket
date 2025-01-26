@@ -1,7 +1,7 @@
 import { NotionLogoIcon } from "@radix-ui/react-icons";
 import { redirect } from "next/navigation";
 import queryString from "query-string";
-import { clerkClient, currentUser } from "@clerk/nextjs";
+import { clerkClient, currentUser } from "@clerk/nextjs/server";
 
 const notionUrl = "https://api.notion.com/v1/oauth/authorize";
 const redirectUrl = "http://localhost:3000/home/settings";

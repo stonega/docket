@@ -1,15 +1,15 @@
-import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default authMiddleware({
-  publicRoutes: ["/", "/privacy"],
-  afterAuth: (auth, request) => {
-    if (auth.isPublicRoute) {
-      return NextResponse.next();
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/', '/privacy'])
+
+export default clerkMiddleware(
+  async (auth, request) => {
+    if (!isPublicRoute(request)) {
+      await auth.protect()
     }
-    if (!auth.userId) {
-      return redirectToSignIn({ returnBackUrl: request.url });
-    }
+    // if (!auth.userId) {
+    //   return redirectToSignIn({ returnBackUrl: request.url });
+    // }
     if (request.method === "OPTIONS") {
       const origin = request.headers.get("origin");
       return new Response(null, {
@@ -24,8 +24,13 @@ export default authMiddleware({
       });
     }
   },
-});
+);
 
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+   matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
 };

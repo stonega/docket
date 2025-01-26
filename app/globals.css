@@ -7,7 +7,7 @@
     @apply w-full rounded-lg border-0 bg-white/40 p-2 font-mono text-black placeholder:text-slate-400 focus:border-yellow-500 focus:ring-yellow-300 active:border-yellow-500 dark:bg-black/40 dark:text-white dark:placeholder:text-slate-200;
   }
   .input {
-    @apply py-2 border-2 border-yellow-400 dark:border-yellow-600 bg-white/60 px-2 focus:border-yellow-500 focus:outline-none focus:ring-yellow-400 focus-visible:border-yellow-500  active:border-yellow-500 dark:bg-black/60 dark:text-white dark:placeholder:text-slate-300;
+    @apply py-2 rounded-md border border-black dark:border-white bg-white/60 px-2 focus:border-yellow-500 focus:outline-none focus:ring-yellow-400 focus-visible:border-yellow-500  active:border-yellow-500 dark:bg-black/60 dark:text-white dark:placeholder:text-slate-300;
   }
   .select {
     @apply h-12 rounded-md border-2 border-black bg-white px-2;
@@ -16,7 +16,7 @@
     @apply mb-4 block text-2xl;
   }
   .card {
-    @apply rounded-md border-2 border-yellow-500 hover:bg-yellow-100 p-4 dark:hover:bg-yellow-900 text-black dark:text-white;
+    @apply rounded-md border border-black hover:bg-cream-100 p-4 dark:hover:bg-yellow-900 text-black dark:text-white;
   }
 }
 
@@ -34,6 +34,10 @@
   }
 }
 
+* {
+  box-size: border-box;
+}
+
 .highlight-text {
   display: inline;
   background-size: 100% 95%;
@@ -42,14 +46,34 @@
     hsl(50deg 100% 50% / 100%) 0%,
     hsl(50deg 100% 50% / 100%) 2px,
     hsl(50deg 100% 50% / 20%) 2px,
-    hsl(50deg 100% 50% / 20%) 100%
   ) !important;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  font-family: var(--custom-font-playfair);
 }
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 1rem;
+  width: 1px;
+  height: 100%;
+  background-color: black;
+  z-index: 1-;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 1rem;
+  width: 1px;
+  height: 100%;
+  background-color: black;
+  z-index: 10;
+}
+
 pre {
   padding: 0.5rem 0.8rem !important;
   margin: 0 !important;

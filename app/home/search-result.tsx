@@ -18,7 +18,7 @@ export default function SearchResult() {
     });
   }, [searchParams, setOptions]);
   return (
-    <div className="flex flex-col w-full">
+    <div className="md:w-[800px] m-auto flex flex-col w-full">
       <h1 className="dark:text-white">
         Search Result for {searchParams.get("q")}
       </h1>
