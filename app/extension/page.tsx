@@ -2,13 +2,14 @@
 import { useAuth } from "@clerk/nextjs";
 import { useAsyncEffect } from "ahooks";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from 'react'
 import { useUser } from "@clerk/nextjs";
 
 const docketExtensionId =
   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!.startsWith("pk_test")
     ? "ijbccfkkejndajdiognflbmbbebboaeh"
     : "pbnonpcfnmdbfmabpjfllgljbfkccjco";
-const Extension = () => {
+function Extension() {
   const { getToken } = useAuth();
   const params = useSearchParams();
   const { isLoaded, user } = useUser();
@@ -41,5 +42,10 @@ const Extension = () => {
     </div>
   );
 };
-
-export default Extension;
+export default function ExtensionPage() {
+  return (
+    <Suspense>
+      <Extension />
+    </Suspense>
+  )
+}
