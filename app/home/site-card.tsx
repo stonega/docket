@@ -1,5 +1,7 @@
 "use client";
+import ExternalIcon from "@/components/external-icon";
 import { Site } from "@prisma/client";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -12,11 +14,11 @@ export default function SiteCard({ site }: SiteCardProps) {
     <>
       <div
         key="record.id"
-        className="group aspect-[3/1] rounded-md h-48 bg-cream-200 border justify-between border-black relative p-2 hover:bg-yellow-200 cursor-pointer flex flex-col"
+        className="group rounded-md w-full bg-cream-200 border justify-between border-black relative hover:bg-yellow-200 cursor-pointer flex flex-col"
         onClick={() => router.push(`/home/doc/${site.id}`)}
       >
-        {site.icon ? (
-          <Image
+        <div className="grow flex flex-col p-2">
+          {site.icon ? (<Image
             alt={site.title}
             src={site.icon}
             unoptimized
@@ -24,26 +26,23 @@ export default function SiteCard({ site }: SiteCardProps) {
             height={35}
             className="my-2 mx-auto"
           />
-        ) : (
-          <Image
-            alt={site.title}
-            src={`https://avatar.tobi.sh/${site.title}.png`}
-            unoptimized
-            width={35}
-            height={35}
-            className="my-2 mx-auto rounded-full"
-          />
-        )}
-        <div className="font-bold line-clamp-2 text-lg text-ellipsis overflow-hidden text-center dark:text-stone-300">
-          {site.title}
+          ) : (
+            <Image
+              alt={site.title}
+              src={`https://avatar.tobi.sh/${site.title}.png`}
+              unoptimized
+              width={35}
+              height={35}
+              className="my-2 mx-auto rounded-full"
+            />
+          )}
+          <div className="font-bold line-clamp-2 text-lg text-ellipsis overflow-hidden text-center">
+            {site.title}
+          </div>
         </div>
-
-        <div className="h-12 w-full overflow-hidden">
-          {/* <div className="w-full group-hover:translate-y-0 translate-y-32 transition ease mt-4 flex flex-row justify-center items-center">
-            <div className="p-1.5 hover:bg-yellow-400">
-              <TrashIcon></TrashIcon>
-            </div>
-          </div> */}
+        <div className="border-t border-black p-2 w-full inline-flex jusitfy-center line-clamp-1 text-sm text-ellipsis overflow-hidden text-center underline">
+          <span>{site.url}</span>
+          <ExternalLinkIcon className="size-4 ms-1" />
         </div>
       </div>
     </>
