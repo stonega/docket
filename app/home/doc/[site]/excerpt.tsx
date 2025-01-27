@@ -2,17 +2,17 @@ import { useConfirmModal } from "@/components/confirm-modal";
 import ExcerptCard from "@/components/excerpt-card";
 import Tooltip from "@/components/tooltip";
 import { dateFromNow, formateDate } from "@/lib/utils";
-import { Excerpt } from "@prisma/client";
+import { Excerpt as ExcerptType } from "@prisma/client";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
-const Excerpt = ({
+export default function Excerpt({
   excerpt,
   siteUrl,
 }: {
-  excerpt: Excerpt;
+  excerpt: ExcerptType;
   siteUrl: string;
-}) => {
+}) {
   const { setShowConfirmModal, ConfirmModal } = useConfirmModal(async () => {
     await fetch(`/api/excerpt/`, {
       method: "DELETE",
@@ -79,4 +79,3 @@ const Excerpt = ({
   );
 };
 
-export default Excerpt;
