@@ -8,7 +8,7 @@ const redirectUrl = "http://localhost:3000/home/settings";
 export default async function SettingsPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const searchQuery = queryString.stringify({
     response_type: "code",
@@ -16,7 +16,7 @@ export default async function SettingsPage({
     owner: "user",
     redirect_uri: redirectUrl,
   });
-  const code = searchParams["code"];
+  const code = (await searchParams)["code"];
   let user = await currentUser();
   if (code) {
     const body = JSON.stringify({
