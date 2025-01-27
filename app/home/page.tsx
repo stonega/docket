@@ -7,7 +7,7 @@ import SearchResult from "./search-result";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { userId } = await auth()
 
@@ -15,7 +15,7 @@ export default async function Page({
   return (
     <main className="grow w-full flex flex-col items-start justify-start">
       <SearchBar></SearchBar>
-      {searchParams.q ? <SearchResult /> : <SiteList />}
+      {(await searchParams).q ? <SearchResult /> : <SiteList />}
     </main>
   );
 }

@@ -2,7 +2,7 @@ import BackButton from "@/components/back-button";
 import ExcerptsList from "./excerpts-list";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
-import { ExternalLinkIcon, Pencil2Icon } from "@radix-ui/react-icons";
+import ExternalIcon from "@/components/external-icon";
 import MenuDropdown from "./menu";
 import Title from "./title";
 
@@ -48,7 +48,7 @@ export default async function Page({
         </BackButton>
         <div className="flex flex-row space-x-4 items-center">
           <a target="_blank" href={site.url}>
-            <ExternalLinkIcon className="size-6" />
+            <ExternalIcon className="size-6" />
           </a>
           <MenuDropdown link={site.url} siteId={site.id} />
         </div>
