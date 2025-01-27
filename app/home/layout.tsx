@@ -42,7 +42,7 @@ export default function Layout({
   return (
     <main className="min-h-screen flex flex-col">
       <div className="sticky top-0 h-2 w-full bg-cream-100" />
-      <div className="sticky bg-cream-100 top-2 w-full flex justify-between px-4 border border-black">
+      <div className="sticky bg-cream-100 top-2 w-full flex justify-between px-4 border-y border-black">
         <div className="inline-flex items-center">
           <Link
             href="/"
