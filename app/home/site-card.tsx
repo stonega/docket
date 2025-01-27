@@ -12,7 +12,7 @@ export default function SiteCard({ site }: SiteCardProps) {
   return (
     <div
       key="record.id"
-      className="group rounded-md w-full bg-cream-200 border justify-between border-black hover:bg-yellow-200 cursor-pointer flex flex-col"
+      className="group rounded-md w-full bg-cream-200 dark:text-white dark:bg-cream-900 border justify-between border-black dark:border-white hover:bg-yellow-200 dark:hover:bg-yellow-700 cursor-pointer flex flex-col"
       onClick={() => router.push(`/home/doc/${site.id}`)}
     >
       <div className="grow flex flex-col px-2 py-4">
@@ -38,7 +38,9 @@ export default function SiteCard({ site }: SiteCardProps) {
           {site.title}
         </div>
       </div>
-      <a href={site.url} target="_blank" onClick={(event) => event.stopPropagation()} className="border-t border-black p-2 w-full inline-flex items-center line-clamp-1 text-sm text-ellipsis overflow-hidden text-center underline">
+      <a href={site.url} target="_blank"
+        onClick={(event) => event.stopPropagation()}
+        className="border-t border-black dark:border-white p-2 w-full inline-flex items-center line-clamp-1 text-sm text-ellipsis overflow-hidden text-center underline">
         <span>{site.url}</span>
         <ExternalLinkIcon className="size-4 ms-1" />
       </a>

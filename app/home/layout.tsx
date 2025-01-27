@@ -41,29 +41,31 @@ export default function Layout({
 
   return (
     <main className="min-h-screen flex flex-col">
-      <div className="sticky top-0 h-2 w-full bg-cream-100" />
-      <div className="sticky bg-white top-2 w-full flex justify-between px-4 border-y border-black">
+      <div className="sticky top-0 bg-white dark:bg-[#0a2328] h-2 w-full" />
+      <div className="sticky top-2 bg-white dark:bg-[#0a2328] w-full flex justify-between px-4 border-y border-black dark:border-white">
         <div className="inline-flex items-center">
           <Link
             href="/"
             className={classnames(
-              "inline-flex items-center p-2 text-3xl font-semibold font-serif dark:text-white border-e border-black",
+              "inline-flex items-center p-2 text-3xl font-semibold font-serif dark:text-white border-e border-black dark:border-white",
               fraunces.className
             )}
           >
             <Logo className="w-8 me-2"></Logo>
             <span>Docket</span>
           </Link>
-          <HamburgerMenuIcon
-            className="md:hidden w-6 h-6 text-stone-500 dark:text-stone-200 cursor-pointer ms-2"
-            onClick={() => setExpand(true)}
-          ></HamburgerMenuIcon>
+          {/* <HamburgerMenuIcon */}
+          {/*   className="md:hidden w-6 h-6 text-black dark:text-white cursor-pointer ms-2" */}
+          {/*   onClick={() => setExpand(true)} */}
+          {/* ></HamburgerMenuIcon> */}
         </div>
-        <div className="flex flex-row justify-end items-center space-x-2 border-s border-black px-4">
-          <UserButton />
-          {/* <div className="p-2 bg-yellow-100 dark:bg-yellow-700 rounded-full"> */}
-          {/*   <ThemeModeButton /> */}
-          {/* </div> */}
+        <div className="flex items-center justify-end">
+          <div className="h-full flex items-center border-l border-black dark:border-white px-4">
+            <ThemeModeButton />
+          </div>
+          <div className="h-full flex justify-end items-center border-s border-black dark:border-white px-4">
+            <UserButton />
+          </div>
         </div>
       </div >
       <div className="grow w-full m-auto flex flex-col items-start justify-start">

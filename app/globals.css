@@ -24,6 +24,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --border-color: black;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +32,7 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    --border-color: white;
   }
 }
 
@@ -60,8 +62,8 @@ body::after {
   left: 1rem;
   width: 1px;
   height: 100%;
-  background-color: black;
-  z-index: 1-;
+  z-index: 10;
+  @apply bg-black dark:bg-white;
 }
 body::before {
   content: "";
@@ -70,7 +72,7 @@ body::before {
   right: 1rem;
   width: 1px;
   height: 100%;
-  background-color: black;
+  @apply bg-black dark:bg-white;
   z-index: 10;
 }
 

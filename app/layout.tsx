@@ -31,7 +31,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body
-          className={cl(geist.className, "bg-cream-100 dark:bg-cream-800")}
+          className={cl(geist.className, "bg-white dark:bg-[#0a2328]")}
         >
           <Toaster
             position="top-center"
