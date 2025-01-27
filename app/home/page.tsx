@@ -7,7 +7,6 @@ import SearchResult from "./search-result";
 export default async function Page({
   searchParams,
 }: {
-  params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const { userId } = await auth()
