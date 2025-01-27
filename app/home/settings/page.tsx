@@ -41,7 +41,7 @@ export default async function SettingsPage({
       body,
     });
     const result = await response.json();
-    await clerkClient.users.updateUser(user!.id, {
+    await (await clerkClient()).users.updateUser(user!.id, {
       unsafeMetadata: { notion: result },
     });
 
