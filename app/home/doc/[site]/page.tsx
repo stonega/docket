@@ -6,8 +6,12 @@ import { ExternalLinkIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import MenuDropdown from "./menu";
 import Title from "./title";
 
-export default async function Page({ params }: { params: { site: string } }) {
-  const siteId = params.site;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ site: string }>;
+}) {
+  const siteId = (await params).site;
   const site = await prisma.site.findUnique({
     where: { id: siteId },
   });
