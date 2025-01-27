@@ -5,7 +5,7 @@ import { ExternalLinkIcon } from "@radix-ui/react-icons";
 export default function Loading() {
   return (
     <>
-      <div className="grow bg-cream-100 border border-t-0 border-black pb-20 w-full md:w-[800px] mx-auto flex flex-col h-full dark:text-white">
+      <div className="grow bg-cream-100 border border-t-0 border-black pb-20 container mx-auto flex flex-col h-full dark:text-white">
         <div className="border-b border-black bg-[#23a094] h-[60px] sticky top-[20px] px-4 w-full flex flex-row justify-between items-center">
           <BackButton>
             <Image

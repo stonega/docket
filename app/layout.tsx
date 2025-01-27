@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import cl from "classnames";
 import { Toaster } from "sonner";
-import { inter } from "./fonts";
+import { geist } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Docket",
@@ -31,7 +31,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body
-          className={cl(inter.className, "bg-cream-100 dark:bg-cream-800")}
+          className={cl(geist.className, "bg-cream-100 dark:bg-cream-800")}
         >
           <Toaster
             position="top-center"

@@ -14,8 +14,8 @@ export function LoadMore({
 }: LoadMoreProps) {
   if (!hasMore)
     return (
-      <div className="rounded-md border border-black mx-auto my-4 px-2 py-2 w-fit text-center text-sm dark:text-white">
-        No more data
+      <div className="mx-auto my-4 px-2 py-2 w-fit text-center text-sm dark:text-white">
+        No more data.
       </div>
     );
   if (isLoading)
@@ -27,7 +27,7 @@ export function LoadMore({
   if (empty)
     return (
       <div className="rounded-md dot-loader mx-auto py-2 my-4 w-fit text-center text-sm dark:text-white">
-        No data
+        No data.
       </div>
     );
   return (
@@ -37,7 +37,7 @@ export function LoadMore({
         if (hasMore) setPage((page) => page + 1);
       }}
     >
-      Load more
+      Load More
     </div>
   );
 }

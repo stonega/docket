@@ -27,31 +27,29 @@ export default function SearchBar() {
   }, [search]);
 
   return (
-    <div className="sticky top-[62px] bg-[#ffc900] w-full py-12 mb-4 border-b border-black z-10">
-      <div className="w-full px-4 md:w-[800px] mx-auto flex flex-row justify-between items-center">
-        <div className="relative w-full mr-2">
-          <input
-            className="w-full input"
-            placeholder="Search your docket"
-            value={search}
-            ref={ref}
-            onChange={(e) => {
-              setSearch(e.target.value);
+    <div className="sticky top-[62px] bg-[#ffc900] w-full py-12 mb-4 border-b border-black">
+      <div className="relative container mx-auto">
+        <input
+          className="w-full input"
+          placeholder="Search your docket"
+          value={search}
+          ref={ref}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+        />
+        {search ? (
+          <Cross1Icon
+            className="w-4 h-4 absolute right-2 my-auto text-stone-500 top-0 bottom-0 dark:text-stone-200 cursor-pointer"
+            onClick={() => {
+              setSearch("");
             }}
           />
-          {search ? (
-            <Cross1Icon
-              className="w-4 h-4 absolute right-2 my-auto text-stone-500 top-0 bottom-0 dark:text-stone-200 cursor-pointer"
-              onClick={() => {
-                setSearch("");
-              }}
-            />
-          ) : (
-            <kbd className="h-6 text-center absolute right-2 top-0 bottom-0 my-auto px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
-              Ctrl+k
-            </kbd>
-          )}
-        </div>
+        ) : (
+          <kbd className="h-6 text-center absolute right-2 top-0 bottom-0 my-auto px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
+            Ctrl+k
+          </kbd>
+        )}
       </div>
     </div>
   );

@@ -27,6 +27,16 @@ const config: Config = {
           950: '#402218',
         },
       },
+      container: {
+        padding: {
+          DEFAULT: '0',
+        },
+        screens: {
+          md: '728px',
+          lg: '984px',
+          xl: '1240px',
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

@@ -1,6 +1,6 @@
-import { Inter, Playfair, Fraunces, Francois_One } from "next/font/google";
+import {  Playfair, Fraunces, Geist } from "next/font/google";
 
-export const inter = Inter({ subsets: ["latin"] });
+export const geist = Geist({ subsets: ["latin"] });
 export const fraunces = Fraunces({ subsets: ['latin'] });
 export const playfair = Playfair({
   subsets: ["latin"],
