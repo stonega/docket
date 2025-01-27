@@ -1,5 +1,4 @@
 "use client";
-import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import BackIcon from "./back-icon";

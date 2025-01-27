@@ -7,7 +7,7 @@ import {
 } from "@radix-ui/react-icons";
 import Link from "next/link";
 import ThemeModeButton from "../../components/theme-mode-button";
-import { fraunces, playfair } from "../fonts";
+import { fraunces } from "../fonts";
 import classnames from "classnames";
 import { UserButton } from "@clerk/nextjs";
 import { menuAtom } from "@/store";

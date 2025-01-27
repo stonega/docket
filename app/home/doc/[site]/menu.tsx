@@ -14,7 +14,7 @@ interface MenuDropdownProps {
   link: string;
   siteId: string;
 }
-export default function MenuDropdown({ link, siteId }: MenuDropdownProps) {
+export default function MenuDropdown({ siteId }: MenuDropdownProps) {
   const [openPopover, setOpenPopover] = useState(false);
   const router = useRouter();
   const { setShowConfirmModal, ConfirmModal } = useConfirmModal(async () => {
@@ -28,7 +28,7 @@ export default function MenuDropdown({ link, siteId }: MenuDropdownProps) {
     } else {
       router.back();
     }
-    
+
   }, "Delete document site");
   return (
     <>

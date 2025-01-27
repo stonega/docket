@@ -16,7 +16,7 @@ export default function SearchBar() {
   useHotkeys(
     "ctrl+k",
     () => {
-      // @ts-ignore
+      // @ts-expect-error type error
       if (ref) ref.current!.focus();
     },
     { preventDefault: true }

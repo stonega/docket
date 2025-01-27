@@ -1,5 +1,4 @@
 "use client";
-
 import LoadingCircle from "@/components/loading-circle";
 import { Site } from "@prisma/client";
 import { Pencil2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
@@ -29,7 +28,6 @@ export default function Title({ site }: { site: Site }) {
       });
       toast.success("Title saved");
       router.refresh()
-    } catch (error) {
     } finally {
       setLoading(false);
       setEdit(false);

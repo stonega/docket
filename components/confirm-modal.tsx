@@ -6,7 +6,6 @@ import {
   useCallback,
   useMemo,
   ReactNode,
-  use,
 } from "react";
 import { toast } from "sonner";
 import Button from "./button";
@@ -66,7 +65,7 @@ const ConfirmModal = ({
             }}
             loading={loading}
           >
-           [YES] 
+            [YES]
           </Button>
         </div>
       </div>

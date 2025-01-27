@@ -17,7 +17,7 @@ export default async function SettingsPage({
     redirect_uri: redirectUrl,
   });
   const code = (await searchParams)["code"];
-  let user = await currentUser();
+  const user = await currentUser();
   if (code) {
     const body = JSON.stringify({
       grant_type: "authorization_code",

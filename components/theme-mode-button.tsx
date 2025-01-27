@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 
 const ThemeModeButton = () => {
-  let currentMode = "";
-  const [mode, setMode] = useState(currentMode);
+  const [mode, setMode] = useState("");
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||
@@ -12,12 +11,11 @@ const ThemeModeButton = () => {
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       document.documentElement.classList.add("dark");
-      currentMode = "dark";
+      setMode("dark");
     } else {
       document.documentElement.classList.remove("dark");
-      currentMode = "light";
+      setMode("light");
     }
-    setMode(currentMode);
   }, []);
   const toggleTheme = () => {
     if (mode === "dark") {

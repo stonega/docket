@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import SearchBar from "./search-bar";
 import SiteList from "./site-list";

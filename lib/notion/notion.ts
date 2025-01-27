@@ -70,7 +70,7 @@ export class Notion {
       const pageId = response.results[0].id;
       const children = htmlToNotion(excerpt.content);
       const page = await this.retrievePage(pageId);
-      const res = await this.client!.blocks.children.append({
+      await this.client!.blocks.children.append({
         block_id: page.id,
         children,
       });

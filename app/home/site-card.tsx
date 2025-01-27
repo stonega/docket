@@ -1,5 +1,4 @@
 "use client";
-import ExternalIcon from "@/components/external-icon";
 import { Site } from "@prisma/client";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import Image from "next/image";

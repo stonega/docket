@@ -41,19 +41,19 @@ export default function Page() {
         </div>
         <div className="bg-[#ffc900] py-2 flex flex-col items-center justify-center">
           <div className="flex px-6 lg:flex-row flex-col mt-4 space-y-4 lg:space-y-0 space-x-0 lg:space-x-4">
-            <div className="text-xl p-4 rounded-md w-full lg:w-60 bg-[#e5c2ff] border border-black">
+            <div className="text-xl p-4 rounded-md w-full max-w-60 bg-[#e5c2ff] border border-black">
               Select the text, right-click and choose{' '}
               <span className="text-orange-700 font-bold">
                 Highlight and save to Docket
               </span>
             </div>
-            <div className="text-xl p-4 rounded-md w-full lg:w-60 bg-[#a9effe] border border-black">
+            <div className="text-xl p-4 rounded-md w-full max-w-60 bg-[#a9effe] border border-black">
               Right click on image and select{' '}
               <span className="text-green-600 font-bold">
                 Save image to Docket
               </span>
             </div>
-            <div className="text-xl p-4 rounded-md w-full lg:w-60 bg-[#ffd674] border border-black">
+            <div className="text-xl p-4 rounded-md w-full max-w-60 bg-[#ffd674] border border-black">
               Save code by click little{' '}
               <img
                 className="inline w-6 h-6"

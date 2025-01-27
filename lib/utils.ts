@@ -20,6 +20,7 @@ export function getDocUrl(link: string) {
     const docPath = path.slice(0, index + 1).join("/");
     return protocol + "//" + hostname + docPath;
   } catch (error) {
+    console.log(error);
     return undefined;
   }
 }
@@ -31,7 +32,7 @@ export function getSubPaths(link: string) {
     const protocol = url.protocol;
     const pathname = url.pathname;
     const path = pathname.split("/");
-    let result = [];
+    const result = [];
     for (let i = 0; i < path.length; i++) {
       const docPath = path.slice(0, i + 1).join("/");
       let p = protocol + "//" + hostname + docPath;
@@ -40,6 +41,7 @@ export function getSubPaths(link: string) {
     }
     return Array.from(new Set(result)).reverse();
   } catch (error) {
+    console.log(error);
     return undefined;
   }
 }
