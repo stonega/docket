@@ -15,7 +15,7 @@ export default function SiteCard({ site }: SiteCardProps) {
       className="group rounded-md w-full bg-cream-200 border justify-between border-black hover:bg-yellow-200 cursor-pointer flex flex-col"
       onClick={() => router.push(`/home/doc/${site.id}`)}
     >
-      <div className="grow flex flex-col p-2">
+      <div className="grow flex flex-col px-2 py-4">
         {site.icon ? (<Image
           alt={site.title}
           src={site.icon}
