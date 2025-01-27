@@ -10,12 +10,13 @@ export default async function Page({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { userId } = await auth()
+  const q = (await searchParams).q;
 
   if (!userId) return null;
   return (
     <main className="grow w-full flex flex-col items-start justify-start">
       <SearchBar></SearchBar>
-      {(await searchParams).q ? <SearchResult /> : <SiteList />}
+      {q ? <SearchResult /> : <SiteList />}
     </main>
   );
 }

@@ -1,17 +1,13 @@
 "use client";
-import { Cross1Icon, DashboardIcon } from "@radix-ui/react-icons";
-import { useAtom } from "jotai";
+import { Cross1Icon } from "@radix-ui/react-icons";
 import { useRef, useState } from "react";
-import { siteOneColumnLayoutAtom } from "@/store";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useThrottleEffect } from "ahooks";
 import queryString from "query-string";
-import RowIcon from "@/components/row-icon";
 import { useHotkeys } from "react-hotkeys-hook";
 
 export default function SearchBar() {
   const router = useRouter();
-  const [oneColumn, setOneColumn] = useAtom(siteOneColumnLayoutAtom);
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
   const [search, setSearch] = useState(searchParams.get("q") ?? "");
@@ -31,12 +27,12 @@ export default function SearchBar() {
   }, [search]);
 
   return (
-    <div className="bg-[#ffc900] w-full py-12 mb-4 border-b border-black">
+    <div className="sticky top-[62px] bg-[#ffc900] w-full py-12 mb-4 border-b border-black z-10">
       <div className="w-full px-4 md:w-[800px] mx-auto flex flex-row justify-between items-center">
         <div className="relative w-full mr-2">
           <input
             className="w-full input"
-            placeholder="Search your docs"
+            placeholder="Search your docket"
             value={search}
             ref={ref}
             onChange={(e) => {
@@ -56,17 +52,6 @@ export default function SearchBar() {
             </kbd>
           )}
         </div>
-        {oneColumn ? (
-          <DashboardIcon
-            className="w-6 h-6 text-black cursor-pointer"
-            onClick={() => setOneColumn(false)}
-          />
-        ) : (
-          <RowIcon
-            className="w-6 h-6 text-black cursor-pointer"
-            onClick={() => setOneColumn(true)}
-          />
-        )}
       </div>
     </div>
   );

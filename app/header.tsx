@@ -8,7 +8,7 @@ import Logo from "@/components/logo";
 const Header = async () => {
   const { userId } = await auth()
   return (
-    <div className="sticky bg-cream-100 top-2 w-full flex justify-between px-4 border-y border-black">
+    <div className="sticky bg-white top-2 w-full flex justify-between px-4 border-y border-black">
       <Link
         href="/"
         className={classnames(
