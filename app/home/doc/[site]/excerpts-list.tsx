@@ -10,7 +10,7 @@ function ExcerptsList({
   siteUrl: string;
 }) {
   return (
-    <div className="grow flex flex-col px-2">
+    <div className="grow flex flex-col space-y-2">
       {excerpts &&
         excerpts.map((excerpt) => (
           <ExcerptItem

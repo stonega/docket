@@ -46,7 +46,7 @@ export default function Layout({
           <Link
             href="/"
             className={classnames(
-              "inline-flex items-center p-2 text-3xl font-semibold font-serif dark:text-white border-e border-black dark:border-white",
+              "inline-flex items-center p-2 text-3xl font-semibold text-black dark:text-white border-e border-black dark:border-white",
               fraunces.className
             )}
           >

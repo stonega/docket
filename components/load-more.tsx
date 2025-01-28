@@ -14,25 +14,25 @@ export function LoadMore({
 }: LoadMoreProps) {
   if (!hasMore)
     return (
-      <div className="mx-auto my-4 px-2 py-2 w-fit text-center text-sm dark:text-white">
+      <div className="mx-auto my-4 px-2 py-2 w-fit text-center text-sm text-black dark:text-white">
         No more data.
       </div>
     );
   if (isLoading)
     return (
-      <div className="dot-loader mx-auto my-4 w-fit text-center text-lg opacity-70 dark:text-white">
+      <div className="dot-loader mx-auto my-4 w-fit text-center text-lg opacity-70 text-black dark:text-white">
         Loading
       </div>
     );
   if (empty)
     return (
-      <div className="rounded-md dot-loader mx-auto py-2 my-4 w-fit text-center text-sm dark:text-white">
+      <div className="rounded-md dot-loader mx-auto py-2 my-4 w-fit text-center text-sm text-black dark:text-white">
         No data.
       </div>
     );
   return (
     <div
-      className="rounded-md hover:bg-[#ff90e8] border border-black w-fit my-4 py-2 text-sm px-2 mx-auto cursor-pointer text-center dark:text-white"
+      className="rounded-md hover:bg-[#ff90e8] border border-black w-fit my-4 py-2 text-sm px-2 mx-auto cursor-pointer text-center text-black dark:text-white"
       onClick={() => {
         if (hasMore) setPage((page) => page + 1);
       }}

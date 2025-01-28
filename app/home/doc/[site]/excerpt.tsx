@@ -27,13 +27,13 @@ export default function Excerpt({
         Are you sure you want to delete this excerpt? Deleting this excerpt is
         permanent and cannot be undone.
       </ConfirmModal>
-      <div className="py-3" key={excerpt.id}>
+      <div className="p-4 border-b border-black dark:border-white" key={excerpt.id}>
         <ExcerptCard excerpt={excerpt} />
         <div className="md:hidden mt-2 flex flex-col space-y-1 text-stone-600 dark:text-stone-200 text-normal">
           <div className="flex flex-row space-x-2">
             <span>{dateFromNow(excerpt.createAt.toString())}</span>
             <button
-              className="inline"
+              className="inline rounded-md"
               onClick={() => setShowConfirmModal(true)}
             >
               Delete

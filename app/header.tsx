@@ -9,11 +9,11 @@ import ThemeModeButton from "@/components/theme-mode-button";
 const Header = async () => {
   const { userId } = await auth()
   return (
-    <div className="sticky bg-white dark:bg-black top-2 w-full flex justify-between px-4 border-y border-black dark:border-white">
+    <div className="sticky bg-white dark:bg-black top-2 w-full flex justify-between px-4 dark:px-0 border-y border-black dark:border-white">
       <Link
         href="/"
         className={classnames(
-          "inline-flex p-2 text-3xl font-semibold font-serif dark:text-white border-x border-black dark:border-white",
+          "inline-flex p-2 text-3xl font-semibold font-serif text-black dark:text-white border-e border-black dark:border-white",
           fraunces.className
         )}
       >
@@ -24,7 +24,7 @@ const Header = async () => {
         <div className="h-full flex items-center border-l border-black dark:border-white px-4">
           <ThemeModeButton />
         </div>
-        <div className="h-full flex items-center border-l border-black dark:border-white px-4 dark:text-white">
+        <div className="h-full flex items-center border-l border-black dark:border-white px-4 text-black dark:text-white">
           {
             userId ? <UserButton /> : <Link href="/home" className="font-bold cursor-pointer">Log In</Link>
           }
