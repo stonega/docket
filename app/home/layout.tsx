@@ -3,7 +3,6 @@ import {
   GearIcon,
   HomeIcon,
   Cross1Icon,
-  HamburgerMenuIcon,
 } from "@radix-ui/react-icons";
 import Link from "next/link";
 import ThemeModeButton from "../../components/theme-mode-button";
