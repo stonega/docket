@@ -24,7 +24,7 @@ export default function SiteList() {
               <div key={index}>
                 <div
                   className={classnames(
-                    "bg-cream-200 rounded-md border border-black relative p-2 flex flex-col",
+                    "bg-cream-200 dark:bg-[#302a30] rounded-md border border-black dark:border-white relative p-2 flex flex-col",
                   )}
                   key={index}
                 >

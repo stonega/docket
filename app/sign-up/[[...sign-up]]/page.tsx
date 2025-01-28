@@ -10,7 +10,7 @@ export default function Page() {
       <div className="grow grid grid-cols-1 md:grid-cols-2 items-center w-full">
         <div
           className={classnames(
-            "w-full h-full bg-[#ff90ee] border-r border-black px-8 py-1 text-5xl inline-flex items-center",
+            "w-full h-full bg-[#ff90ee] border-r border-black dark:border-white px-8 py-1 text-5xl inline-flex items-center",
             fraunces.className
           )}
         >

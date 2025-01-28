@@ -24,7 +24,7 @@ const Header = async () => {
         <div className="h-full flex items-center border-l border-black dark:border-white px-4">
           <ThemeModeButton />
         </div>
-        <div className="h-full flex items-center border-l border-black dark:border-white px-4">
+        <div className="h-full flex items-center border-l border-black dark:border-white px-4 dark:text-white">
           {
             userId ? <UserButton /> : <Link href="/home" className="font-bold cursor-pointer">Log In</Link>
           }
