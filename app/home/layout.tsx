@@ -41,7 +41,7 @@ export default function Layout({
   return (
     <main className="min-h-screen flex flex-col">
       <div className="sticky top-0 bg-white dark:bg-[#0a2328] h-2 w-full" />
-      <div className="sticky top-2 bg-white dark:bg-[#0a2328] w-full flex justify-between px-4 border-y border-black dark:border-white">
+      <div className="sticky top-2 bg-white dark:bg-[#0a2328] w-full flex justify-between px-4 dark:px-0 border-y border-black dark:border-white">
         <div className="inline-flex items-center">
           <Link
             href="/"
