@@ -65,7 +65,7 @@ export default function Modal({
               </FocusTrap>
               <motion.div
                 key="desktop-backdrop"
-                className="fixed inset-0 z-30 bg-gray-800 bg-opacity-40"
+                className="fixed inset-0 z-30 bg-gray-800/10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

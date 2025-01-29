@@ -84,13 +84,11 @@
   --border-color: black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-    --border-color: #aaa;
-  }
+:root.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  --border-color: transparent;
 }
 
 * {
@@ -120,7 +118,7 @@ body::after {
   width: 1px;
   height: 100%;
   z-index: 10;
-  @apply bg-black dark:bg-transparent;
+  background: var(--border-color);
 }
 
 body::before {
@@ -130,8 +128,8 @@ body::before {
   right: 1rem;
   width: 1px;
   height: 100%;
-  @apply bg-black dark:bg-transparent;
   z-index: 10;
+  background: var(--border-color);
 }
 
 pre {
