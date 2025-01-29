@@ -50,7 +50,7 @@ const EditTitleModal = ({
         </div>
         <div className="px-6 flex flex-row items-center justify-end space-x-6">
           <Button
-            className="w-30 mb-6 mt-6 px-6 font-normal !border-gray-500 !bg-gray-300 !outline-gray-500"
+            className="w-30 mb-6 mt-6 px-6 font-normal border-gray-500! bg-gray-300! outline-gray-500!"
             onClick={() => {
               localStorage.removeItem("path");
               setShowEditTitleModal(false);
@@ -59,7 +59,7 @@ const EditTitleModal = ({
             Cancel
           </Button>
           <Button
-            className="w-30 mb-6 mt-6 px-6 font-normal !border-red-500 !bg-red-300 !outline-red-500"
+            className="w-30 mb-6 mt-6 px-6 font-normal border-red-500! bg-red-300! outline-red-500!"
             onClick={() => {
               confirm();
             }}

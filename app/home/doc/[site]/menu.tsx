@@ -58,7 +58,7 @@ export default function MenuDropdown({ siteId }: MenuDropdownProps) {
         >
           <div
             onClick={() => setOpenPopover(!openPopover)}
-            className="flex h-10 cursor-pointer flex-row items-center justify-center overflow-hidden border-none transition-all duration-75 focus:border-none focus:outline-none active:scale-95"
+            className="flex h-10 cursor-pointer flex-row items-center justify-center overflow-hidden border-none transition-all duration-75 focus:border-none focus:outline-hidden active:scale-95"
           >
             <DotsHorizontalIcon />
           </div>

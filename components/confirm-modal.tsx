@@ -50,7 +50,7 @@ const ConfirmModal = ({
         </div>
         <div className="px-6 flex flex-row items-center justify-end space-x-6">
           <Button
-            className="w-30 mb-6 mt-6 px-6 font-normal rounded-md border border-black dark:border-white !outline-gray-500"
+            className="w-30 mb-6 mt-6 px-6 font-normal rounded-md border border-black dark:border-white outline-gray-500!"
             onClick={() => {
               localStorage.removeItem("path");
               setShowConfirmModal(false);
@@ -59,7 +59,7 @@ const ConfirmModal = ({
             [NO]
           </Button>
           <Button
-            className="w-30 mb-6 mt-6 px-6 font-normal rounded-md !border-red-700  !bg-red-300 !outline-red-500"
+            className="w-30 mb-6 mt-6 px-6 font-normal rounded-md border-red-700!  bg-red-300! outline-red-500!"
             onClick={() => {
               confirm();
             }}

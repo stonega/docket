@@ -37,7 +37,7 @@ export default function Title({ site }: { site: Site }) {
     <div className="border-b border-black dark:border-white p-4">
       {edit ? (
         <input
-          className="input !py-0 font-serif font-bold text-3xl inline"
+          className="input py-0! font-serif font-bold text-3xl inline"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         ></input>

@@ -35,7 +35,7 @@ const ThemeModeButton = () => {
         id="theme-toggle"
         type="button"
         onClick={toggleTheme}
-        className="flex flex-row items-center text-sm text-black focus:outline-none dark:text-white"
+        className="flex flex-row items-center text-sm text-black focus:outline-hidden dark:text-white"
       >
         {mode === "light" ? <SunIcon /> : <MoonIcon />}
       </button>
