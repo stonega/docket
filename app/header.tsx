@@ -13,7 +13,7 @@ const Header = async () => {
       <Link
         href="/"
         className={classnames(
-          "inline-flex p-2 text-3xl font-semibold font-serif text-black dark:text-white border-e border-black dark:border-white",
+          "inline-flex p-2 text-3xl font-semibold text-black dark:text-white border-e border-black dark:border-white",
           fraunces.className
         )}
       >
