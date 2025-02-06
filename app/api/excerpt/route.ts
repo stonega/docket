@@ -1,10 +1,10 @@
 import { type NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getAuth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/server'
 import DOMPurify from "isomorphic-dompurify";
 
 export async function GET(request: NextRequest) {
-  const { userId } = getAuth(request);
+  const { userId } = await auth()
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const { userId } = getAuth(request);
+  const { userId } = await auth();
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const { userId } = getAuth(request);
+  const { userId } = await auth();
   if (!userId) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
