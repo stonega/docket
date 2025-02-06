@@ -9,7 +9,7 @@ import ThemeModeButton from "@/components/theme-mode-button";
 const Header = async () => {
   const { userId } = await auth()
   return (
-    <div className="sticky bg-white dark:bg-black top-2 w-full flex justify-between px-4 dark:px-0 border-y border-black dark:border-white">
+    <div className="sticky bg-white dark:bg-black top-2 w-full flex justify-between px-0 md:px-4 border-y border-black dark:border-white">
       <Link
         href="/"
         className={classnames(
