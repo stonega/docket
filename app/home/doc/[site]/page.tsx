@@ -46,6 +46,7 @@ export default async function Page({
             />
           )}
         </BackButton>
+        <Title site={site} />
         <div className="flex flex-row space-x-4 items-center">
           <a target="_blank" href={site.url}>
             <ExternalIcon className="size-6" />
@@ -53,7 +54,6 @@ export default async function Page({
           <MenuDropdown link={site.url} siteId={site.id} />
         </div>
       </div>
-      <Title site={site} />
       <ExcerptsList excerpts={excerpts} siteUrl={site.url} />
     </div>
   );

@@ -27,7 +27,7 @@ export default function SearchBar() {
   }, [search]);
 
   return (
-    <div className="sticky top-[62px] bg-[#ffc900] dark:bg-[#302a30] w-full py-12 mb-4 border-b border-black dark:border-white">
+    <div className="sticky top-[42px] bg-[#ffc900] dark:bg-[#302a30] w-full py-12 mb-4 border-b border-black dark:border-white">
       <div className="relative container mx-auto px-6">
         <input
           className="w-full input"

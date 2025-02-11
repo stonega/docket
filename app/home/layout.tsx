@@ -41,17 +41,17 @@ export default function Layout({
   return (
     <main className="min-h-screen flex flex-col">
       <div className="sticky top-0 bg-white dark:bg-[#0a2328] h-2 w-full" />
-      <div className="sticky top-2 bg-white dark:bg-[#0a2328] w-full flex justify-between px-4 dark:px-0 border-y border-black dark:border-white">
+      <div className="sticky top-2 bg-white dark:bg-[#0a2328] w-full flex justify-between border-y border-black dark:border-white">
         <div className="inline-flex items-center">
           <Link
             href="/"
             className={classnames(
-              "inline-flex items-center p-2 text-3xl font-semibold text-black dark:text-white border-e border-black dark:border-white",
+              "inline-flex text-2xl font-semibold text-black dark:text-white border-e border-black dark:border-white",
               fraunces.className
             )}
           >
-            <Logo className="w-8 me-2"></Logo>
-            <span>Docket</span>
+            <Logo className="p-1 w-8 border-e border-black dark:border-white"></Logo>
+            <span className="p-1">Docket</span>
           </Link>
           {/* <HamburgerMenuIcon */}
           {/*   className="md:hidden w-6 h-6 text-black dark:text-white cursor-pointer ms-2" */}

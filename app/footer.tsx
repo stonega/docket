@@ -1,17 +1,37 @@
-import Logo from "@/components/logo";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 export function Footer() {
-  return <div className="w-full py-8 bg-black border-t dark:border-white z-12 flex flex-col items-center justify-center space-y-2 text-white">
-    <Logo className="w-12 mb-3 text-yellow-400"></Logo>
-    <Link
-      href="/privacy"
-      className="text-md hover:text-yellow-400 underline underline-offset-4"
-    >
-      Privacy
-    </Link>
-    <div>
-      All right reserved 2025
+  return <div className="w-full p-2 px-4 bg-black z-12 flex items-center justify-between space-y-2 text-white">
+    <div className="inline-flex items-center space-x-4">
+      <Link
+        href="/"
+        className="text-md hover:text-yellow-400 underline underline-offset-4"
+      >
+        Home
+      </Link>
+      <Link
+        href="/privacy"
+        className="text-md hover:text-yellow-400 underline underline-offset-4"
+      >
+        Privacy
+      </Link>
+    </div>
+    <div className="inline-flex items-center space-x-4">
+      <a
+        href="https://chromewebstore.google.com/detail/docket-highlighter/pbnonpcfnmdbfmabpjfllgljbfkccjco"
+        className="text-md hover:text-yellow-400 underline underline-offset-4 inline-flex items-center"
+      >
+        Chrome Extension
+        <ExternalLinkIcon className="size-4 ms-1" />
+      </a>
+      <a
+        href="https://book.docket.space"
+        className="text-md hover:text-yellow-400 underline underline-offset-4 inline-flex items-center"
+      >
+        Book Excerpt
+        <ExternalLinkIcon className="size-4 ms-1" />
+      </a>
     </div>
   </div>
 }

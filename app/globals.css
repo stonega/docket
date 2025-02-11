@@ -81,19 +81,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --border-color: black;
 }
 
-@media screen and (max-width: 728px) {
-  :root {
-    --border-color: transparent;
-  }
-}
 :root.dark {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-  --border-color: transparent;
 }
 
 * {
@@ -114,29 +107,6 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
-
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 1rem;
-  width: 1px;
-  height: 100%;
-  z-index: 10;
-  background: var(--border-color);
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  right: 1rem;
-  width: 1px;
-  height: 100%;
-  z-index: 10;
-  background: var(--border-color);
-}
-
 pre {
   padding: 0.5rem 0.8rem !important;
   margin: 0 !important;

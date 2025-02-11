@@ -12,7 +12,7 @@ export default function SiteList() {
 
   return (
     <div className="mx-auto container">
-      <div className="py-4 px-6 flex flex-col justify-between dark:text-white">
+      <div className="py-4 px-2 flex flex-col justify-between dark:text-white">
         <span className="font-bold text-2xl">Inside your docket</span>
       </div>
       <div className="flex flex-col justify-start items-center">
