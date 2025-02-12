@@ -2,7 +2,7 @@ import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 export function Footer() {
-  return <div className="w-full p-2 px-4 bg-black z-12 flex items-center justify-between space-y-2 text-white">
+  return <div className="w-full p-2 px-4 bg-black z-12 flex flex-col md:flex-row items-center justify-between space-y-2 text-white">
     <div className="inline-flex items-center space-x-4">
       <Link
         href="/"
