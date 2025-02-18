@@ -12,7 +12,7 @@ export default function SiteCard({ site }: SiteCardProps) {
   return (
     <div
       key="record.id"
-      className="group rounded-md w-full bg-cream-200 text-black dark:text-white dark:bg-[#302a30] border justify-between border-black dark:border-white hover:bg-yellow-200 dark:hover:bg-yellow-700 cursor-pointer flex flex-col"
+      className="group rounded-md w-full bg-cream-100 text-black dark:text-white dark:bg-[#302a30] border justify-between separator hover:bg-yellow-200 dark:hover:bg-yellow-700 cursor-pointer flex flex-col"
       onClick={() => router.push(`/home/doc/${site.id}`)}
     >
       <div className="grow flex flex-col px-2 py-4">

@@ -23,12 +23,16 @@ export default function SearchBar() {
   );
 
   useThrottleEffect(() => {
-    router.push(pathname + "?" + queryString.stringify({ q: search }));
+    if (!search) {
+      router.push(pathname)
+    } else {
+      router.push(pathname + "?" + queryString.stringify({ q: search }));
+    }
   }, [search]);
 
   return (
-    <div className="sticky top-[42px] bg-[#ffc900] dark:bg-[#302a30] w-full py-12 mb-4 border-b border-black dark:border-white">
-      <div className="relative container mx-auto px-6">
+    <div className="w-[40%] separator rounded-md border">
+      <div className="relative container mx-auto">
         <input
           className="w-full input"
           placeholder="Search your docket"
@@ -46,7 +50,7 @@ export default function SearchBar() {
             }}
           />
         ) : (
-          <kbd className="h-6 text-center absolute right-8 top-0 bottom-0 my-auto px-2 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
+          <kbd className="h-6 text-center absolute right-1 top-0 bottom-0 my-auto px-2 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
             Ctrl+k
           </kbd>
         )}

@@ -15,6 +15,42 @@
   --color-cream-800: #95523a;
   --color-cream-900: #794634;
   --color-cream-950: #402218;
+  
+  --color-sites-50: #fdf9f7;
+  --color-sites-100: #f9f2ec;
+  --color-sites-200: #f3e3d4;
+  --color-sites-300: #e9cdb3;
+  --color-sites-400: #deb08c;
+  --color-sites-500: #d39366;
+  --color-sites-600: #c77b4d;
+  --color-sites-700: #b66541;
+  --color-sites-800: #95523a;
+  --color-sites-900: #794634;
+  --color-sites-950: #402218;
+
+  --color-excerpts-50: #fdf7fd;
+  --color-excerpts-100: #f9ecf9;
+  --color-excerpts-200: #f3d4f3;
+  --color-excerpts-300: #e9b3e9;
+  --color-excerpts-400: #d69ade;
+  --color-excerpts-500: #c366c3;
+  --color-excerpts-600: #b34db3;
+  --color-excerpts-700: #a641a6;
+  --color-excerpts-800: #8a3a8a;
+  --color-excerpts-900: #713471;
+  --color-excerpts-950: #3b183b;
+
+  --color-images-50: #f7fdf7;
+  --color-images-100: #ecf9ec;
+  --color-images-200: #d4f3d4;
+  --color-images-300: #b3e9b3;
+  --color-images-400: #b3d8a8;
+  --color-images-500: #66c366;
+  --color-images-600: #4db34d;
+  --color-images-700: #41a641;
+  --color-images-800: #3a8a3a;
+  --color-images-900: #347134;
+  --color-images-950: #183b18;
 
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
   --background-image-gradient-conic: conic-gradient(
@@ -57,12 +93,16 @@
   }
 }
 
+@utility separator {
+  @apply border-black/50 dark:border-white;
+}
+
 @utility textarea {
   @apply w-full rounded-lg border-0 bg-white/40 p-2 font-mono text-black placeholder:text-slate-400 focus:border-yellow-500 focus:ring-yellow-300 active:border-yellow-500 dark:bg-black/40 dark:text-white dark:placeholder:text-slate-200;
 }
 
 @utility input {
-  @apply py-2 rounded-md border border-black dark:border-white bg-white/60 px-2 focus:border-yellow-500 focus:outline-hidden focus:ring-yellow-400 focus-visible:border-yellow-500  active:border-yellow-500 dark:bg-black/60 dark:text-white dark:placeholder:text-slate-300;
+  @apply py-1 rounded-md bg-white/60 px-2 focus:border-yellow-200 focus:outline-hidden focus:ring-yellow-400 focus-visible:border-yellow-500  active:border-yellow-500 dark:bg-black/61 dark:text-white dark:placeholder:text-slate-300;
 }
 
 @utility select {
