@@ -1,2 +1,2 @@
 [phases.build]
-cmds = ["pnpm prisma generate && npx prisma migrate deploy && pnpm build"]
+cmds = ["pnpm build"]
