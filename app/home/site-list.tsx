@@ -12,9 +12,6 @@ export default function SiteList() {
 
   return (
     <div className="mx-auto container">
-      <div className="py-4 px-2 flex flex-col justify-between dark:text-white">
-        <span className="font-bold text-2xl">Inside your docket</span>
-      </div>
       <div className="flex flex-col justify-start items-center">
         <Grid>
           {records &&
@@ -24,7 +21,7 @@ export default function SiteList() {
               <div key={index}>
                 <div
                   className={classnames(
-                    "bg-cream-200 dark:bg-[#302a30] rounded-md border border-black dark:border-white relative p-2 flex flex-col",
+                    "bg-cream-200 dark:bg-[#302a30] rounded-md border separator relative p-2 flex flex-col",
                   )}
                   key={index}
                 >

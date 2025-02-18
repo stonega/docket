@@ -41,16 +41,16 @@ export default function Layout({
   return (
     <main className="min-h-screen flex flex-col">
       <div className="sticky top-0 bg-white dark:bg-[#0a2328] h-2 w-full" />
-      <div className="sticky top-2 bg-white dark:bg-[#0a2328] w-full flex justify-between border-y border-black dark:border-white">
+      <div className="sticky top-2 bg-white dark:bg-[#0a2328] w-full flex justify-between border-y separator">
         <div className="inline-flex items-center">
           <Link
             href="/"
             className={classnames(
-              "inline-flex text-2xl font-semibold text-black dark:text-white border-e border-black dark:border-white",
+              "inline-flex text-2xl font-semibold text-black dark:text-white border-e separator",
               fraunces.className
             )}
           >
-            <Logo className="p-1 w-8 border-e border-black dark:border-white"></Logo>
+            <Logo className="p-1 w-8 border-e separator"></Logo>
             <span className="p-1">Docket</span>
           </Link>
           {/* <HamburgerMenuIcon */}
@@ -59,10 +59,10 @@ export default function Layout({
           {/* ></HamburgerMenuIcon> */}
         </div>
         <div className="flex items-center justify-end">
-          <div className="h-full flex items-center border-l border-black dark:border-white px-4">
+          <div className="h-full flex items-center border-l separator px-4">
             <ThemeModeButton />
           </div>
-          <div className="h-full flex justify-end items-center border-s border-black dark:border-white px-4">
+          <div className="h-full flex justify-end items-center border-s separator px-4">
             <UserButton />
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function Layout({
         <aside
           ref={scope}
           className={classnames(
-            "fixed z-10 top-2 left-[-1000px] border border-black my-2 md:hidden p-4 w-full md:w-auto h-full flex flex-col justify-between items-start first-letter:space-y-4"
+            "fixed z-10 top-2 left-[-1000px] border separator my-2 md:hidden p-4 w-full md:w-auto h-full flex flex-col justify-between items-start first-letter:space-y-4"
           )}
         >
           <div className="w-full flex flex-col space-y-2">
@@ -83,7 +83,7 @@ export default function Layout({
             </div>
             <Link
               className={classnames(
-                "border-b border-black p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100",
+                "border-b separator p-1.5 flex flex-row items-center text-black focus:outline-nones transition-colors duration-200 dark:text-white dark:hover:bg-yellow-900 hover:bg-yellow-100",
                 {
                   "bg-yellow-100 dark:bg-yellow-900":
                     pathname === "/home" || pathname.includes("/home/doc"),

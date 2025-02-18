@@ -19,7 +19,7 @@ export default function BackButton({ children }: { children: ReactNode }) {
       className="text-black dark:text-white flex flex-row items-center space-x-2 cursor-pointer"
       onClick={() => back()}
     >
-      <BackIcon className="size-6" />
+      <BackIcon className="size-4" />
       {children}
     </div>
   );

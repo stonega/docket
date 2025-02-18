@@ -19,9 +19,6 @@ export default function SearchResult() {
   }, [searchParams, setOptions]);
   return (
     <div className="container mx-auto flex flex-col justify-start">
-      <h1 className="dark:text-white">
-        Search Result for {searchParams.get("q")}
-      </h1>
       {records.map((excerpt) => (
         <div className="py-2" key={excerpt.id}>
           <ExcerptCard excerpt={excerpt} />
