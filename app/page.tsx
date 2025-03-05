@@ -12,7 +12,7 @@ export default function Page() {
     <main className="min-h-screen flex flex-col items-center">
       <Header />
       <div className="mt-[6px] grow grid grid-cols-1 lg:grid-cols-2 text-black">
-        <div className="py-4 bg-[#ff90ee] border-r border-black dark:border-white flex flex-col items-center justify-center">
+        <div className="py-4 bg-[#ff90ee] flex flex-col items-center justify-center">
           <span
             className={classnames("uppercase text-[80px] md:text-[100px] font-bold border-y border-black text-center leading-[80px] md:leading-[100px]", fraunces.className)}
           >
