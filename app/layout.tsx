@@ -35,7 +35,6 @@ export default function RootLayout({
         >
           <Toaster
             position="top-center"
-            closeButton={true}
             richColors={true}
             toastOptions={{
               className: "border-2 border-yellow-300 dark:border-yellow-700",

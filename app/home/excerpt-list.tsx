@@ -23,7 +23,7 @@ export default function ExcerptList() {
               ))}
             {isLoading &&
               ["✨", "✨", "✨"].map((_, index) => (
-                <div className="p-2" key={index}>
+                <div className="w-full" key={index}>
                   <div
                     className={classnames(
                       "bg-cream-200 dark:bg-[#302a30] rounded-md border separator relative p-2 flex flex-col",
