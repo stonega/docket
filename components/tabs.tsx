@@ -31,7 +31,7 @@ const TabNav = ({ tabs, active }: TabNavProps) => {
   }, [active])
 
   return (
-    <NavigationMenu.Root className="relative z-10 flex list-none border separator rounded-md p-[1px] space-x-[2px]">
+    <NavigationMenu.Root className="relative z-10 flex list-none separator rounded-md p-[1px] space-x-[2px]">
       {
         tabs.map((tab) => (
           <NavigationMenu.Item key={tab.id}
@@ -50,4 +50,3 @@ const TabNav = ({ tabs, active }: TabNavProps) => {
 };
 
 export default TabNav;
-

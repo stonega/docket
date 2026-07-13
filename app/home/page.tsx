@@ -28,12 +28,12 @@ export default async function Page({
   return (
     <main className="grow w-full flex flex-col items-start justify-start">
       <div className="mt-8 mb-6 container mx-auto flex items-center justify-between">
-       {q ? 
-        <h1 className="dark:text-white font-semibold">
-          Search Result for {q}
-        </h1>
-        : <TabsView tabs={tabs} active={tab} />
-      }
+        {q ?
+          <h1 className="dark:text-white font-semibold">
+            Search Result for {q}
+          </h1>
+          : <TabsView tabs={tabs} active={tab} />
+        }
         <SearchBar></SearchBar>
       </div>
       {q ? <SearchResult /> : tab === 'sites' ? <SiteList /> : <ExcerptList />}

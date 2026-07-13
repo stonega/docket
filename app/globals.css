@@ -163,6 +163,18 @@ pre code.hljs {
   overflow-x: auto;
 }
 
+.excerpt-card pre,
+.excerpt-card pre code.hljs,
+.excerpt-card .hljs {
+  scrollbar-width: none;
+}
+
+.excerpt-card pre::-webkit-scrollbar,
+.excerpt-card pre code.hljs::-webkit-scrollbar,
+.excerpt-card .hljs::-webkit-scrollbar {
+  display: none;
+}
+
 /*
 Highlight theme
 Atom One Dark by Daniel Gamage
