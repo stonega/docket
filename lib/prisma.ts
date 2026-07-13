@@ -1,12 +1,20 @@
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { PrismaD1 } from "@prisma/adapter-d1";
 import { PrismaClient } from "@prisma/client";
+import { cache } from "react";
 
-declare global {
-  // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined;
+function createClient(database: D1Database) {
+  return new PrismaClient({ adapter: new PrismaD1(database) });
 }
 
-const prisma = global.prisma || new PrismaClient();
+export const getDb = cache(() => {
+  const { env } = getCloudflareContext();
+  return createClient(env.DB);
+});
 
-if (process.env.NODE_ENV === "development") global.prisma = prisma;
+export const getDbAsync = cache(async () => {
+  const { env } = await getCloudflareContext({ async: true });
+  return createClient(env.DB);
+});
 
-export { prisma }
+export type DbClient = ReturnType<typeof createClient>;

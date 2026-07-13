@@ -1,32 +1,40 @@
 import { Client } from "@notionhq/client";
-import { prisma } from "../../lib/prisma";
+import { type DbClient, getDb } from "../../lib/prisma";
 import { htmlToNotion } from "html-to-notion-blocks";
 import { Excerpt, Site } from "@prisma/client";
 import { getIconUrl } from "./utils";
 
 export class Notion {
   client?: Client = undefined;
-  constructor({ auth }: { auth: string }) {
+  private database?: DbClient;
+
+  constructor({ auth, database }: { auth: string; database?: DbClient }) {
     this.client = new Client({ auth });
+    this.database = database;
+  }
+
+  private getDatabaseClient() {
+    return this.database ?? getDb();
   }
   /**
    * initial sync with notion
    * @param userId
    */
   async initialSync({ userId }: { userId: string }) {
+    const db = this.getDatabaseClient();
     const rootPage = await this.getRootPage();
     if (!rootPage) {
       throw new Error("Root page not found");
     }
     const database = await this.createDatabase({ pageId: rootPage.id });
-    await prisma.notion.create({
+    await db.notion.create({
       data: {
         userId,
         databaseId: database.id,
         pageId: rootPage.id,
       },
     });
-    const sites = await prisma.site.findMany({
+    const sites = await db.site.findMany({
       where: {
         userId: { equals: userId },
       },
@@ -82,7 +90,8 @@ export class Notion {
    * @param userId
    */
   async getDatabase({ userId }: { userId: string }) {
-    const notionConfig = await prisma.notion.findFirst({
+    const db = this.getDatabaseClient();
+    const notionConfig = await db.notion.findFirst({
       where: {
         userId,
       },
@@ -138,7 +147,8 @@ export class Notion {
     };
     databaseId: string;
   }) {
-    const excerpts = await prisma.excerpt.findMany({
+    const db = this.getDatabaseClient();
+    const excerpts = await db.excerpt.findMany({
       where: { siteId: site.id },
       orderBy: {
         createAt: "asc",

@@ -1,7 +1,9 @@
 import BackButton from "@/components/back-button";
 import ExcerptsList from "./excerpts-list";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
+import { getDbAsync } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
+import { notFound } from "next/navigation";
 import ExternalIcon from "@/components/external-icon";
 import MenuDropdown from "./menu";
 import Title from "./title";
@@ -12,16 +14,21 @@ export default async function Page({
   params: Promise<{ site: string }>;
 }) {
   const siteId = (await params).site;
-  const site = await prisma.site.findUnique({
-    where: { id: siteId },
+  const { userId } = await auth();
+  if (!userId) notFound();
+
+  const db = await getDbAsync();
+  const site = await db.site.findFirst({
+    where: { id: siteId, userId },
   });
-  const excerpts = await prisma.excerpt.findMany({
-    where: { siteId: siteId },
+  if (!site) notFound();
+
+  const excerpts = await db.excerpt.findMany({
+    where: { siteId, userId },
     orderBy: {
       createAt: "asc",
     },
   });
-  if (!site) return null;
   return (
     <div className="grow border-x border-black dark:border-white pb-4 h-full container bg-cream-100 dark:bg-[#302a30] mx-auto flex flex-col dark:text-white">
       <div className="border-b separator bg-cream-100 dark:bg-[#302a30] h-[60px] sticky top-[50px] px-4 w-full flex flex-row justify-between items-center">

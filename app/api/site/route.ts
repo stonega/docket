@@ -1,8 +1,12 @@
 import { NextResponse, NextRequest } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { prisma } from "@/lib/prisma";
+import { getDb } from "@/lib/prisma";
 import { getDocUrl, getSubPaths } from "@/lib/utils";
 import urlMetadata from "url-metadata";
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
 
 export async function GET(request: NextRequest) {
   const { userId } = await auth();
@@ -16,7 +20,8 @@ export async function GET(request: NextRequest) {
   const where: any = {
     userId: { equals: userId },
   };
-  const data = await prisma.site.findMany({
+  const db = getDb();
+  const data = await db.site.findMany({
     skip,
     take: pageSize,
     where,
@@ -32,10 +37,18 @@ export async function POST(request: NextRequest) {
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
-  const { url, icon, title, create } = await request.json();
+  const body: unknown = await request.json();
+  if (!isRecord(body) || typeof body.url !== "string") {
+    return new NextResponse("Invalid request body", { status: 400 });
+  }
+  const url = body.url;
+  const icon = typeof body.icon === "string" ? body.icon : "";
+  const title = typeof body.title === "string" ? body.title : "";
+  const create = body.create === true;
+  const db = getDb();
   const urls = getSubPaths(encodeURI(url));
   // Check if url already existed
-  const record = await prisma.site.findFirst({
+  const record = await db.site.findFirst({
     where: {
       userId,
       OR: urls?.map((u) => ({ url: u })),
@@ -43,7 +56,7 @@ export async function POST(request: NextRequest) {
   });
   if (!create) {
     if (record) {
-      const items = await prisma.excerpt.findMany({
+      const excerptCount = await db.excerpt.count({
         where: {
           siteId: record.id,
         },
@@ -51,7 +64,7 @@ export async function POST(request: NextRequest) {
       return Response.json(
         {
           ...record,
-          excerptCount: items.length,
+          excerptCount,
         },
         {
           status: 200,
@@ -93,7 +106,7 @@ export async function POST(request: NextRequest) {
     });
   }
   if (record) {
-    await prisma.site.update({
+    const updated = await db.site.update({
       where: {
         id: record.id,
       },
@@ -101,7 +114,7 @@ export async function POST(request: NextRequest) {
         updateAt: new Date(),
       },
     });
-    return Response.json(record, {
+    return Response.json(updated, {
       status: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -129,7 +142,7 @@ export async function POST(request: NextRequest) {
     icon,
     url: docUrl!,
   };
-  const data = await prisma.site.create({
+  const data = await db.site.create({
     data: siteData,
   });
   return Response.json(data, {
@@ -147,7 +160,19 @@ export async function PUT(request: NextRequest) {
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
-  const { description, title, icon, id } = await request.json();
+  const body: unknown = await request.json();
+  if (!isRecord(body) || typeof body.id !== "string") {
+    return new NextResponse("Invalid request body", { status: 400 });
+  }
+  const id = body.id;
+  const description = typeof body.description === "string" ? body.description : undefined;
+  const title = typeof body.title === "string" ? body.title : undefined;
+  const icon = typeof body.icon === "string" ? body.icon : undefined;
+  const db = getDb();
+  const site = await db.site.findFirst({ where: { id, userId } });
+  if (!site) {
+    return new NextResponse("Not found", { status: 404 });
+  }
   const where = {
     id,
   };
@@ -156,7 +181,7 @@ export async function PUT(request: NextRequest) {
   if (description) edit.description = description;
   if (icon) edit.icon = icon;
 
-  const data = await prisma.site.update({
+  const data = await db.site.update({
     where,
     data: edit,
   });
@@ -176,14 +201,17 @@ export async function DELETE(request: NextRequest) {
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
-  const { id } = await request.json();
-  const where = {
-    id,
-    userId,
-  };
-  const data = await prisma.site.delete({
-    where,
-  });
+  const body: unknown = await request.json();
+  if (!isRecord(body) || typeof body.id !== "string") {
+    return new NextResponse("Invalid request body", { status: 400 });
+  }
+  const id = body.id;
+  const db = getDb();
+  const site = await db.site.findFirst({ where: { id, userId } });
+  if (!site) {
+    return new NextResponse("Not found", { status: 404 });
+  }
+  const data = await db.site.delete({ where: { id } });
 
   return Response.json(data, {
     status: 200,
