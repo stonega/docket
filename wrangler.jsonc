@@ -11,6 +11,9 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "vars": {
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuZG9ja2V0LnNwYWNlJA"
+  },
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
