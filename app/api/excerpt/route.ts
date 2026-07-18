@@ -16,14 +16,12 @@ import {
   sanitizeArticleHtml,
 } from "@/lib/articles";
 import { findOwnedArticleForPage, serializeExcerpt } from "@/lib/article-service";
-import { toFtsQuery } from "@/lib/library-search";
-import { Prisma } from "@prisma/client";
+import {
+  excerptWithArticleInclude,
+  listExcerptRecords,
+} from "@/lib/excerpt-service";
 import type { NextRequest } from "next/server";
 import { prepareD1, runD1Batch } from "@/lib/d1";
-
-const excerptInclude = {
-  article: { select: { id: true, title: true } },
-} satisfies Prisma.ExcerptInclude;
 
 export function OPTIONS() {
   return optionsResponse();
@@ -38,46 +36,16 @@ export async function GET(request: NextRequest) {
     const url = searchParams.get("url");
     const search = searchParams.get("search")?.trim();
     const db = getDb();
-    const where: Prisma.ExcerptWhereInput = { userId };
-
-    if (url) where.url = url;
-    if (siteId) where.siteId = siteId;
-
-    let orderedIds: string[] | null = null;
-    if (search) {
-      const ftsQuery = toFtsQuery(search);
-      const matches = await db.$queryRaw<Array<{ id: string }>>(Prisma.sql`
-        SELECT excerpt."id" AS "id"
-        FROM "Excerpt" AS excerpt
-        INNER JOIN "Excerpt_fts"
-          ON "Excerpt_fts".rowid = excerpt.rowid
-        WHERE "Excerpt_fts" MATCH ${ftsQuery}
-          AND excerpt."user_id" = ${userId}
-          ${url ? Prisma.sql`AND excerpt."url" = ${url}` : Prisma.empty}
-          ${siteId ? Prisma.sql`AND excerpt."site_id" = ${siteId}` : Prisma.empty}
-        ORDER BY excerpt."create_at" ASC
-        LIMIT ${pageSize} OFFSET ${skip}
-      `);
-      orderedIds = matches.map(({ id }) => id);
-      if (orderedIds.length === 0) return jsonResponse([]);
-      where.id = { in: orderedIds };
-    }
-
-    const excerpts = await db.excerpt.findMany({
-      skip: orderedIds ? undefined : skip,
-      take: orderedIds ? undefined : pageSize,
-      where,
-      include: excerptInclude,
-      orderBy: { createAt: "asc" },
+    const excerpts = await listExcerptRecords({
+      db,
+      userId,
+      url: url || undefined,
+      siteId: siteId || undefined,
+      search: search || undefined,
+      skip,
+      take: pageSize,
     });
-    const byId = new Map(excerpts.map((excerpt) => [excerpt.id, excerpt]));
-    const ordered = orderedIds
-      ? orderedIds.flatMap((id) => {
-          const excerpt = byId.get(id);
-          return excerpt ? [excerpt] : [];
-        })
-      : excerpts;
-    return jsonResponse(ordered.map(serializeExcerpt));
+    return jsonResponse(excerpts.map(serializeExcerpt));
   } catch (error) {
     return errorResponse(error);
   }
@@ -177,7 +145,7 @@ export async function POST(request: NextRequest) {
 
     const excerpt = await db.excerpt.findFirst({
       where: { id: excerptId, userId },
-      include: excerptInclude,
+      include: excerptWithArticleInclude,
     });
     if (!excerpt) throw new ApiError(500, "excerpt_unavailable", "Excerpt could not be loaded");
     return jsonResponse(serializeExcerpt(excerpt), { status: 201 });
@@ -202,7 +170,7 @@ export async function DELETE(request: NextRequest) {
     const db = getDb();
     const excerpts = await db.excerpt.findMany({
       where: { userId, ...(id ? { id } : { sourceId }) },
-      include: excerptInclude,
+      include: excerptWithArticleInclude,
     });
     if (id && excerpts.length === 0) {
       throw new ApiError(404, "excerpt_not_found", "Excerpt not found");

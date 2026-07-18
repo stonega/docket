@@ -55,7 +55,8 @@ export default function ExcerptList() {
                 />
               ))}
               {isLoading &&
-                Array.from({ length: records.length === 0 ? 6 : 3 }).map(
+                records.length === 0 &&
+                Array.from({ length: 6 }).map(
                   (_, index) => (
                     <div
                       aria-hidden="true"

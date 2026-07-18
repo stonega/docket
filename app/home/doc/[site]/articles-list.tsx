@@ -56,7 +56,8 @@ export default function ArticlesList({
               <ArticleCard article={article} animationIndex={index} key={article.id} />
             ))}
             {isLoading &&
-              Array.from({ length: records.length === 0 ? Math.min(total || 3, 3) : 3 })
+              records.length === 0 &&
+              Array.from({ length: Math.min(total || 3, 3) })
                 .map((_, index) => (
                   <div
                     aria-hidden="true"

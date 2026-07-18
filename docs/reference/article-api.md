@@ -31,7 +31,7 @@ Returns current `ArticleSummary` values ordered by recent activity. Query parame
 
 ### `GET /api/article/:id`
 
-Returns an owned `ArticleDetail`: current summary, current version, the latest version summaries, and associated excerpts. Use the versions endpoint to paginate older history.
+Returns an owned `ArticleDetail`: current summary, current version, the latest version summaries, and associated excerpts in newest-first creation order. Use the versions endpoint to paginate older history.
 
 ### `GET /api/article/:id/versions`
 
@@ -53,7 +53,13 @@ Returns paginated `LibrarySearchResult` values. Each result has a discriminating
 
 Queries are limited to 200 characters and ten prefix terms.
 
-## Excerpt compatibility
+## Excerpts
+
+### `GET /api/excerpt`
+
+Returns owned excerpts in newest-first creation order, with a stable ID tie-breaker. The same order applies when filtering by `url` or `site_id` and when using the `search` parameter. Results support the common `page` and `page_size` parameters.
+
+### `POST /api/excerpt`
 
 `POST /api/excerpt` retains the legacy request fields and additionally accepts `canonicalUrl`. The server normalizes the page identity, links an owned article when an alias matches, and returns an optional `article: { id, title }`. Excerpts created before an article are linked when a later article save matches their stored normalized page key or URL.
 

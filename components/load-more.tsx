@@ -13,10 +13,11 @@ export function LoadMore({
   if (isLoading)
     return (
       <div
-        className="mx-auto my-5 w-fit px-2 py-2 text-center text-xs text-stone-500 dark:text-stone-400"
+        className="mx-auto my-5 w-fit text-stone-500 dark:text-stone-400"
         role="status"
       >
-        Loading more
+        <span className="sr-only">Loading more</span>
+        <div aria-hidden="true" className="load-more-loader" />
       </div>
     );
   if (!hasMore) return null;

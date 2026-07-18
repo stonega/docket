@@ -9,6 +9,7 @@ import SiteIcon from "./site-icon";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { dateFromNow, formateDate } from "@/lib/utils";
 import ArticlesList from "./articles-list";
+import { newestExcerptFirstOrder } from "@/lib/excerpt-service";
 
 function getHostname(url: string) {
   try {
@@ -37,7 +38,7 @@ export default async function Page({
     db.excerpt.findMany({
       where: { siteId, userId },
       include: { article: { select: { id: true, title: true } } },
-      orderBy: { createAt: "asc" },
+      orderBy: newestExcerptFirstOrder,
     }),
     db.article.count({ where: { siteId, userId, status: "ACTIVE" } }),
   ]);

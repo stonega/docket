@@ -23,6 +23,7 @@ import type {
   ArticleVersionSummary,
   ExcerptWithArticle,
 } from "@/types/library";
+import { newestExcerptFirstOrder } from "@/lib/excerpt-service";
 
 const articleSummaryInclude = {
   site: { select: { id: true, title: true, url: true } },
@@ -814,7 +815,7 @@ export async function getArticleDetail({
     db.excerpt.findMany({
       where: { articleId, userId },
       include: { article: { select: excerptArticleSelect } },
-      orderBy: [{ createAt: "asc" }, { id: "asc" }],
+      orderBy: newestExcerptFirstOrder,
     }),
   ]);
   const currentVersion = versions.find((version) => version.id === article.currentVersionId)

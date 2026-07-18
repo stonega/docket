@@ -48,7 +48,8 @@ export default function ArticleList() {
               <ArticleCard article={article} animationIndex={index} key={article.id} />
             ))}
             {isLoading &&
-              Array.from({ length: records.length === 0 ? 8 : 4 }).map((_, index) => (
+              records.length === 0 &&
+              Array.from({ length: 8 }).map((_, index) => (
                 <div
                   aria-hidden="true"
                   className="min-h-72 animate-pulse overflow-hidden rounded-2xl border border-emerald-200/80 bg-emerald-50 dark:border-emerald-900 dark:bg-[#14231f] motion-reduce:animate-none"

@@ -46,7 +46,8 @@ export default function SiteList() {
               <SiteCard site={record} animationIndex={index} key={record.id} />
             ))}
             {isLoading &&
-              Array.from({ length: records.length === 0 ? 8 : 4 }).map(
+              records.length === 0 &&
+              Array.from({ length: 8 }).map(
                 (_, index) => (
                   <div
                     aria-hidden="true"

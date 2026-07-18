@@ -15,6 +15,7 @@ import {
   saveArticleSnapshot,
 } from "../lib/article-service";
 import { normalizeUrl, validateArticleSaveRequest } from "../lib/articles";
+import { listExcerptRecords } from "../lib/excerpt-service";
 
 let runtime: Miniflare;
 let database: D1Database;
@@ -81,6 +82,7 @@ describe("article lifecycle on D1 and R2", () => {
     await db.excerpt.create({
       data: {
         id: "excerpt-before",
+        createAt: new Date("2026-01-01T00:00:00.000Z"),
         userId,
         siteId: "site-before",
         url: sourceUrl,
@@ -127,6 +129,7 @@ describe("article lifecycle on D1 and R2", () => {
     await db.excerpt.create({
       data: {
         id: "excerpt-after",
+        createAt: new Date("2026-01-02T00:00:00.000Z"),
         userId,
         siteId: "site-before",
         url: canonicalUrl,
@@ -187,6 +190,10 @@ describe("article lifecycle on D1 and R2", () => {
       versionId: created.versionId,
     });
     const detail = await getArticleDetail({ db, userId, articleId: created.article.id });
+    expect(detail.excerpts.map(({ id }) => id)).toEqual([
+      "excerpt-after",
+      "excerpt-before",
+    ]);
     expect(detail.currentVersion.id).toBe(restored.versionId);
     expect(detail.currentVersion.restoredFromVersionId).toBe(created.versionId);
     expect(detail.versionCount).toBe(3);
@@ -294,5 +301,58 @@ describe("article lifecycle on D1 and R2", () => {
     await deleteArticle({ db, database, bucket, userId, articleId: created.article.id });
     expect(await db.article.findUnique({ where: { id: created.article.id } })).toBeNull();
     expect(await bucket.get(key)).toBeNull();
+  });
+});
+
+describe("excerpt listing on D1", () => {
+  test("returns regular and searched pages newest first with stable ties", async () => {
+    const userId = "excerpt-order-user";
+    const siteId = "excerpt-order-site";
+    await db.site.create({
+      data: {
+        id: siteId,
+        userId,
+        title: "Excerpt ordering",
+        icon: "",
+        description: "",
+        url: "https://ordering.example",
+      },
+    });
+
+    for (const excerpt of [
+      { id: "excerpt-old", createAt: "2026-01-01T00:00:00.000Z" },
+      { id: "excerpt-middle", createAt: "2026-01-02T00:00:00.000Z" },
+      { id: "excerpt-y", createAt: "2026-01-03T00:00:00.000Z" },
+      { id: "excerpt-z", createAt: "2026-01-03T00:00:00.000Z" },
+    ]) {
+      await db.excerpt.create({
+        data: {
+          id: excerpt.id,
+          createAt: new Date(excerpt.createAt),
+          userId,
+          siteId,
+          url: `https://ordering.example/${excerpt.id}`,
+          content: `<p>Shared ordering phrase: ${excerpt.id}</p>`,
+        },
+      });
+    }
+
+    const listIds = async (search: string | undefined, skip: number) => (
+      await listExcerptRecords({
+        db,
+        userId,
+        search,
+        skip,
+        take: 2,
+      })
+    ).map(({ id }) => id);
+
+    await expect(listIds(undefined, 0)).resolves.toEqual(["excerpt-z", "excerpt-y"]);
+    await expect(listIds(undefined, 2)).resolves.toEqual(["excerpt-middle", "excerpt-old"]);
+    await expect(listIds("shared ordering", 0)).resolves.toEqual(["excerpt-z", "excerpt-y"]);
+    await expect(listIds("shared ordering", 2)).resolves.toEqual([
+      "excerpt-middle",
+      "excerpt-old",
+    ]);
   });
 });
