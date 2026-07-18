@@ -15,8 +15,17 @@ export async function getData<T>(
     page_size: pageSize,
     ...options,
   });
-  const response = await fetch(`${path}?${url}`);
-  const result = await response.json();
+  const separator = path.includes("?") ? "&" : "?";
+  const response = await fetch(`${path}${separator}${url}`);
+  if (!response.ok) {
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+
+  const result: unknown = await response.json();
+  if (!Array.isArray(result)) {
+    throw new Error("Expected a list response");
+  }
+
   return result as T[];
 }
 
@@ -45,22 +54,21 @@ export function usePagination<T extends { id: string }>(path: string) {
       setPage(1);
     }
     setRecords([]);
-  }, [options]);
+    setHasMore(true);
+  }, [options, path]);
 
   useEffect(() => {
     if (!data) return;
     if (data.length > 0) {
       setRecords((records) => {
-        data.forEach((item) => {
-          if (!records.find((record) => item.id === record.id)) {
-            records = [...records, item];
-          }
-        });
-        return records;
+        const existingIds = new Set(records.map((record) => record.id));
+        return [
+          ...records,
+          ...data.filter((item) => !existingIds.has(item.id)),
+        ];
       });
-    } else {
-      setHasMore(false);
     }
+    setHasMore(data.length === 20);
   }, [data]);
 
   return {

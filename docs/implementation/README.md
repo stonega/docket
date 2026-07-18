@@ -5,3 +5,5 @@ Use this directory for technical implementation notes, database migrations, depl
 Implementation notes should explain the current behavior, important constraints, verification steps, and any web-to-extension compatibility considerations.
 
 Add new documents to this index when they are created.
+
+- [Article storage and rollout](article-storage-rollout.md)

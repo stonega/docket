@@ -1,27 +1,13 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/', '/privacy'])
+const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)", "/", "/privacy"]);
+const isApiRoute = createRouteMatcher(["/api(.*)"]);
 
 export default clerkMiddleware(
   async (auth, request) => {
-    if (!isPublicRoute(request)) {
-      await auth.protect()
-    }
-    // if (!auth.userId) {
-    //   return redirectToSignIn({ returnBackUrl: request.url });
-    // }
-    if (request.method === "OPTIONS") {
-      const origin = request.headers.get("origin");
-      return new Response(null, {
-        status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": origin || "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization,  Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version",
-          "Access-Control-Max-Age": "86400",
-        },
-      });
+    // API handlers own their typed 401 responses and shared CORS/OPTIONS behavior.
+    if (!isPublicRoute(request) && !isApiRoute(request)) {
+      await auth.protect();
     }
   },
 );

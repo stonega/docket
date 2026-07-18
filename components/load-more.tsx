@@ -3,41 +3,33 @@ import { Dispatch, SetStateAction } from "react";
 interface LoadMoreProps {
   hasMore: boolean;
   isLoading: boolean;
-  empty: boolean;
   setPage: Dispatch<SetStateAction<number>>;
 }
 export function LoadMore({
   hasMore,
   isLoading,
   setPage,
-  empty,
 }: LoadMoreProps) {
-  if (!hasMore)
-    return (
-      <div className="mx-auto my-4 px-2 py-2 w-fit text-center text-sm text-black dark:text-white">
-        No more data.
-      </div>
-    );
   if (isLoading)
     return (
-      <div className="dot-loader mx-auto my-4 w-fit text-center text-lg opacity-70 text-black dark:text-white">
-        Loading
+      <div
+        className="mx-auto my-5 w-fit px-2 py-2 text-center text-xs text-stone-500 dark:text-stone-400"
+        role="status"
+      >
+        Loading more
       </div>
     );
-  if (empty)
-    return (
-      <div className="rounded-md dot-loader mx-auto py-2 my-4 w-fit text-center text-sm text-black dark:text-white">
-        No data.
-      </div>
-    );
+  if (!hasMore) return null;
+
   return (
-    <div
-      className="rounded-md hover:bg-[#ff90e8] border border-black w-fit my-4 py-2 text-sm px-2 mx-auto cursor-pointer text-center text-black dark:text-white"
+    <button
+      type="button"
+      className="library-motion mx-auto my-5 w-fit border-0 bg-transparent px-2 py-2 text-center text-xs font-medium text-stone-500 underline-offset-4 transition-[color,transform] duration-150 ease-out hover:text-stone-950 hover:underline focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-excerpts-400 focus-visible:ring-offset-2 active:translate-y-px dark:text-stone-400 dark:hover:text-white dark:focus-visible:ring-offset-[#111] motion-reduce:transition-none"
       onClick={() => {
         if (hasMore) setPage((page) => page + 1);
       }}
     >
-      Load More
-    </div>
+      Load more
+    </button>
   );
 }

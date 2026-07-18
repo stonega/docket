@@ -17,4 +17,12 @@ export const getDbAsync = cache(async () => {
   return createClient(env.DB);
 });
 
+export function getD1Database() {
+  return getCloudflareContext().env.DB;
+}
+
+export async function getD1DatabaseAsync() {
+  return (await getCloudflareContext({ async: true })).env.DB;
+}
+
 export type DbClient = ReturnType<typeof createClient>;

@@ -6,7 +6,7 @@ export default function Privacy() {
       <Header></Header>
       <article className="mx-auto my-20 font-mono prose prose-stone lg:prose-xl dark:prose-invert prose-code:bg-orange-200 prose-code:before:content-[] prose-code:after:content-[] prose-code:px-1 prose-code:py-1 prose-code:text-stone-600 prose-code:rounded-lg prose-a:text-yellow-600">
         <h1>Privacy Policy</h1>
-        <p>Last updated: October 31, 2023</p>
+        <p>Last updated: July 17, 2026</p>
         <p>
           This Privacy Policy describes Our policies and procedures on the
           collection, use and disclosure of Your information when You use the
@@ -146,6 +146,38 @@ export default function Privacy() {
             <p>Usage Data</p>
           </li>
         </ul>
+        <h4>Content You Save with Docket</h4>
+        <p>
+          When You explicitly save an excerpt, Docket receives the selected
+          text, code, or media reference together with the source page URL. When
+          You explicitly choose &quot;Save article to Docket&quot; in the browser
+          extension, the extension processes the rendered page on Your Device
+          and sends a cleaned copy of the article&apos;s full HTML and text to Your
+          authenticated Docket account.
+        </p>
+        <p>
+          An article save may also include its source and canonical URLs, title,
+          author, description, site name, publication date, image and favicon
+          URLs, language, word count, and extraction duration. Docket uses this
+          information to provide private saved copies, immutable version
+          history, reading, excerpt association, and library search. The
+          extension does not send page content to a hosted or third-party
+          extraction service.
+        </p>
+        <p>
+          Sanitized article bodies are stored in private Cloudflare object
+          storage, while account ownership, metadata, relationships, versions,
+          and search text are stored in Cloudflare D1. Publisher-hosted HTTPS
+          images, audio, and video may load when You read a saved copy. Docket
+          stores their URLs but does not archive those media files, and the
+          reader requests them without sending a referrer.
+        </p>
+        <p>
+          Distinct article versions are retained until You delete the article.
+          Deleting an article removes all of its stored article bodies and
+          versions. Excerpts You saved separately are retained and become
+          unlinked from the deleted article.
+        </p>
         <h4>Usage Data</h4>
         <p>Usage Data is collected automatically when using the Service.</p>
         <p>

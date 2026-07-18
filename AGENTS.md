@@ -17,9 +17,8 @@ Current structure:
 - `store`: client-side state
 - `types`: project-level TypeScript declarations
 - `tests`: Vitest tests
-- `prisma`: Prisma schema and historical Prisma migrations
+- `prisma`: Prisma schema used to generate the D1-compatible client
 - `migrations`: Cloudflare D1 migrations used by Wrangler
-- `scripts`: database migration and validation utilities
 - `public`: static assets and Cloudflare asset headers
 - `docs`: design, implementation, research, reference, and user documentation
 
@@ -81,8 +80,6 @@ pnpm deploy
 pnpm cf-typegen
 pnpm d1:migrate:local
 pnpm d1:migrate:remote
-pnpm db:export:railway
-pnpm db:validate
 ```
 
 Cloudflare deployment and remote D1 migration commands change external state. Run them only when the user explicitly requests the corresponding deployment or migration.
@@ -157,7 +154,7 @@ Choose verification proportionally:
 
 - Run focused Vitest tests while iterating, then the full relevant suite before finishing.
 - Run `pnpm build` for changes involving routing, server/client boundaries, configuration, database generation, or deployment behavior.
-- Run `pnpm db:validate` when changing the Railway-to-D1 migration path or D1 schema assumptions.
+- Run the D1 migration and Miniflare integration tests when changing D1 schema assumptions.
 - Build `../docket-extension` when a requested cross-repository change affects extension code or its integration contract.
 
 If a command is unavailable, broken independently of the change, requires credentials, or would change remote state, do not conceal that limitation; state it in the final response.

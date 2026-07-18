@@ -1,149 +1,232 @@
-import { getDb } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { getD1Database, getDb } from "@/lib/prisma";
+import {
+  ApiError,
+  errorResponse,
+  isRecord,
+  jsonResponse,
+  optionsResponse,
+  parsePagination,
+  readJsonBody,
+  requireUserId,
+} from "@/lib/api";
+import {
+  buildSearchDocuments,
+  htmlToPlainText,
+  normalizeUrl,
+  sanitizeArticleHtml,
+} from "@/lib/articles";
+import { findOwnedArticleForPage, serializeExcerpt } from "@/lib/article-service";
+import { toFtsQuery } from "@/lib/library-search";
 import { Prisma } from "@prisma/client";
-import DOMPurify from "isomorphic-dompurify";
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
+import { prepareD1, runD1Batch } from "@/lib/d1";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-};
+const excerptInclude = {
+  article: { select: { id: true, title: true } },
+} satisfies Prisma.ExcerptInclude;
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
-}
-
-function positiveInteger(value: string | null, fallback: number, max: number) {
-  const parsed = Number(value);
-  if (!Number.isInteger(parsed) || parsed < 1) return fallback;
-  return Math.min(parsed, max);
-}
-
-function toFtsQuery(search: string) {
-  return search
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((term) => `"${term.replaceAll('"', '""')}"*`)
-    .join(" AND ");
+export function OPTIONS() {
+  return optionsResponse();
 }
 
 export async function GET(request: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  try {
+    const userId = await requireUserId();
+    const searchParams = request.nextUrl.searchParams;
+    const { skip, pageSize } = parsePagination(searchParams);
+    const siteId = searchParams.get("site_id")?.trim();
+    const url = searchParams.get("url");
+    const search = searchParams.get("search")?.trim();
+    const db = getDb();
+    const where: Prisma.ExcerptWhereInput = { userId };
 
-  const db = getDb();
-  const searchParams = request.nextUrl.searchParams;
-  const page = positiveInteger(searchParams.get("page"), 1, 100_000);
-  const pageSize = positiveInteger(searchParams.get("page_size"), 20, 100);
-  const siteId = searchParams.get("site_id");
-  const url = searchParams.get("url");
-  const search = searchParams.get("search")?.trim();
-  const skip = (page - 1) * pageSize;
-  const where: Prisma.ExcerptWhereInput = { userId };
+    if (url) where.url = url;
+    if (siteId) where.siteId = siteId;
 
-  if (url) where.url = url;
-  if (siteId) where.siteId = siteId;
-
-  if (search) {
-    const ftsQuery = toFtsQuery(search);
-    const matches = await db.$queryRaw<Array<{ id: string }>>(Prisma.sql`
-      SELECT excerpt.id AS id
-      FROM "Excerpt" AS excerpt
-      INNER JOIN "Excerpt_fts"
-        ON "Excerpt_fts".rowid = excerpt.rowid
-      WHERE "Excerpt_fts" MATCH ${ftsQuery}
-        AND excerpt."user_id" = ${userId}
-        ${url ? Prisma.sql`AND excerpt.url = ${url}` : Prisma.empty}
-        ${siteId ? Prisma.sql`AND excerpt."site_id" = ${siteId}` : Prisma.empty}
-      ORDER BY excerpt."create_at" ASC
-      LIMIT ${pageSize} OFFSET ${skip}
-    `);
-
-    if (matches.length === 0) {
-      return Response.json([], { status: 200, headers: corsHeaders });
+    let orderedIds: string[] | null = null;
+    if (search) {
+      const ftsQuery = toFtsQuery(search);
+      const matches = await db.$queryRaw<Array<{ id: string }>>(Prisma.sql`
+        SELECT excerpt."id" AS "id"
+        FROM "Excerpt" AS excerpt
+        INNER JOIN "Excerpt_fts"
+          ON "Excerpt_fts".rowid = excerpt.rowid
+        WHERE "Excerpt_fts" MATCH ${ftsQuery}
+          AND excerpt."user_id" = ${userId}
+          ${url ? Prisma.sql`AND excerpt."url" = ${url}` : Prisma.empty}
+          ${siteId ? Prisma.sql`AND excerpt."site_id" = ${siteId}` : Prisma.empty}
+        ORDER BY excerpt."create_at" ASC
+        LIMIT ${pageSize} OFFSET ${skip}
+      `);
+      orderedIds = matches.map(({ id }) => id);
+      if (orderedIds.length === 0) return jsonResponse([]);
+      where.id = { in: orderedIds };
     }
-    where.id = { in: matches.map(({ id }) => id) };
+
+    const excerpts = await db.excerpt.findMany({
+      skip: orderedIds ? undefined : skip,
+      take: orderedIds ? undefined : pageSize,
+      where,
+      include: excerptInclude,
+      orderBy: { createAt: "asc" },
+    });
+    const byId = new Map(excerpts.map((excerpt) => [excerpt.id, excerpt]));
+    const ordered = orderedIds
+      ? orderedIds.flatMap((id) => {
+          const excerpt = byId.get(id);
+          return excerpt ? [excerpt] : [];
+        })
+      : excerpts;
+    return jsonResponse(ordered.map(serializeExcerpt));
+  } catch (error) {
+    return errorResponse(error);
   }
-
-  const data = await db.excerpt.findMany({
-    skip: search ? undefined : skip,
-    take: search ? undefined : pageSize,
-    where,
-    orderBy: { createAt: "asc" },
-  });
-
-  return Response.json(data, { status: 200, headers: corsHeaders });
 }
 
 export async function POST(request: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  try {
+    const userId = await requireUserId();
+    const body = await readJsonBody(request, 2 * 1024 * 1024);
+    if (!isRecord(body)) {
+      throw new ApiError(400, "invalid_request", "Request body must be an object");
+    }
+    const siteId = typeof body.siteId === "string" ? body.siteId : undefined;
+    const content = typeof body.content === "string" ? body.content : undefined;
+    const url = typeof body.url === "string" ? body.url : undefined;
+    const canonicalUrl = typeof body.canonicalUrl === "string" ? body.canonicalUrl : null;
+    const source = typeof body.source === "string" ? body.source : undefined;
+    const sourceId = typeof body.sourceId === "string" ? body.sourceId : undefined;
+    if (!siteId || !content || !url) {
+      throw new ApiError(400, "missing_fields", "siteId, content, and url are required");
+    }
 
-  const body: unknown = await request.json();
-  if (!isRecord(body)) {
-    return Response.json({ error: "Invalid request body" }, { status: 400 });
-  }
-  const siteId = typeof body.siteId === "string" ? body.siteId : undefined;
-  const content = typeof body.content === "string" ? body.content : undefined;
-  const url = typeof body.url === "string" ? body.url : undefined;
-  const source = typeof body.source === "string" ? body.source : undefined;
-  const sourceId = typeof body.sourceId === "string" ? body.sourceId : undefined;
-  if (!siteId || !content || !url) {
-    return Response.json({ error: "Missing required fields" }, { status: 400 });
-  }
-
-  const db = getDb();
-  const site = await db.site.findFirst({ where: { id: siteId, userId } });
-  if (!site) {
-    return Response.json({ error: "Site not found" }, { status: 404 });
-  }
-
-  const result = await db.excerpt.create({
-    data: {
+    const db = getDb();
+    const site = await db.site.findFirst({ where: { id: siteId, userId } });
+    if (!site) throw new ApiError(404, "site_not_found", "Site not found");
+    const sanitizedContent = sanitizeArticleHtml(content);
+    const normalizedSourceUrl = normalizeUrl(url);
+    const normalizedCanonicalUrl = canonicalUrl ? normalizeUrl(canonicalUrl) : null;
+    let pageMatch = await findOwnedArticleForPage({
+      db,
       userId,
-      siteId,
-      content: DOMPurify.sanitize(content),
-      url,
-      source,
-      sourceId,
-    },
-  });
+      url: canonicalUrl ?? url,
+    });
+    if (
+      !pageMatch.id &&
+      normalizedCanonicalUrl &&
+      normalizedCanonicalUrl !== normalizedSourceUrl
+    ) {
+      pageMatch = await findOwnedArticleForPage({ db, userId, url });
+    }
+    const excerptId = crypto.randomUUID();
+    const searchDocuments = buildSearchDocuments({
+      kind: "excerpt",
+      entityId: excerptId,
+      userId,
+      title: site.title,
+      plainText: htmlToPlainText(sanitizedContent),
+    });
+    const database = getD1Database();
+    const statements = [
+      prepareD1(
+        database,
+        `INSERT INTO "Excerpt" (
+          "id", "url", "canonical_url", "normalized_page_key", "site_id",
+          "article_id", "content", "source", "source_id", "user_id"
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          excerptId,
+          url,
+          normalizedCanonicalUrl,
+          normalizedCanonicalUrl ?? normalizedSourceUrl,
+          siteId,
+          pageMatch.id,
+          sanitizedContent,
+          source ?? null,
+          sourceId ?? null,
+          userId,
+        ],
+      ),
+      prepareD1(
+        database,
+        `UPDATE "Site" SET "update_at" = ? WHERE "id" = ? AND "user_id" = ?`,
+        [new Date().toISOString(), siteId, userId],
+      ),
+    ];
+    for (const document of searchDocuments) {
+      statements.push(prepareD1(
+        database,
+        `INSERT INTO "SearchDocument" (
+          "id", "user_id", "kind", "entity_id", "chunk_index", "title",
+          "content", "article_id", "excerpt_id"
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          document.id,
+          document.userId,
+          document.kind,
+          document.entityId,
+          document.chunkIndex,
+          document.title,
+          document.content,
+          document.articleId,
+          document.excerptId,
+        ],
+      ));
+    }
+    await runD1Batch(database, statements);
 
-  return Response.json(result, { status: 200, headers: corsHeaders });
+    const excerpt = await db.excerpt.findFirst({
+      where: { id: excerptId, userId },
+      include: excerptInclude,
+    });
+    if (!excerpt) throw new ApiError(500, "excerpt_unavailable", "Excerpt could not be loaded");
+    return jsonResponse(serializeExcerpt(excerpt), { status: 201 });
+  } catch (error) {
+    return errorResponse(error);
+  }
 }
 
 export async function DELETE(request: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const body: unknown = await request.json();
-  if (!isRecord(body)) {
-    return Response.json({ error: "Invalid request body" }, { status: 400 });
-  }
-  const id = typeof body.id === "string" ? body.id : undefined;
-  const sourceId = typeof body.sourceId === "string" ? body.sourceId : undefined;
-  if (!id && !sourceId) {
-    return Response.json({ error: "Missing required fields" }, { status: 400 });
-  }
-
-  const db = getDb();
-  if (id) {
-    const excerpt = await db.excerpt.findFirst({ where: { id, userId } });
-    if (!excerpt) {
-      return Response.json({ error: "Excerpt not found" }, { status: 404 });
+  try {
+    const userId = await requireUserId();
+    const body = await readJsonBody(request, 64 * 1024);
+    if (!isRecord(body)) {
+      throw new ApiError(400, "invalid_request", "Request body must be an object");
     }
-    const data = await db.excerpt.delete({ where: { id } });
-    return Response.json(data, { status: 200, headers: corsHeaders });
-  }
+    const id = typeof body.id === "string" ? body.id : undefined;
+    const sourceId = typeof body.sourceId === "string" ? body.sourceId : undefined;
+    if (!id && !sourceId) {
+      throw new ApiError(400, "missing_fields", "id or sourceId is required");
+    }
 
-  const data = await db.excerpt.deleteMany({ where: { sourceId, userId } });
-  return Response.json(data, { status: 200, headers: corsHeaders });
+    const db = getDb();
+    const excerpts = await db.excerpt.findMany({
+      where: { userId, ...(id ? { id } : { sourceId }) },
+      include: excerptInclude,
+    });
+    if (id && excerpts.length === 0) {
+      throw new ApiError(404, "excerpt_not_found", "Excerpt not found");
+    }
+    const excerptIds = excerpts.map((excerpt) => excerpt.id);
+    if (excerptIds.length > 0) {
+      const database = getD1Database();
+      const placeholders = excerptIds.map(() => "?").join(", ");
+      await runD1Batch(database, [
+        prepareD1(
+          database,
+          `DELETE FROM "SearchDocument" WHERE "excerpt_id" IN (${placeholders})`,
+          excerptIds,
+        ),
+        prepareD1(
+          database,
+          `DELETE FROM "Excerpt"
+           WHERE "id" IN (${placeholders}) AND "user_id" = ?`,
+          [...excerptIds, userId],
+        ),
+      ]);
+    }
+    return jsonResponse(id ? serializeExcerpt(excerpts[0]) : { count: excerpts.length });
+  } catch (error) {
+    return errorResponse(error);
+  }
 }

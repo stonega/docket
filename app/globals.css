@@ -175,6 +175,94 @@ pre code.hljs {
   display: none;
 }
 
+.excerpt-card--compact pre,
+.excerpt-card--compact pre code.hljs {
+  border-radius: 0.75rem;
+}
+
+.excerpt-card--compact pre span {
+  font-size: 0.8125rem !important;
+  line-height: 1.6 !important;
+}
+
+.excerpt-card--reader pre span {
+  font-size: 0.875rem !important;
+  line-height: 1.65 !important;
+}
+
+.article-content img,
+.article-content video,
+.article-content audio {
+  max-width: 100%;
+  border-radius: 0.875rem;
+}
+
+.article-content img {
+  height: auto;
+  background: rgb(236 253 245);
+}
+
+.article-media-fallback {
+  margin-block: 1rem;
+  border: 1px dashed rgb(167 243 208);
+  border-radius: 0.875rem;
+  padding: 1rem;
+  color: rgb(87 83 78);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.dark .article-media-fallback {
+  border-color: rgb(6 95 70);
+  color: rgb(214 211 209);
+}
+
+@keyframes library-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes library-card-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.library-enter {
+  animation: library-enter 220ms cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
+.library-enter-delay {
+  animation-delay: 60ms;
+}
+
+.library-card-enter {
+  animation: library-card-enter 200ms cubic-bezier(0.215, 0.61, 0.355, 1)
+    both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .library-enter,
+  .library-card-enter {
+    animation: none;
+  }
+
+  .library-motion {
+    transition: none !important;
+  }
+}
+
 /*
 Highlight theme
 Atom One Dark by Daniel Gamage

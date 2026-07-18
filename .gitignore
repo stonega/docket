@@ -31,9 +31,6 @@ yarn-error.log*
 .env
 .dev.vars
 
-# database migration exports
-/.migration/
-
 # vercel
 .vercel
 

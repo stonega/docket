@@ -28,6 +28,13 @@
       "migrations_dir": "migrations"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "ARTICLE_BUCKET",
+      "bucket_name": "docket-articles",
+      "preview_bucket_name": "docket-articles-preview"
+    }
+  ],
   "observability": {
     "enabled": true,
     "logs": {

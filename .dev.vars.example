@@ -8,8 +8,5 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 NEXT_PUBLIC_NOTION_CLIENT_ID=
 NOTION_SECRET=
 
-# Set this only when the Railway PostgreSQL endpoint requires TLS for export.
-DATABASE_SSL=false
-
 # Fill these in only in .dev.vars. Keep Clerk and Notion secrets out of
 # wrangler.jsonc and version control.

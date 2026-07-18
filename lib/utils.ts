@@ -12,15 +12,12 @@ export function getDocUrl(link: string) {
   const keywords = ["docs", "guide", "learn", "tutorial"];
   try {
     const url = new URL(link);
-    const hostname = url.hostname;
-    const protocol = url.protocol;
     const pathname = url.pathname;
     const path = pathname.split("/");
     const index = path.findIndex((item) => keywords.includes(item));
     const docPath = path.slice(0, index + 1).join("/");
-    return protocol + "//" + hostname + docPath;
-  } catch (error) {
-    console.log(error);
+    return url.origin + docPath;
+  } catch {
     return undefined;
   }
 }
@@ -28,20 +25,17 @@ export function getDocUrl(link: string) {
 export function getSubPaths(link: string) {
   try {
     const url = new URL(link);
-    const hostname = url.hostname;
-    const protocol = url.protocol;
     const pathname = url.pathname;
     const path = pathname.split("/");
     const result = [];
     for (let i = 0; i < path.length; i++) {
       const docPath = path.slice(0, i + 1).join("/");
-      let p = protocol + "//" + hostname + docPath;
+      let p = url.origin + docPath;
       if (p.endsWith("/")) p = p.slice(0, p.length - 1);
       result.push(p);
     }
     return Array.from(new Set(result)).reverse();
-  } catch (error) {
-    console.log(error);
+  } catch {
     return undefined;
   }
 }

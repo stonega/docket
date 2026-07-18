@@ -30,25 +30,132 @@ model Site {
   description String    @default("")
   userId      String    @map("user_id")
   Excerpt     Excerpt[]
+  Article     Article[]
 
   @@index([userId])
 }
 
 model Excerpt {
-  id       String   @id @default(cuid())
-  createAt DateTime @default(now()) @map("create_at")
-  url      String
-  siteId   String   @map("site_id")
-  site     Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
-  content  String
-  source   String?
-  sourceId String?  @map("source_id")
-  userId   String   @map("user_id")
+  id                String           @id @default(cuid())
+  createAt          DateTime         @default(now()) @map("create_at")
+  url               String
+  canonicalUrl      String?          @map("canonical_url")
+  normalizedPageKey String?          @map("normalized_page_key")
+  siteId            String           @map("site_id")
+  site              Site             @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  articleId         String?          @map("article_id")
+  article           Article?         @relation(fields: [articleId], references: [id], onDelete: SetNull)
+  content           String
+  source            String?
+  sourceId          String?          @map("source_id")
+  userId            String           @map("user_id")
+  searchDocuments   SearchDocument[]
 
   @@index([siteId])
   @@index([userId])
   @@index([userId, siteId])
+  @@index([articleId])
+  @@index([userId, normalizedPageKey])
   @@index([sourceId])
+}
+
+model Article {
+  id                   String            @id @default(cuid())
+  createAt             DateTime          @default(now()) @map("create_at")
+  updateAt             DateTime          @default(now()) @map("update_at")
+  savedAt              DateTime          @default(now()) @map("saved_at")
+  userId               String            @map("user_id")
+  siteId               String            @map("site_id")
+  site                 Site              @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  status               String            @default("ACTIVE")
+  sourceUrl            String            @map("source_url")
+  canonicalUrl         String            @map("canonical_url")
+  title                String
+  author               String?
+  description          String?
+  siteName             String?           @map("site_name")
+  publishedAt          String?           @map("published_at")
+  imageUrl             String?           @map("image_url")
+  faviconUrl           String?           @map("favicon_url")
+  language             String?
+  wordCount            Int               @default(0) @map("word_count")
+  parseDurationMs      Int?              @map("parse_duration_ms")
+  currentVersionId     String            @map("current_version_id")
+  currentContentKey    String            @map("current_content_key")
+  currentContentHash   String            @map("current_content_hash")
+  currentContentSize   Int               @map("current_content_size")
+  currentFingerprint   String            @map("current_fingerprint")
+  versions             ArticleVersion[]
+  aliases              ArticleUrlAlias[]
+  excerpts             Excerpt[]
+  searchDocuments      SearchDocument[]
+
+  @@index([userId, status, updateAt])
+  @@index([siteId, status, updateAt])
+  @@index([currentVersionId])
+}
+
+model ArticleVersion {
+  id                    String   @id @default(cuid())
+  articleId             String   @map("article_id")
+  article               Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  createAt              DateTime @default(now()) @map("create_at")
+  restoredFromVersionId String?  @map("restored_from_version_id")
+  previousVersionId     String?  @map("previous_version_id")
+  sourceUrl             String   @map("source_url")
+  canonicalUrl          String   @map("canonical_url")
+  title                 String
+  author                String?
+  description           String?
+  siteName              String?  @map("site_name")
+  publishedAt           String?  @map("published_at")
+  imageUrl              String?  @map("image_url")
+  faviconUrl            String?  @map("favicon_url")
+  language              String?
+  wordCount             Int      @default(0) @map("word_count")
+  parseDurationMs       Int?     @map("parse_duration_ms")
+  contentKey            String   @map("content_key")
+  contentHash           String   @map("content_hash")
+  contentSize           Int      @map("content_size")
+  fingerprint           String
+
+  @@unique([articleId, previousVersionId])
+  @@index([articleId, createAt])
+  @@index([restoredFromVersionId])
+}
+
+model ArticleUrlAlias {
+  id            String  @id @default(cuid())
+  userId        String  @map("user_id")
+  articleId     String  @map("article_id")
+  article       Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  normalizedUrl String  @map("normalized_url")
+  kind          String
+  createAt      DateTime @default(now()) @map("create_at")
+
+  @@unique([userId, normalizedUrl])
+  @@index([articleId])
+}
+
+model SearchDocument {
+  id         String    @id
+  createAt   DateTime  @default(now()) @map("create_at")
+  updateAt   DateTime  @default(now()) @map("update_at")
+  userId     String    @map("user_id")
+  kind       String
+  entityId   String    @map("entity_id")
+  chunkIndex Int       @map("chunk_index")
+  title      String
+  content    String
+  articleId  String?   @map("article_id")
+  article    Article?  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  excerptId  String?   @map("excerpt_id")
+  excerpt    Excerpt?  @relation(fields: [excerptId], references: [id], onDelete: Cascade)
+
+  @@unique([kind, entityId, chunkIndex])
+  @@index([userId, kind, entityId])
+  @@index([articleId])
+  @@index([excerptId])
 }
 
 model Notion {

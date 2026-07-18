@@ -1,4 +1,4 @@
-# Cloudflare deployment and D1 migration
+# Cloudflare deployment and D1 operations
 
 The application deploys to Cloudflare Workers through OpenNext. `wrangler.jsonc`
 is the source of truth for the Worker and its `DB` D1 binding.
@@ -24,26 +24,23 @@ variables, and `NEXT_PUBLIC_NOTION_CLIENT_ID` in Cloudflare Workers Builds.
 `NEXT_PUBLIC_APP_URL` must be the production origin because Notion requires an
 exact OAuth redirect URL.
 
-## Database cutover
+## D1 schema rollout
 
-1. Apply and test the D1 schema locally.
-2. Apply the migrations to the remote D1 database.
-3. Put Railway writes into maintenance mode.
-4. Export the final PostgreSQL snapshot and import it into D1.
-5. Validate row counts before directing traffic to the Worker.
-
-The export reads `DATABASE_URL` from `.env.local`. Set `DATABASE_SSL=true` if
-the source PostgreSQL endpoint requires TLS.
+Apply migrations and exercise the application against an isolated local D1 database first:
 
 ```bash
 pnpm d1:migrate:local
+pnpm exec vitest run
+pnpm preview
+```
+
+Only with explicit production authorization, apply the additive migrations to
+the bound remote D1 database, deploy, and verify the authenticated workflows:
+
+```bash
 pnpm d1:migrate:remote
-pnpm db:export:railway
-pnpm exec wrangler d1 execute docket --remote --file .migration/railway-data.sql
-pnpm db:validate
 pnpm deploy
 ```
 
-Run `pnpm preview` before production deployment to exercise the application in
-the Workers runtime. Keep Railway available but read-only until the D1 counts
-and the main authenticated workflows have been verified.
+Remote migration and deployment commands change production state. Confirm the
+target account, D1 binding, and migration list before running either command.
