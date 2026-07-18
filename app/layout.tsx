@@ -1,4 +1,5 @@
 import "./globals.css";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import cl from "classnames";
@@ -10,13 +11,19 @@ export const metadata: Metadata = {
   description: "Pocket for docs",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const publishableKey =
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+    (await getCloudflareContext({ async: true })).env
+      .NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
   return (
     <ClerkProvider
+      publishableKey={publishableKey}
       afterSignOutUrl="/home"
       appearance={{
         variables: {
