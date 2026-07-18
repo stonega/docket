@@ -1,48 +1,48 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "docket",
-  "main": ".open-next/worker.js",
-  "compatibility_date": "2026-07-12",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
-  "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS"
-  },
-  "vars": {
-    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuZG9ja2V0LnNwYWNlJA"
-  },
-  "services": [
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "docket"
-    }
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "docket",
-      "database_id": "dec4049b-faa9-430e-bc81-21efa3cbca81",
-      "migrations_dir": "migrations"
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "ARTICLE_BUCKET",
-      "bucket_name": "docket-articles",
-      "preview_bucket_name": "docket-articles-preview"
-    }
-  ],
-  "observability": {
-    "enabled": true,
-    "logs": {
-      "head_sampling_rate": 1
-    },
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 0.01
-    }
-  }
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "docket",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-07-12",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"vars": {
+		"NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuZG9ja2V0LnNwYWNlJA"
+	},
+	"services": [
+		{
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "docket"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "docket",
+			"database_id": "dec4049b-faa9-430e-bc81-21efa3cbca81",
+			"migrations_dir": "migrations"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "ARTICLE_BUCKET",
+			"bucket_name": "docket-articles",
+			"preview_bucket_name": "docket-articles-preview"
+		}
+	],
+	"observability": {
+		"enabled": true,
+		"logs": {
+			"head_sampling_rate": 1
+		},
+		"traces": {
+			"enabled": true,
+			"head_sampling_rate": 0.01
+		}
+	}
 }
