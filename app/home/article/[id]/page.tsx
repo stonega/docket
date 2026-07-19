@@ -55,7 +55,7 @@ export default async function ArticleReaderPage({
         className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(circle_at_top_left,rgba(167,243,208,0.34),transparent_62%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(6,95,70,0.18),transparent_62%)]"
       />
       <div className="container relative mx-auto px-4 pb-16 pt-3 sm:px-6 sm:pb-24">
-        <nav className="library-enter sticky top-[50px] z-10 mx-auto flex min-h-12 max-w-6xl items-center justify-between gap-3 rounded-2xl border border-stone-200/90 bg-white/85 p-1.5 shadow-[0_8px_30px_rgba(28,25,23,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0a2328]/85">
+        <nav className="library-enter sticky top-[50px] z-10 mx-auto flex min-h-12 max-w-6xl items-center justify-between gap-3 border border-stone-200/90 bg-white/85 p-1.5 shadow-[0_8px_30px_rgba(28,25,23,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0a2328]/85">
           <BackButton>
             <span>Library</span>
           </BackButton>
@@ -119,9 +119,9 @@ export default async function ArticleReaderPage({
               </div>
             </header>
 
-            <section className="library-enter library-enter-delay mt-6 rounded-3xl border border-stone-200 bg-white px-5 py-7 shadow-[0_8px_40px_rgba(28,25,23,0.04)] dark:border-white/10 dark:bg-[#171417] sm:px-10 sm:py-12">
+            <section className="library-enter library-enter-delay mt-6 border border-stone-200 bg-white px-5 py-7 shadow-[0_8px_40px_rgba(28,25,23,0.04)] dark:border-white/10 dark:bg-[#171417] sm:px-10 sm:py-12">
               {contentUnavailable || html === null ? (
-                <div className="rounded-2xl border border-dashed border-amber-300 bg-amber-50 px-6 py-12 text-center dark:border-amber-800 dark:bg-amber-950/30" role="status">
+                <div className="border border-dashed border-amber-300 bg-amber-50 px-6 py-12 text-center dark:border-amber-800 dark:bg-amber-950/30" role="status">
                   <h2 className="text-lg font-semibold">Saved content is temporarily unavailable</h2>
                   <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-stone-600 dark:text-stone-300">
                     The article metadata and version history are intact, but this stored body could not be read from private storage.
@@ -145,13 +145,13 @@ export default async function ArticleReaderPage({
                 </span>
               </div>
               {detail.excerpts.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-excerpts-300 bg-excerpts-50/70 px-6 py-10 text-center text-sm text-stone-600 dark:border-excerpts-800 dark:bg-excerpts-950/20 dark:text-stone-300">
+                <div className="border border-dashed border-excerpts-300 bg-excerpts-50/70 px-6 py-10 text-center text-sm text-stone-600 dark:border-excerpts-800 dark:bg-excerpts-950/20 dark:text-stone-300">
                   Excerpts saved from this URL will be linked here automatically.
                 </div>
               ) : (
                 <div className="grid gap-4 md:grid-cols-2">
                   {detail.excerpts.map((excerpt) => (
-                    <article key={excerpt.id} className="rounded-2xl border border-excerpts-200 bg-excerpts-50 p-5 dark:border-excerpts-900 dark:bg-[#241d25]">
+                    <article key={excerpt.id} className="border border-excerpts-200 bg-excerpts-50 p-5 dark:border-excerpts-900 dark:bg-[#241d25]">
                       <ExcerptCard excerpt={excerpt} variant="compact" />
                       <a
                         href={excerpt.url}
