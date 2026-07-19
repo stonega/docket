@@ -279,6 +279,16 @@ function optionalHttpsUrl(value: unknown, field: string) {
   return url.toString();
 }
 
+function optionalDateTime(value: unknown, field: string) {
+  const candidate = optionalString(value, field, 100);
+  if (!candidate) return null;
+  const timestamp = Date.parse(candidate);
+  if (!Number.isFinite(timestamp)) {
+    throw new ApiError(422, "invalid_article", `${field} must be a valid date`);
+  }
+  return new Date(timestamp).toISOString();
+}
+
 function optionalInteger(
   value: unknown,
   field: string,
@@ -585,7 +595,7 @@ export async function validateArticleSaveRequest(
     author: optionalString(value.author, "author", 300),
     description: optionalString(value.description, "description", 2_000),
     siteName: optionalString(value.site, "site", 300),
-    publishedAt: optionalString(value.publishedAt, "publishedAt", 100),
+    publishedAt: optionalDateTime(value.publishedAt, "publishedAt"),
     imageUrl: optionalHttpsUrl(value.imageUrl, "imageUrl"),
     faviconUrl: optionalHttpsUrl(value.faviconUrl, "faviconUrl"),
     language: optionalString(value.language, "language", 35),

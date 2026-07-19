@@ -107,7 +107,7 @@ export function serializeArticleSummary(article: ArticleSummaryRecord): ArticleS
     author: article.author,
     description: article.description,
     siteName: article.siteName,
-    publishedAt: article.publishedAt,
+    publishedAt: article.publishedAt?.toISOString() ?? null,
     imageUrl: article.imageUrl,
     faviconUrl: article.faviconUrl,
     language: article.language,
@@ -159,7 +159,7 @@ function versionMetadata(version: VersionRecord) {
     author: version.author,
     description: version.description,
     siteName: version.siteName,
-    publishedAt: version.publishedAt,
+    publishedAt: version.publishedAt?.toISOString() ?? null,
     imageUrl: version.imageUrl,
     faviconUrl: version.faviconUrl,
     language: version.language,
@@ -185,7 +185,9 @@ function metadataValues(snapshot: ValidatedArticleSnapshot | VersionRecord) {
     snapshot.author,
     snapshot.description,
     snapshot.siteName,
-    snapshot.publishedAt,
+    snapshot.publishedAt instanceof Date
+      ? snapshot.publishedAt.toISOString()
+      : snapshot.publishedAt,
     snapshot.imageUrl,
     snapshot.faviconUrl,
     snapshot.language,

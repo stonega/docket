@@ -8,6 +8,8 @@ All endpoints require Clerk authentication, accept bearer authentication from th
 
 Accepts `ArticleSaveRequest`: cleaned HTML, source URL, optional canonical URL, title, and optional author, description, site, publication date, image, favicon, language, word count, and parse duration.
 
+When present, `publishedAt` must be a valid date string. The server normalizes it to an ISO-8601 timestamp before persistence and returns it in that format.
+
 Returns `201` for `created` or `200` for `versioned`/`unchanged` with:
 
 ```json

@@ -119,7 +119,13 @@ export function errorResponse(error: unknown) {
     );
   }
 
-  console.error({ event: "api_error", errorType: error instanceof Error ? error.name : "unknown" });
+  console.error({
+    event: "api_error",
+    errorType: error instanceof Error ? error.name : "unknown",
+    ...(isRecord(error) && typeof error.code === "string"
+      ? { errorCode: error.code }
+      : {}),
+  });
   return jsonResponse(
     { error: { code: "internal_error", message: "The request could not be completed" } },
     { status: 500 },

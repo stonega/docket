@@ -84,6 +84,20 @@ describe("article sanitization", () => {
 });
 
 describe("article snapshots and search documents", () => {
+  test("normalizes publication dates and rejects invalid values", async () => {
+    await expect(validateArticleSaveRequest({
+      ...validRequest,
+      publishedAt: "2025-12-16T00:00:00Z",
+    })).resolves.toMatchObject({
+      publishedAt: "2025-12-16T00:00:00.000Z",
+    });
+
+    await expect(validateArticleSaveRequest({
+      ...validRequest,
+      publishedAt: "not a publication date",
+    })).rejects.toMatchObject({ status: 422, code: "invalid_article" });
+  });
+
   test("measures UTF-8 bytes and chunks without splitting Unicode scalars", () => {
     expect(utf8ByteLength("A台🙂")).toBe(8);
     const chunks = chunkUnicodeText("alpha 台灣 🙂 e\u0301 omega", 9);

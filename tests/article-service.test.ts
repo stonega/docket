@@ -24,7 +24,12 @@ let db: PrismaClient;
 
 async function snapshot(
   sourceUrl: string,
-  options: { html?: string; title?: string; canonicalUrl?: string } = {},
+  options: {
+    html?: string;
+    title?: string;
+    canonicalUrl?: string;
+    publishedAt?: string;
+  } = {},
 ) {
   return validateArticleSaveRequest({
     html: options.html ?? "<article><h1>Saved locally</h1><p>The original searchable article body.</p></article>",
@@ -33,7 +38,15 @@ async function snapshot(
     title: options.title ?? "Saved locally",
     author: "Docket Test",
     site: "Example",
+    publishedAt: options.publishedAt,
   });
+}
+
+async function applyMigration(path: string) {
+  const sql = (await readFile(path, "utf8"))
+    .replace(/--[^\n]*/g, "")
+    .replace(/\s*\r?\n\s*/g, " ");
+  await database.exec(sql);
 }
 
 beforeEach(async () => {
@@ -51,10 +64,7 @@ beforeEach(async () => {
     "migrations/0002_excerpt_fts.sql",
     "migrations/0003_article_library.sql",
   ]) {
-    const sql = (await readFile(migration, "utf8"))
-      .replace(/--[^\n]*/g, "")
-      .replace(/\s*\r?\n\s*/g, " ");
-    await database.exec(sql);
+    await applyMigration(migration);
   }
   db = new PrismaClient({ adapter: new PrismaD1(database) });
 });
@@ -65,6 +75,52 @@ afterEach(async () => {
 });
 
 describe("article lifecycle on D1 and R2", () => {
+  test("normalizes legacy publication dates before Prisma reads them", async () => {
+    const valid = await saveArticleSnapshot({
+      db,
+      database,
+      bucket,
+      userId: "migration-user",
+      snapshot: await snapshot("https://migration.example/valid"),
+    });
+    const invalid = await saveArticleSnapshot({
+      db,
+      database,
+      bucket,
+      userId: "migration-user",
+      snapshot: await snapshot("https://migration.example/invalid"),
+    });
+
+    await database.batch([
+      database.prepare(`UPDATE "Article" SET "published_at" = ? WHERE "id" = ?`)
+        .bind("2026-01-01T08:30:00+08:00", valid.article.id),
+      database.prepare(`UPDATE "ArticleVersion" SET "published_at" = ? WHERE "id" = ?`)
+        .bind("2026-01-01T08:30:00+08:00", valid.versionId),
+      database.prepare(`UPDATE "Article" SET "published_at" = ? WHERE "id" = ?`)
+        .bind("not a publication date", invalid.article.id),
+      database.prepare(`UPDATE "ArticleVersion" SET "published_at" = ? WHERE "id" = ?`)
+        .bind("not a publication date", invalid.versionId),
+    ]);
+
+    await applyMigration("migrations/0004_normalize_article_published_at.sql");
+
+    const articles = await db.article.findMany({
+      where: { id: { in: [valid.article.id, invalid.article.id] } },
+    });
+    const versions = await db.articleVersion.findMany({
+      where: { id: { in: [valid.versionId, invalid.versionId] } },
+    });
+    const articlesById = new Map(articles.map((article) => [article.id, article]));
+    const versionsById = new Map(versions.map((version) => [version.id, version]));
+
+    expect(articlesById.get(valid.article.id)?.publishedAt)
+      .toEqual(new Date("2026-01-01T00:30:00.000Z"));
+    expect(versionsById.get(valid.versionId)?.publishedAt)
+      .toEqual(new Date("2026-01-01T00:30:00.000Z"));
+    expect(articlesById.get(invalid.article.id)?.publishedAt).toBeNull();
+    expect(versionsById.get(invalid.versionId)?.publishedAt).toBeNull();
+  });
+
   test("creates, links, versions, restores, isolates, and deletes without losing excerpts", async () => {
     const userId = "user-one";
     const sourceUrl = "https://example.com/article?utm_source=fixture#section";
@@ -93,7 +149,10 @@ describe("article lifecycle on D1 and R2", () => {
       },
     });
 
-    const original = await snapshot(sourceUrl, { canonicalUrl });
+    const original = await snapshot(sourceUrl, {
+      canonicalUrl,
+      publishedAt: "2026-01-01T00:00:00Z",
+    });
     const created = await saveArticleSnapshot({
       db,
       database,
@@ -103,6 +162,7 @@ describe("article lifecycle on D1 and R2", () => {
     });
     expect(created.outcome).toBe("created");
     expect(created.linkedExcerptCount).toBe(1);
+    expect(created.article.publishedAt).toBe("2026-01-01T00:00:00.000Z");
     expect(await bucket.get(`articles/${userId}/${created.article.id}/${original.contentHash}.html`))
       .not.toBeNull();
     expect(await db.site.count({ where: { userId } })).toBe(1);
@@ -196,6 +256,7 @@ describe("article lifecycle on D1 and R2", () => {
     ]);
     expect(detail.currentVersion.id).toBe(restored.versionId);
     expect(detail.currentVersion.restoredFromVersionId).toBe(created.versionId);
+    expect(detail.publishedAt).toBe("2026-01-01T00:00:00.000Z");
     expect(detail.versionCount).toBe(3);
     expect((await db.searchDocument.findMany({ where: { articleId: created.article.id } }))
       .map(({ content }) => content).join(" ")).toContain("original searchable");

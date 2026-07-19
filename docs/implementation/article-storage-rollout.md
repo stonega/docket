@@ -27,10 +27,12 @@ pnpm d1:migrate:remote
 
 Migration `0003_article_library.sql` adds article/version/alias/search tables, nullable excerpt linkage, excerpt search backfill, FTS triggers, lifecycle checks, and indexes. It preserves the legacy excerpt FTS table for older clients.
 
+Migration `0004_normalize_article_published_at.sql` prepares publication metadata for Prisma's `DateTime` mapping. It converts parseable legacy values to UTC ISO-8601 timestamps and clears values that cannot be represented as dates. Apply it before deploying a web build generated from the `DateTime` schema; otherwise an incompatible legacy value can make Prisma reject the article row while reading it.
+
 ## Deployment order
 
 1. Create the private production and preview R2 buckets and verify bindings in preview.
-2. Apply the additive D1 migration and verify foreign keys, FTS triggers, and the existing-excerpt backfill.
+2. Apply all pending D1 migrations and verify foreign keys, FTS triggers, the existing-excerpt backfill, and publication-date normalization.
 3. Deploy the web application and verify authenticated article APIs, reader, restore, deletion retry, unified search, and Site integration.
 4. Publish the extension only after the backend is healthy.
 5. Update the Chrome Web Store data-use disclosure before extension review.
@@ -39,7 +41,7 @@ The extension should be rolled back before the backend if a release fails. Keep 
 
 ## Verification
 
-The test suite includes Miniflare integration coverage using real local D1 and R2 bindings. It covers create/version/unchanged flows, both excerpt-linking orders, restore, hash/missing-object handling, cross-user isolation, concurrent history, storage failure, retryable deletion, and excerpt preservation.
+The test suite includes Miniflare integration coverage using real local D1 and R2 bindings. It covers create/version/unchanged flows, legacy publication-date normalization, both excerpt-linking orders, restore, hash/missing-object handling, cross-user isolation, concurrent history, storage failure, retryable deletion, and excerpt preservation.
 
 Also run:
 
