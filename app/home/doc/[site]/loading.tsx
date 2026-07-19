@@ -14,14 +14,14 @@ export default function Loading() {
               <span>Library</span>
             </BackButton>
             <div className="flex items-center gap-2" aria-hidden="true">
-              <div className="h-8 w-24 animate-pulse rounded-xl bg-stone-100 dark:bg-white/10 motion-reduce:animate-none" />
-              <div className="size-8 animate-pulse rounded-xl bg-stone-100 dark:bg-white/10 motion-reduce:animate-none" />
+              <div className="h-8 w-24 animate-pulse bg-stone-100 dark:bg-white/10 motion-reduce:animate-none" />
+              <div className="size-8 animate-pulse bg-stone-100 dark:bg-white/10 motion-reduce:animate-none" />
             </div>
           </nav>
 
           <div className="mt-6 animate-pulse border border-sites-200/90 bg-sites-50/90 p-6 dark:border-sites-900/80 dark:bg-[#261f1d]/95 sm:p-8 motion-reduce:animate-none">
             <div className="flex flex-col items-start gap-5 sm:flex-row sm:gap-7">
-              <div className="size-16 shrink-0 rounded-2xl bg-sites-200 dark:bg-white/10 sm:size-20" />
+              <div className="size-16 shrink-0 bg-sites-200 dark:bg-white/10 sm:size-20" />
               <div className="min-w-0 grow pt-1">
                 <div className="h-2.5 w-28 rounded-full bg-sites-200 dark:bg-white/10" />
                 <div className="mt-4 h-8 w-3/4 rounded-xl bg-sites-200 dark:bg-white/10 sm:h-10 sm:w-1/2" />
@@ -37,7 +37,7 @@ export default function Loading() {
 
           <div className="mt-10">
             <div className="h-2.5 w-24 animate-pulse rounded-full bg-excerpts-200 dark:bg-white/10 motion-reduce:animate-none" />
-            <div className="mt-3 h-7 w-40 animate-pulse rounded-lg bg-stone-200 dark:bg-white/10 motion-reduce:animate-none" />
+            <div className="mt-3 h-7 w-40 animate-pulse bg-stone-200 dark:bg-white/10 motion-reduce:animate-none" />
             <div className="mt-5 flex flex-col gap-4">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div

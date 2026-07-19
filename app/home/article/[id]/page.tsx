@@ -79,7 +79,7 @@ export default async function ArticleReaderPage({
         </nav>
 
         {historical && (
-          <div className="library-enter mx-auto mt-5 flex max-w-6xl flex-col gap-3 rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100 sm:flex-row sm:items-center sm:justify-between">
+          <div className="library-enter mx-auto mt-5 flex max-w-6xl flex-col gap-3 border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100 sm:flex-row sm:items-center sm:justify-between">
             <p>
               You are reading a historical snapshot saved {dateFromNow(selectedVersion.savedAt)}.
             </p>

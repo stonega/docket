@@ -202,6 +202,11 @@ pre code.hljs {
   background: rgb(236 253 245);
 }
 
+.article-content pre,
+.article-content pre code {
+  color: rgb(41 37 36);
+}
+
 .article-media-fallback {
   margin-block: 1rem;
   border: 1px dashed rgb(167 243 208);
