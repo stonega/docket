@@ -20,7 +20,7 @@ export default function ArticleCard({
 
   return (
     <article
-      className="group/article library-card-enter flex h-full min-h-72 w-full flex-col overflow-hidden rounded-2xl border border-emerald-200/90 bg-emerald-50 shadow-[0_1px_2px_rgba(6,78,59,0.04)] transition-[border-color,box-shadow,background-color] duration-200 ease-out hover:border-emerald-300 hover:bg-white hover:shadow-[0_14px_36px_rgba(6,78,59,0.08)] dark:border-emerald-900/80 dark:bg-[#14231f] dark:hover:border-emerald-800 dark:hover:bg-[#182a25] motion-reduce:transition-none"
+      className="group/article library-card-enter flex h-full min-h-72 w-full flex-col overflow-hidden border border-emerald-200/90 bg-emerald-50 shadow-[0_1px_2px_rgba(6,78,59,0.04)] transition-[border-color,box-shadow,background-color] duration-200 ease-out hover:border-emerald-300 hover:bg-white hover:shadow-[0_14px_36px_rgba(6,78,59,0.08)] dark:border-emerald-900/80 dark:bg-[#14231f] dark:hover:border-emerald-800 dark:hover:bg-[#182a25] motion-reduce:transition-none"
       style={{ animationDelay: `${Math.min(animationIndex, 8) * 32}ms` }}
     >
       {article.imageUrl && !coverFailed ? (

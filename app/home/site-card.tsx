@@ -27,7 +27,7 @@ export default function SiteCard({ site, animationIndex = 0 }: SiteCardProps) {
 
   return (
     <article
-      className="group/site library-card-enter flex min-h-56 w-full flex-col overflow-hidden rounded-2xl border border-sites-200/90 bg-sites-50 text-stone-950 shadow-[0_1px_2px_rgba(64,34,24,0.04)] transition-[background-color,border-color,box-shadow] duration-200 ease-out hover:border-sites-300 hover:bg-sites-100/70 hover:shadow-[0_12px_30px_rgba(64,34,24,0.08)] dark:border-sites-900/80 dark:bg-[#261f1d] dark:text-white dark:hover:border-sites-800 dark:hover:bg-[#2d2421] motion-reduce:transition-none"
+      className="group/site library-card-enter flex min-h-56 w-full flex-col overflow-hidden border border-sites-200/90 bg-sites-50 text-stone-950 shadow-[0_1px_2px_rgba(64,34,24,0.04)] transition-[background-color,border-color,box-shadow] duration-200 ease-out hover:border-sites-300 hover:bg-sites-100/70 hover:shadow-[0_12px_30px_rgba(64,34,24,0.08)] dark:border-sites-900/80 dark:bg-[#261f1d] dark:text-white dark:hover:border-sites-800 dark:hover:bg-[#2d2421] motion-reduce:transition-none"
       style={{ animationDelay: `${Math.min(animationIndex, 8) * 32}ms` }}
     >
       <Link

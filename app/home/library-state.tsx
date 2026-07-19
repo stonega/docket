@@ -16,7 +16,7 @@ export default function LibraryState({
   return (
     <div
       className={classnames(
-        "library-enter flex min-h-60 w-full flex-col items-center justify-center rounded-2xl border border-dashed px-6 py-12 text-center",
+        "library-enter flex min-h-60 w-full flex-col items-center justify-center border border-dashed px-6 py-12 text-center",
         {
           "border-sites-300 bg-sites-50/80 dark:border-sites-800 dark:bg-sites-950/30":
             variant === "sites",

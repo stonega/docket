@@ -61,7 +61,7 @@ export default function ArticlesList({
                 .map((_, index) => (
                   <div
                     aria-hidden="true"
-                    className="min-h-72 animate-pulse rounded-2xl border border-emerald-200 bg-emerald-50 dark:border-emerald-900 dark:bg-[#14231f] motion-reduce:animate-none"
+                    className="min-h-72 animate-pulse border border-emerald-200 bg-emerald-50 dark:border-emerald-900 dark:bg-[#14231f] motion-reduce:animate-none"
                     key={`site-article-skeleton-${index}`}
                   />
                 ))}

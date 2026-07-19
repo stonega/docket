@@ -25,7 +25,7 @@ export default function ExcerptPreview({
 
   return (
     <article
-      className="group/excerpt library-card-enter w-full break-inside-avoid overflow-hidden rounded-2xl border border-excerpts-200/90 bg-excerpts-50 shadow-[0_1px_2px_rgba(59,24,59,0.04)] transition-[border-color,box-shadow,background-color] duration-200 ease-out hover:border-excerpts-300 hover:bg-white hover:shadow-[0_12px_30px_rgba(59,24,59,0.07)] dark:border-excerpts-900/80 dark:bg-[#241d25] dark:hover:border-excerpts-800 dark:hover:bg-[#2a222b] motion-reduce:transition-none"
+      className="group/excerpt library-card-enter w-full break-inside-avoid overflow-hidden border border-excerpts-200/90 bg-excerpts-50 shadow-[0_1px_2px_rgba(59,24,59,0.04)] transition-[border-color,box-shadow,background-color] duration-200 ease-out hover:border-excerpts-300 hover:bg-white hover:shadow-[0_12px_30px_rgba(59,24,59,0.07)] dark:border-excerpts-900/80 dark:bg-[#241d25] dark:hover:border-excerpts-800 dark:hover:bg-[#2a222b] motion-reduce:transition-none"
       style={{ animationDelay: `${Math.min(animationIndex, 8) * 32}ms` }}
     >
       <div className="p-5">

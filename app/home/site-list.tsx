@@ -51,7 +51,7 @@ export default function SiteList() {
                 (_, index) => (
                   <div
                     aria-hidden="true"
-                    className="min-h-56 animate-pulse overflow-hidden rounded-2xl border border-sites-200/80 bg-sites-50 p-5 dark:border-sites-900 dark:bg-[#261f1d] motion-reduce:animate-none"
+                    className="min-h-56 animate-pulse overflow-hidden border border-sites-200/80 bg-sites-50 p-5 dark:border-sites-900 dark:bg-[#261f1d] motion-reduce:animate-none"
                     key={`site-skeleton-${index}`}
                   >
                     <div className="flex items-start justify-between">

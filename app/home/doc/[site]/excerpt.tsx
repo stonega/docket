@@ -58,7 +58,7 @@ export default function Excerpt({
         permanent and cannot be undone.
       </ConfirmModal>
       <article
-        className="group/excerpt library-card-enter overflow-hidden rounded-2xl border border-excerpts-200/90 bg-white shadow-[0_1px_2px_rgba(59,24,59,0.04)] transition-[border-color,box-shadow] duration-200 ease-out hover:border-excerpts-300 hover:shadow-[0_14px_40px_rgba(59,24,59,0.07)] dark:border-excerpts-900/80 dark:bg-[#171417] dark:hover:border-excerpts-800 motion-reduce:transition-none"
+        className="group/excerpt library-card-enter overflow-hidden border border-excerpts-200/90 bg-white shadow-[0_1px_2px_rgba(59,24,59,0.04)] transition-[border-color,box-shadow] duration-200 ease-out hover:border-excerpts-300 hover:shadow-[0_14px_40px_rgba(59,24,59,0.07)] dark:border-excerpts-900/80 dark:bg-[#171417] dark:hover:border-excerpts-800 motion-reduce:transition-none"
         style={{ animationDelay: `${Math.min(index, 8) * 32}ms` }}
       >
         <div className="flex items-center justify-between gap-4 border-b border-excerpts-100 bg-excerpts-50/60 px-5 py-3 dark:border-excerpts-950 dark:bg-excerpts-950/20 sm:px-6">

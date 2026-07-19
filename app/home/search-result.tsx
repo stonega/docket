@@ -47,7 +47,7 @@ function SearchCard({ result, index }: { result: LibrarySearchResult; index: num
 
   return (
     <article
-      className={`library-card-enter overflow-hidden rounded-2xl border bg-white shadow-[0_1px_2px_rgba(28,25,23,0.04)] ${
+      className={`library-card-enter overflow-hidden border bg-white shadow-[0_1px_2px_rgba(28,25,23,0.04)] ${
         isArticle
           ? "border-emerald-200 dark:border-emerald-900 dark:bg-[#14231f]"
           : "border-excerpts-200 dark:border-excerpts-900 dark:bg-[#241d25]"
@@ -147,7 +147,7 @@ export default function SearchResult() {
               Array.from({ length: records.length === 0 ? 4 : 2 }).map((_, index) => (
                 <div
                   aria-hidden="true"
-                  className="min-h-52 animate-pulse rounded-2xl border border-stone-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.04] motion-reduce:animate-none"
+                  className="min-h-52 animate-pulse border border-stone-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.04] motion-reduce:animate-none"
                   key={`search-skeleton-${index}`}
                 >
                   <div className="h-2 w-16 rounded-full bg-stone-200 dark:bg-white/10" />

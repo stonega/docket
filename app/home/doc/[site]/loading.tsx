@@ -42,7 +42,7 @@ export default function Loading() {
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
                   aria-hidden="true"
-                  className="min-h-52 animate-pulse rounded-2xl border border-excerpts-200/90 bg-white p-6 dark:border-excerpts-900 dark:bg-[#171417] motion-reduce:animate-none"
+                  className="min-h-52 w-full animate-pulse border border-excerpts-200/90 bg-white p-6 dark:border-excerpts-900 dark:bg-[#171417] motion-reduce:animate-none"
                   key={index}
                 >
                   <div className="h-3 w-20 rounded-full bg-excerpts-100 dark:bg-white/10" />
