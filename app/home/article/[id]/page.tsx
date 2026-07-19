@@ -85,7 +85,7 @@ export default async function ArticleReaderPage({
 
         <div className="mx-auto mt-6 grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
           <div className="min-w-0">
-            <header className="library-enter overflow-hidden rounded-3xl border border-emerald-200/90 bg-emerald-50/90 shadow-[0_1px_2px_rgba(6,78,59,0.04),0_20px_60px_rgba(6,78,59,0.05)] dark:border-emerald-900/80 dark:bg-[#14231f]/95">
+            <header className="library-enter overflow-hidden border border-emerald-200/90 bg-emerald-50/90 shadow-[0_1px_2px_rgba(6,78,59,0.04),0_20px_60px_rgba(6,78,59,0.05)] dark:border-emerald-900/80 dark:bg-[#14231f]/95">
               {selectedMetadata.imageUrl && (
                 <ArticleCover src={selectedMetadata.imageUrl} />
               )}
