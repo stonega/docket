@@ -9,7 +9,7 @@ export default function Loading() {
       />
       <div className="container relative mx-auto w-full px-4 pb-14 pt-3 sm:px-6 sm:pb-20">
         <div className="mx-auto max-w-5xl">
-          <nav className="flex min-h-12 items-center justify-between rounded-2xl border border-stone-200/90 bg-white/85 p-1.5 shadow-[0_8px_30px_rgba(28,25,23,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0a2328]/85">
+          <nav className="flex min-h-12 items-center justify-between border border-stone-200/90 bg-white/85 p-1.5 shadow-[0_8px_30px_rgba(28,25,23,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0a2328]/85">
             <BackButton>
               <span>Library</span>
             </BackButton>
@@ -19,7 +19,7 @@ export default function Loading() {
             </div>
           </nav>
 
-          <div className="mt-6 animate-pulse rounded-3xl border border-sites-200/90 bg-sites-50/90 p-6 dark:border-sites-900/80 dark:bg-[#261f1d]/95 sm:p-8 motion-reduce:animate-none">
+          <div className="mt-6 animate-pulse border border-sites-200/90 bg-sites-50/90 p-6 dark:border-sites-900/80 dark:bg-[#261f1d]/95 sm:p-8 motion-reduce:animate-none">
             <div className="flex flex-col items-start gap-5 sm:flex-row sm:gap-7">
               <div className="size-16 shrink-0 rounded-2xl bg-sites-200 dark:bg-white/10 sm:size-20" />
               <div className="min-w-0 grow pt-1">

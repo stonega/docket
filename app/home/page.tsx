@@ -40,7 +40,7 @@ export default async function Page({
     <main className="relative flex w-full grow flex-col overflow-hidden text-stone-950 dark:text-white">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top_left,rgba(254,240,138,0.22),transparent_58%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(113,63,18,0.18),transparent_58%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_top_left,rgba(254,240,138,0.22),transparent_58%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(113,63,18,0.18),transparent_58%)]"
       />
       <div className="container relative mx-auto w-full px-4 py-8 sm:px-6 sm:py-10">
         <header className="library-enter max-w-3xl">
@@ -66,7 +66,7 @@ export default async function Page({
           </p>
         </header>
 
-        <div className="library-enter library-enter-delay mt-7 flex flex-col gap-3 rounded-2xl border border-stone-200/90 bg-white/80 p-2 shadow-[0_1px_2px_rgba(28,25,23,0.04),0_10px_30px_rgba(28,25,23,0.04)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.045] sm:flex-row sm:items-center sm:justify-between">
+        <div className="library-enter library-enter-delay mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {query ? (
             <div className="flex min-h-10 items-center gap-2 px-3 text-sm font-medium text-stone-700 dark:text-stone-200">
               <span className="size-2 rounded-full bg-excerpts-500" />

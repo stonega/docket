@@ -60,7 +60,7 @@ export default async function Page({
         <div className="mx-auto max-w-5xl">
           <nav
             aria-label="Document controls"
-            className="library-enter sticky top-[50px] z-10 flex min-h-12 items-center justify-between gap-4 rounded-2xl border border-stone-200/90 bg-white/85 p-1.5 shadow-[0_8px_30px_rgba(28,25,23,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0a2328]/85"
+            className="library-enter sticky top-[50px] z-10 flex min-h-12 items-center justify-between gap-4 border border-stone-200/90 bg-white/85 p-1.5 shadow-[0_8px_30px_rgba(28,25,23,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0a2328]/85"
           >
             <BackButton>
               <span>Library</span>
@@ -84,7 +84,7 @@ export default async function Page({
             </div>
           </nav>
 
-          <header className="library-enter library-enter-delay mt-6 rounded-3xl border border-sites-200/90 bg-sites-50/90 p-6 shadow-[0_1px_2px_rgba(64,34,24,0.04),0_20px_60px_rgba(64,34,24,0.05)] dark:border-sites-900/80 dark:bg-[#261f1d]/95 sm:p-8">
+          <header className="library-enter library-enter-delay mt-6 border border-sites-200/90 bg-sites-50/90 p-6 shadow-[0_1px_2px_rgba(64,34,24,0.04),0_20px_60px_rgba(64,34,24,0.05)] dark:border-sites-900/80 dark:bg-[#261f1d]/95 sm:p-8">
             <div className="flex flex-col items-start gap-5 sm:flex-row sm:gap-7">
               <SiteIcon icon={site.icon} title={site.title} />
               <div className="min-w-0 grow pt-0.5">
