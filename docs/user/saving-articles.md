@@ -19,7 +19,7 @@ Library search blends current articles and excerpts. Article matches open the Do
 
 ## Read history
 
-The Docket reader shows the current snapshot by default. Choose any entry in version history to read an immutable historical copy. A historical banner makes that state explicit and provides a return-to-current action.
+The Docket reader shows the current snapshot by default. Use the version dropdown in the header bar to read an immutable historical copy. A historical banner makes that state explicit and provides a return-to-current action.
 
 Restoring a historical snapshot creates a new current version. It does not overwrite or remove any earlier version.
 

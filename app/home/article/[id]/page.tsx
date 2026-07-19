@@ -13,7 +13,7 @@ import { fraunces } from "@/app/fonts";
 import ArticleActions from "./article-actions";
 import ArticleContent from "./article-content";
 import ArticleCover from "./article-cover";
-import VersionHistory from "./version-history";
+import VersionSelector from "./version-selector";
 
 export default async function ArticleReaderPage({
   params,
@@ -59,14 +59,23 @@ export default async function ArticleReaderPage({
           <BackButton>
             <span>Library</span>
           </BackButton>
-          <a
-            href={selectedMetadata.sourceUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="library-motion flex min-h-9 items-center gap-2 rounded-xl px-3 text-xs font-medium text-stone-600 outline-none transition-colors duration-150 hover:bg-emerald-50 hover:text-stone-950 focus-visible:ring-2 focus-visible:ring-emerald-400 dark:text-stone-300 dark:hover:bg-white/[0.07] dark:hover:text-white motion-reduce:transition-none"
-          >
-            Original source <ArrowTopRightIcon className="size-3.5" />
-          </a>
+          <div className="flex min-w-0 items-center gap-1">
+            <VersionSelector
+              articleId={detail.id}
+              selectedVersion={selectedVersion}
+              initialVersions={detail.versions}
+              total={detail.versionCount}
+            />
+            <a
+              href={selectedMetadata.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="library-motion flex min-h-9 shrink-0 items-center gap-2 rounded-xl px-3 text-xs font-medium text-stone-600 outline-none transition-colors duration-150 hover:bg-emerald-50 hover:text-stone-950 focus-visible:ring-2 focus-visible:ring-emerald-400 dark:text-stone-300 dark:hover:bg-white/[0.07] dark:hover:text-white motion-reduce:transition-none"
+            >
+              <span className="hidden sm:inline">Original source</span>
+              <ArrowTopRightIcon className="size-3.5" />
+            </a>
+          </div>
         </nav>
 
         {historical && (
@@ -83,7 +92,7 @@ export default async function ArticleReaderPage({
           </div>
         )}
 
-        <div className="mx-auto mt-6 grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+        <div className="mx-auto mt-6 max-w-6xl">
           <div className="min-w-0">
             <header className="library-enter overflow-hidden border border-emerald-200/90 bg-emerald-50/90 shadow-[0_1px_2px_rgba(6,78,59,0.04),0_20px_60px_rgba(6,78,59,0.05)] dark:border-emerald-900/80 dark:bg-[#14231f]/95">
               {selectedMetadata.imageUrl && (
@@ -167,13 +176,6 @@ export default async function ArticleReaderPage({
               )}
             </section>
           </div>
-
-          <VersionHistory
-            articleId={detail.id}
-            selectedVersion={selectedVersion}
-            initialVersions={detail.versions}
-            total={detail.versionCount}
-          />
         </div>
       </div>
     </main>
