@@ -1,5 +1,10 @@
 import { useEffect, useRef, ReactNode, Dispatch, SetStateAction } from "react";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  type Transition,
+  useAnimation,
+} from "framer-motion";
 
 export default function Leaflet({
   setShow,
@@ -10,7 +15,11 @@ export default function Leaflet({
 }) {
   const leafletRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
-  const transitionProps = { type: "spring", stiffness: 500, damping: 30 };
+  const transitionProps: Transition = {
+    type: "spring",
+    stiffness: 500,
+    damping: 30,
+  };
   useEffect(() => {
     controls.start({
       y: 20,
