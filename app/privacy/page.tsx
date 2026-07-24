@@ -1,4 +1,23 @@
+import type { Metadata } from "next";
+import {
+  createOpenGraphMetadata,
+  createTwitterMetadata,
+} from "@/lib/seo";
 import Header from "../header";
+
+const title = "Privacy Policy";
+const description =
+  "Learn how Docket collects, uses, and protects information when you use the service.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: {
+    canonical: "/privacy",
+  },
+  openGraph: createOpenGraphMetadata("/privacy", title, description),
+  twitter: createTwitterMetadata(title, description),
+};
 
 export default function Privacy() {
   return (

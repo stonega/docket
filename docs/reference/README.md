@@ -8,3 +8,4 @@ Add new documents to this index when they are created.
 
 - [Article and library search API](article-api.md)
 - [Chrome Web Store data-use disclosure](chrome-web-store-disclosure.md)
+- [Search and social metadata](seo.md)

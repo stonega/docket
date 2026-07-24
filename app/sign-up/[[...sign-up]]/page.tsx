@@ -2,6 +2,16 @@ import { fraunces } from "@/app/fonts";
 import Header from "@/app/header";
 import { SignUp } from "@clerk/nextjs";
 import classnames from "classnames";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Create Account",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+};
 
 export default function Page() {
   return (
