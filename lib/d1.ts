@@ -1,5 +1,14 @@
 export type D1BindValue = string | number | null;
 
+export function isUniqueConstraintError(error: unknown) {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    (error as { code?: unknown }).code === "P2002"
+  ) || /SQLITE_CONSTRAINT_UNIQUE|UNIQUE constraint failed/i.test(String(error));
+}
+
 export function prepareD1(
   database: D1Database,
   sql: string,

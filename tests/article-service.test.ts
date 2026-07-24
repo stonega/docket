@@ -16,6 +16,7 @@ import {
 } from "../lib/article-service";
 import { normalizeUrl, validateArticleSaveRequest } from "../lib/articles";
 import { listExcerptRecords } from "../lib/excerpt-service";
+import { findOwnedSiteForPage } from "../lib/site-service";
 
 let runtime: Miniflare;
 let database: D1Database;
@@ -63,6 +64,7 @@ beforeEach(async () => {
     "migrations/0001_initial_schema.sql",
     "migrations/0002_excerpt_fts.sql",
     "migrations/0003_article_library.sql",
+    "migrations/0005_deduplicate_site_urls.sql",
   ]) {
     await applyMigration(migration);
   }
@@ -75,6 +77,51 @@ afterEach(async () => {
 });
 
 describe("article lifecycle on D1 and R2", () => {
+  test("migration merges legacy root URL variants without losing library items", async () => {
+    const userId = "site-migration-user";
+    const article = await saveArticleSnapshot({
+      db,
+      database,
+      bucket,
+      userId,
+      snapshot: await snapshot("https://migration-site.example/article"),
+    });
+    await database.exec(`DROP INDEX "Site_user_id_url_key"`);
+    await db.site.create({
+      data: {
+        id: "legacy-root-site",
+        userId,
+        title: "Legacy root",
+        icon: "",
+        description: "",
+        url: "https://migration-site.example",
+        updateAt: new Date("2026-01-01T00:00:00.000Z"),
+      },
+    });
+    await db.excerpt.create({
+      data: {
+        id: "legacy-root-excerpt",
+        userId,
+        siteId: "legacy-root-site",
+        url: "https://migration-site.example/article",
+        content: "Keep this excerpt during the merge.",
+      },
+    });
+
+    await applyMigration("migrations/0005_deduplicate_site_urls.sql");
+
+    expect(await db.site.findMany({ where: { userId } })).toEqual([
+      expect.objectContaining({
+        id: article.article.site.id,
+        url: "https://migration-site.example/",
+      }),
+    ]);
+    expect(await db.excerpt.findUnique({ where: { id: "legacy-root-excerpt" } }))
+      .toMatchObject({ siteId: article.article.site.id });
+    expect(await db.article.findUnique({ where: { id: article.article.id } }))
+      .toMatchObject({ siteId: article.article.site.id });
+  });
+
   test("normalizes legacy publication dates before Prisma reads them", async () => {
     const valid = await saveArticleSnapshot({
       db,
@@ -318,6 +365,49 @@ describe("article lifecycle on D1 and R2", () => {
     expect(await db.site.count({ where: { userId } })).toBe(1);
     expect((await bucket.list({ prefix: `articles/${userId}/${articleId}/` })).objects)
       .toHaveLength(3);
+  });
+
+  test("reuses one canonical site for article and excerpt saves", async () => {
+    const userId = "shared-site-user";
+    const sourceUrl = "https://shared-site.example/article";
+    const created = await saveArticleSnapshot({
+      db,
+      database,
+      bucket,
+      userId,
+      snapshot: await snapshot(sourceUrl),
+    });
+
+    expect(created.article.site.url).toBe("https://shared-site.example/");
+    const excerptSite = await findOwnedSiteForPage({
+      db,
+      userId,
+      url: sourceUrl,
+    });
+    expect(excerptSite?.id).toBe(created.article.site.id);
+
+    await db.excerpt.create({
+      data: {
+        id: "shared-site-excerpt",
+        userId,
+        siteId: excerptSite!.id,
+        url: sourceUrl,
+        content: "Saved from the excerpt flow.",
+      },
+    });
+
+    expect(await db.site.count({ where: { userId } })).toBe(1);
+    await expect(database.prepare(
+      `INSERT INTO "Site" ("id", "user_id", "title", "icon", "description", "url")
+       VALUES (?, ?, ?, ?, ?, ?)`,
+    ).bind(
+      "duplicate-shared-site",
+      userId,
+      "Duplicate",
+      "",
+      "",
+      "https://shared-site.example/",
+    ).run()).rejects.toThrow(/UNIQUE constraint failed/);
   });
 
   test("keeps failed storage and retryable deletion boundaries consistent", async () => {

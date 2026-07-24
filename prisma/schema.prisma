@@ -33,6 +33,7 @@ model Site {
   Article     Article[]
 
   @@index([userId])
+  @@unique([userId, url])
 }
 
 model Excerpt {

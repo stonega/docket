@@ -1,5 +1,4 @@
 import { getD1Database, getDb } from "@/lib/prisma";
-import { getDocUrl, getSubPaths } from "@/lib/utils";
 import urlMetadata from "url-metadata";
 import {
   ApiError,
@@ -14,7 +13,15 @@ import {
 import { getArticleBucket } from "@/lib/article-storage";
 import { deleteArticle } from "@/lib/article-service";
 import type { NextRequest } from "next/server";
-import { prepareD1, runD1Batch } from "@/lib/d1";
+import {
+  isUniqueConstraintError,
+  prepareD1,
+  runD1Batch,
+} from "@/lib/d1";
+import {
+  findOwnedSiteForPage,
+  getSiteUrlForPage,
+} from "@/lib/site-service";
 
 export function OPTIONS() {
   return optionsResponse();
@@ -100,10 +107,7 @@ export async function POST(request: NextRequest) {
     const suppliedTitle = typeof body.title === "string" ? body.title.slice(0, 500) : "";
     const create = body.create === true;
     const db = getDb();
-    const urls = getSubPaths(url) ?? [];
-    const record = await db.site.findFirst({
-      where: { userId, OR: urls.map((candidate) => ({ url: candidate })) },
-    });
+    const record = await findOwnedSiteForPage({ db, userId, url });
 
     if (record) {
       const site = create
@@ -118,20 +122,33 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const docUrl = getDocUrl(url);
-    if (!docUrl) throw new ApiError(422, "unsupported_url", "This page URL is not supported");
-    const metadata = await fetchSiteMetadata(docUrl);
+    const siteUrl = getSiteUrlForPage(url);
+    const metadata = await fetchSiteMetadata(siteUrl);
     const siteData = {
       userId,
       description: metadata.description,
       title: metadata.title || suppliedTitle,
       icon,
-      url: docUrl,
+      url: siteUrl,
     };
     if (!create) return jsonResponse(siteData);
 
-    const site = await db.site.create({ data: siteData });
-    return jsonResponse({ ...site, excerptCount: 0, articleCount: 0 }, { status: 201 });
+    try {
+      const site = await db.site.create({ data: siteData });
+      return jsonResponse({ ...site, excerptCount: 0, articleCount: 0 }, { status: 201 });
+    } catch (error) {
+      if (!isUniqueConstraintError(error)) throw error;
+      const site = await db.site.findFirst({ where: { userId, url: siteUrl } });
+      if (!site) throw error;
+      const updatedSite = await db.site.update({
+        where: { id: site.id },
+        data: { updateAt: new Date() },
+      });
+      return jsonResponse({
+        ...updatedSite,
+        ...await getSiteCounts(db, updatedSite.id, userId),
+      });
+    }
   } catch (error) {
     return errorResponse(error);
   }

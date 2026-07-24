@@ -7,3 +7,4 @@ Implementation notes should explain the current behavior, important constraints,
 Add new documents to this index when they are created.
 
 - [Article storage and rollout](article-storage-rollout.md)
+- [Site URL deduplication](site-url-deduplication.md)

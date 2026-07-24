@@ -1,7 +1,11 @@
 import { Prisma } from "@prisma/client";
 import type { DbClient } from "@/lib/prisma";
 import { ApiError } from "@/lib/api";
-import { prepareD1, runD1Batch } from "@/lib/d1";
+import {
+  isUniqueConstraintError,
+  prepareD1,
+  runD1Batch,
+} from "@/lib/d1";
 import {
   articleContentKey,
   buildSearchDocuments,
@@ -10,7 +14,10 @@ import {
   sha256Hex,
   type ValidatedArticleSnapshot,
 } from "@/lib/articles";
-import { getDocUrl } from "@/lib/utils";
+import {
+  findOwnedSiteForPage,
+  getSiteUrlForPage,
+} from "@/lib/site-service";
 import {
   deleteArticleObjects,
   getArticleHtml,
@@ -56,15 +63,6 @@ interface SiteResolution {
     icon: string;
     updateAt: Date;
   } | null;
-}
-
-function isUniqueConstraintError(error: unknown) {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    (error as { code?: unknown }).code === "P2002"
-  ) || /SQLITE_CONSTRAINT_UNIQUE|UNIQUE constraint failed/i.test(String(error));
 }
 
 function isArticleVersionConflict(error: unknown) {
@@ -342,40 +340,21 @@ async function resolveSite(
   snapshot: ValidatedArticleSnapshot,
 ): Promise<SiteResolution> {
   const source = new URL(snapshot.normalizedSourceUrl);
-  const sites = await db.site.findMany({
-    where: { userId },
-    select: { id: true, url: true },
+  const matchingSite = await findOwnedSiteForPage({
+    db,
+    userId,
+    url: snapshot.normalizedSourceUrl,
   });
-
-  const matchingSite = sites
-    .map((site) => {
-      try {
-        const normalized = new URL(normalizeUrl(site.url));
-        const sameOrigin = normalized.origin === source.origin;
-        const sitePath = normalized.pathname === "/" ? "/" : `${normalized.pathname}/`;
-        const sourcePath = source.pathname === "/" ? "/" : `${source.pathname}/`;
-        return {
-          ...site,
-          matches: sameOrigin && sourcePath.startsWith(sitePath),
-          specificity: normalized.pathname.length,
-        };
-      } catch {
-        return { ...site, matches: false, specificity: 0 };
-      }
-    })
-    .filter((site) => site.matches)
-    .sort((left, right) => right.specificity - left.specificity)[0];
 
   if (matchingSite) return { id: matchingSite.id, createData: null };
 
   const id = crypto.randomUUID();
-  const docUrl = getDocUrl(snapshot.normalizedSourceUrl) ?? source.origin;
   return {
     id,
     createData: {
       id,
       userId,
-      url: normalizeUrl(docUrl),
+      url: getSiteUrlForPage(snapshot.normalizedSourceUrl),
       title: snapshot.siteName ?? source.hostname.replace(/^www\./, ""),
       description: snapshot.description ?? "",
       icon: snapshot.faviconUrl ?? "",
