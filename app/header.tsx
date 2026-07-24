@@ -17,7 +17,7 @@ const Header = async () => {
           fraunces.className
         )}
       >
-        <Logo className="p-1 w-8 border-e border-stone-400 dark:border-stone-600"></Logo>
+        <Logo className="p-1 w-8 border-e border-stone-300 dark:border-stone-600"></Logo>
         <span className="p-1">Docket</span>
       </Link>
       <div className="flex items-center justify-end">

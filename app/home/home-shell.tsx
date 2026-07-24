@@ -27,24 +27,24 @@ export default function HomeShell({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen flex flex-col">
       <div className="sticky top-0 z-20 bg-white dark:bg-[#0a2328] h-2 w-full" />
-      <div className="sticky top-2 z-20 bg-white dark:bg-[#0a2328] w-full flex justify-between border-y separator">
+      <div className="sticky top-2 z-20 bg-white dark:bg-[#0a2328] w-full flex justify-between border-y border-stone-400 dark:border-stone-600">
         <div className="inline-flex items-center">
           <Link
             href="/"
             className={classnames(
-              "inline-flex text-2xl font-semibold text-black dark:text-white border-e separator",
+              "inline-flex text-2xl font-semibold text-black dark:text-white border-e border-stone-400 dark:border-stone-600",
               fraunces.className,
             )}
           >
-            <Logo className="p-1 w-8 border-e separator" />
+            <Logo className="p-1 w-8 border-e border-stone-400 dark:border-stone-600" />
             <span className="p-1">Docket</span>
           </Link>
         </div>
         <div className="flex items-center justify-end">
-          <div className="h-full flex items-center border-l separator px-4">
+          <div className="h-full flex items-center border-l border-stone-400 dark:border-stone-600 px-4">
             <ThemeModeButton />
           </div>
-          <div className="h-full flex justify-end items-center border-s separator px-4">
+          <div className="h-full flex justify-end items-center border-s border-stone-400 dark:border-stone-600 px-4">
             <UserButton />
           </div>
         </div>
