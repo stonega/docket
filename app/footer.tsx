@@ -6,13 +6,13 @@ export function Footer() {
     <div className="inline-flex items-center space-x-4">
       <Link
         href="/"
-        className="text-md hover:text-yellow-400 underline underline-offset-4"
+        className="hover:text-yellow-400 underline underline-offset-4"
       >
         Home
       </Link>
       <Link
         href="/privacy"
-        className="text-md hover:text-yellow-400 underline underline-offset-4"
+        className="hover:text-yellow-400 underline underline-offset-4"
       >
         Privacy
       </Link>
@@ -20,14 +20,14 @@ export function Footer() {
     <div className="inline-flex items-center space-x-4">
       <a
         href="https://chromewebstore.google.com/detail/docket-highlighter/pbnonpcfnmdbfmabpjfllgljbfkccjco"
-        className="text-md hover:text-yellow-400 underline underline-offset-4 inline-flex items-center"
+        className="hover:text-yellow-400 underline underline-offset-4 inline-flex items-center"
       >
         Chrome Extension
         <ExternalLinkIcon className="size-4 ms-1" />
       </a>
       <a
         href="https://book.docket.space"
-        className="text-md hover:text-yellow-400 underline underline-offset-4 inline-flex items-center"
+        className="hover:text-yellow-400 underline underline-offset-4 inline-flex items-center"
       >
         Book Excerpt
         <ExternalLinkIcon className="size-4 ms-1" />
