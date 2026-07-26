@@ -21,7 +21,7 @@ export default function Page() {
       <div className="mt-[6px] grow grid grid-cols-1 lg:grid-cols-2 text-black">
         <div className="py-4 bg-[#ff90ee] border-r border-stone-400 dark:border-stone-600 flex flex-col items-center justify-center">
           <span
-            className={classnames("uppercase text-[80px] md:text-[100px] font-bold border-y border-stone-400 dark:border-stone-600 text-center leading-[80px] md:leading-[100px]", fraunces.className)}
+            className={classnames("uppercase text-[80px] md:text-[100px] font-bold border-y-2 border-black text-center leading-[80px] md:leading-[100px]", fraunces.className)}
           >
             Docket
           </span>
@@ -49,19 +49,19 @@ export default function Page() {
         </div>
         <div className="bg-[#ffc900] py-2 flex flex-col items-center justify-center">
           <div className="flex px-6 lg:flex-row flex-col mt-4 space-y-4 lg:space-y-0 space-x-0 lg:space-x-4">
-            <div className="text-xl p-4 rounded-md w-full max-w-full md:max-w-60 bg-[#e5c2ff] border border-stone-400 dark:border-stone-600">
+            <div className="text-xl p-4 rounded-md w-full max-w-full md:max-w-60 bg-[#e5c2ff] border border-black">
               Select the text, right-click and choose{' '}
               <span className="text-orange-700 font-bold">
                 Highlight and save to Docket
               </span>
             </div>
-            <div className="text-xl p-4 rounded-md w-full max-w-full md:max-w-60 bg-[#a9effe] border border-stone-400 dark:border-stone-600">
+            <div className="text-xl p-4 rounded-md w-full max-w-full md:max-w-60 bg-[#a9effe] border border-black">
               Right click on image and select{' '}
               <span className="text-green-600 font-bold">
                 Save image to Docket
               </span>
             </div>
-            <div className="text-xl p-4 rounded-md w-full max-w-full md:max-w-60 bg-[#ffd674] border border-stone-400 dark:border-stone-600">
+            <div className="text-xl p-4 rounded-md w-full max-w-full md:max-w-60 bg-[#ffd674] border border-black">
               Save code by click little{' '}
               <Image
                 alt="Docket"
