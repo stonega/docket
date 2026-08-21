@@ -28,7 +28,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tailwindcss/typography": "^0.5.10",
     "@tryfabric/martian": "^1.2.4",
-    "@types/chrome": "^0.0.304",
+    "@types/chrome": "^0.2.0",
     "@types/hast": "3.0.4",
     "@types/node": "20.17.23",
     "@types/react": "18.3.18",
