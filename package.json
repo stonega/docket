@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
-    "eslint": "9.20.1",
+    "eslint": "9.39.5",
     "eslint-config-next": "15.5.18",
     "jsdom": "^26.0.0",
     "miniflare": "4.20260708.1",
