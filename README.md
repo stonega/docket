@@ -38,6 +38,16 @@ pnpm --dir ../docket-extension typecheck
 pnpm --dir ../docket-extension build
 ```
 
+## Dependency maintenance
+
+Dependency updates are maintained manually with pnpm. Keep `package.json` and
+`pnpm-lock.yaml` synchronized, and run the verification checks above when updating
+dependencies.
+
+The repository no longer includes a Renovate configuration. Removing that file
+does not uninstall the GitHub app or close existing pull requests; those actions
+must be handled separately in GitHub.
+
 ## Documentation
 
 - [Article library architecture](docs/design/article-library.md)
